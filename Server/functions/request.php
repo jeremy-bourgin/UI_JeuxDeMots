@@ -33,7 +33,7 @@ function request($word)
         $serialized = retrieve_cache($word);
 
         $bench_unserialize = Benchmark::startBench("unserialize");
-        $data = unserialize($serialized);
+        $data = json_decode($serialized);
         $bench_unserialize->end();
 
         return $data;
@@ -47,7 +47,7 @@ function request($word)
 
         $bench_serialize = Benchmark::startBench("serialize");
 
-        $serialized = serialize($data);
+        $serialized = json_encode($data);
         save_cache($word, $serialized);
 
         $bench_serialize->end();

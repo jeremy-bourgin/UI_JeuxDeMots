@@ -19,12 +19,9 @@ header("content-type: application/json; charset=utf-8");
 
 // get classes
 require(__DIR__ . "/../classes/Benchmark.php");
-require(__DIR__ . "/../classes/Definition.php");
 require(__DIR__ . "/../classes/Node.php");
 require(__DIR__ . "/../classes/NodeType.php");
 require(__DIR__ . "/../classes/Relation.php");
-require(__DIR__ . "/../classes/RelationIn.php");
-require(__DIR__ . "/../classes/RelationOut.php");
 require(__DIR__ . "/../classes/RelationType.php");
 require(__DIR__ . "/../classes/ServerException.php");
 require(__DIR__ . "/../classes/Word.php");

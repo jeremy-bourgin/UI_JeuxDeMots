@@ -20,7 +20,7 @@ define("DATA_DELIMITER_END", "</CODE>");
 
 // les commentaires dans les données permettent de pouvoir séparer les différentes parties
 // la constante ci-dessous est une expression régulière permettant de détecter les commenataires
-define("DATA_PARTS_DELIMITER", "/\/\/(.+)\n/");
+define("DATA_PARTS_DELIMITER", "/\/\/\s(.+)\n/");
 
 // les différentes lignes sont séparé par un saut de lignes (exception pour les définitions où on a besoin d'une expression régulière)
 define("DATA_DEF_LINE_DELIMITER", "/[0-9]+\.\s/");

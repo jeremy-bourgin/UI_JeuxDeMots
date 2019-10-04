@@ -56,6 +56,11 @@ function parse_node(&$node) // const node (/!\ ref)
 	
 	foreach ($node as &$e)
 	{
+		if (empty($e))
+		{
+			continue;
+		}
+
 		$columns = parse_columns($e);
 
 		if (NodeType::isBlacklisted($columns[DATA_NODE_TYPE_POS]))
@@ -63,7 +68,7 @@ function parse_node(&$node) // const node (/!\ ref)
 			continue;
 		}
 
-		$count_columns = count($columns);		
+		$count_columns = count($columns);
 		delete_quotes($columns[DATA_NODE_WORD_POS]);
 		
 		if ($count_columns == (DATA_NODE_FNAME_POS + 1))
@@ -81,16 +86,23 @@ function parse_node(&$node) // const node (/!\ ref)
 	return $r;
 }
 
-function parse_rel(&$rel, $reltype) // const rel (/!\ ref), reltype
+function parse_rel(&$rel, $element_type) // const rel (/!\ ref), reltype
 {
 	$r = array();
 	
 	foreach ($rel as &$e)
 	{
+		if (empty($e))
+		{
+			continue;
+		}
+
 		$columns = parse_columns($e);
-		$columns[DATA_TYPE_POS] = $reltype;
+		$columns[DATA_TYPE_POS] = $element_type;
+
+		$rel_type = (int)$columns[DATA_REL_TYPE_POS];
 		
-		if(RelationType::isBlacklisted($columns[DATA_REL_TYPE_POS]))
+		if(RelationType::isBlacklisted($rel_type))
 		{
 			continue;
 		}
@@ -132,17 +144,22 @@ function instantiate_word(&$data, &$nodes) // const data (/!\ ref), const nodes 
 	$word_type = (int)$node_word[DATA_NODE_TYPE_POS];
 	$word_weight = (int)$node_word[DATA_NODE_WEIGHT_POS];
 	$word_fname = $node_word[DATA_NODE_FNAME_POS];
-	$word_def = new Definition($data[DATA_DEF_POS]);
+	$word_def = $data[DATA_DEF_POS];
 
-	$result = new Word($word_id, $word_name, $word_type, $word_weight, $word_fname, $word_def);
+	$result = Word::instantiate($word_id, $word_name, $word_type, $word_weight, $word_fname, $word_def);
 
 	return $result;
 }
 
-function instantiate_node_type(&$types, Word $word) // const types (/!\ ref)
+function instantiate_node_type(&$types, $word) // const types (/!\ ref)
 {
 	foreach ($types as &$e)
 	{
+		if (empty($e))
+		{
+			continue;
+		}
+
 		$columns = explode(DATA_COLUMN_DELIMITER, $e);
 		
 		$id = (int)$columns[DATA_NODETYPE_ID_POS];
@@ -155,15 +172,20 @@ function instantiate_node_type(&$types, Word $word) // const types (/!\ ref)
 		
 		delete_quotes($name);
 
-		$o = new NodeType($id, $name);
-		$word->addNodeType($o);
+		$o = NodeType::instantiate($id, $name);
+		$word->node_types[] = $o;
 	}
 }
 
-function instantiate_rel_type(&$types, Word $word) // const types (/!\ ref)
+function instantiate_rel_type(&$types, $word) // const types (/!\ ref)
 {	
 	foreach ($types as &$e)
 	{
+		if (empty($e))
+		{
+			continue;
+		}
+
 		$columns = explode(DATA_COLUMN_DELIMITER, $e);
 		
 		$id = (int)$columns[DATA_RELTYPE_ID_POS];
@@ -180,18 +202,20 @@ function instantiate_rel_type(&$types, Word $word) // const types (/!\ ref)
 		delete_quotes($gpname);
 		delete_quotes($help);
 		
-		$o = new RelationType($id, $name, $gpname, $help);
-		$word->addRelationType($o);
+		$o = RelationType::instantiate($id, $name, $gpname, $help);
+		$word->relation_types[] = $o;
 	}
 }
 
-function instantiate_relations(&$nodes, &$rels, Word $word) // ref nodes, const rels (/!\ ref), word
+function instantiate_relations(&$nodes, &$rels, $word) // ref nodes, const rels (/!\ ref), word
 {
 	usort($nodes, "sort_node");
 	usort($rels, "sort_rel");
 
 	$rels_index = 0;
 	$count_rels = count($rels);
+
+	$temp = array();
 	
 	foreach ($nodes as &$n)
 	{
@@ -200,33 +224,35 @@ function instantiate_relations(&$nodes, &$rels, Word $word) // ref nodes, const 
 		$node_type = (int)$n[DATA_NODE_TYPE_POS];
 		$node_weight = (int)$n[DATA_NODE_WEIGHT_POS];
 		$node_fname = $n[DATA_NODE_FNAME_POS];
-		
+
 		// instantiation du noeud
-		$o = new Node($node_id, $node_word, $node_type, $node_weight, $node_fname);
-		$word->addNode($o);
+		$node_obj = Node::instantiate($node_id, $node_word, $node_type, $node_weight, $node_fname);
+
+		$temp[] = $node_obj;
 	}
 	
 	foreach($rels as &$r)
 	{
 		$is_rel_out = is_rel_out($r);
+
 		$rel_id = (int)$r[DATA_REL_ID_POS];
+
 		$rel_node_id = (int)(($is_rel_out) ? $r[DATA_RELOUT_ID_POS] : $r[DATA_RELIN_ID_POS]);
-		$rel_node = $word->findNodeById($rel_node_id);
+		$rel_node = binary_search($temp, $rel_node_id);
+
+		if ($rel_node === null)
+		{
+			continue;
+		}
+
 		$rel_type_id = (int)$r[DATA_REL_TYPE_POS];
-		$rel_type = $word->findRelationTypeById($rel_type_id);
+		$rel_type = Word::findRelationTypeById($word, $rel_type_id);
+		
 		$rel_weight = (int)$r[DATA_REL_WEIGHT_POS];
 
 		// instantiation de la relation + ajout de la relation dans le noeud
-		if ($is_rel_out)
-		{
-			$o = new RelationOut($rel_id, $rel_node, $rel_weight);
-		}
-		else
-		{
-			$o = new RelationIn($rel_id, $rel_node, $rel_weight);
-		}
-		
-		$rel_type->addAssociatedRelation($o);
+		$rel_obj = Relation::instantiate($rel_id, $rel_node, $rel_weight, $is_rel_out);
+		$rel_type->associated_relations[] = $rel_obj;
 	}
 }
 

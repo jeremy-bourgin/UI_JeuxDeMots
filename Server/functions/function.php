@@ -3,8 +3,9 @@
 function binary_search (&$array, $id) // const array (/!\ ref)
 {
     $count = count($array);
+    
     if ($count === 0) 
-        return false; 
+        return null; 
 
     $low = 0; 
     $high = $count - 1; 
@@ -13,11 +14,11 @@ function binary_search (&$array, $id) // const array (/!\ ref)
     { 
         $mid = floor(($low + $high) / 2); 
 
-        if($array[$mid] === $id) { 
-            return $mid; 
+        if($array[$mid]->id === $id) { 
+            return $array[$mid]; 
         } 
 
-        if ($id < $array[$mid]) { 
+        if ($id < $array[$mid]->id) { 
             $high = $mid -1; 
         } 
         else { 
@@ -25,7 +26,7 @@ function binary_search (&$array, $id) // const array (/!\ ref)
         } 
     } 
 
-    return false; 
+    return null; 
 }
 
 ?>
