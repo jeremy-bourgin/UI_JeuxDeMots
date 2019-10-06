@@ -7,7 +7,7 @@ function load()
 	}
 	
 	$data = request($_GET[PARAMETER_TERM]);
-	$data_filtered = Word::filterNodes($data, $_GET[PARAMETER_NODE]);
+	Word::filterNodes($data, $_GET[PARAMETER_NODE]);
 	
 	return $data;
 }
