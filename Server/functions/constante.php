@@ -20,7 +20,7 @@ define("DATA_DELIMITER_END", "</CODE>");
 
 // les commentaires dans les données permettent de pouvoir séparer les différentes parties
 // la constante ci-dessous est une expression régulière permettant de détecter les commenataires
-define("DATA_PARTS_DELIMITER", "/\/\/\s(.+)\n/");
+define("DATA_PARTS_DELIMITER", "/\n\/\/\s(.+)\n/");
 
 // les différentes lignes sont séparé par un saut de lignes (exception pour les définitions où on a besoin d'une expression régulière)
 define("DATA_DEF_LINE_DELIMITER", "/[0-9]+\.\s/");
@@ -89,3 +89,13 @@ define("DATA_REL_WEIGHT_POS", 5);
 define("CACHE_DIRECTORY", __DIR__ . "/../cache");
 //nombre maximal de fichier cache
 define("LIMIT_NB_CACHE_FILE", 50);
+
+// nombre de mots renvoyer
+define("LIMIT_NB_WORD", 10);
+
+// search paramètre : terme
+define("PARAMETER_TERM", "term");
+// search paramètre : masquer les relations sortantes
+define("PARAMETER_NOT_OUT", "not_out");
+// search paramètre : masquer les relations entrantes
+define("PARAMETER_NOT_IN", "not_in");

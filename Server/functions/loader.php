@@ -47,6 +47,11 @@ try
 		$obj->bench = $bench;
 	}
 }
+catch(ServerException $e)
+{
+	$obj->error = true;
+	$obj->message = $e->getMessage();
+}
 catch(Throwable $e)
 {
 	if (DEV_MODE)
@@ -60,7 +65,7 @@ catch(Throwable $e)
 	}
 	else
 	{
-		$message = ($e instanceof Exception) ? $e->getMessage() : "Une erreur s'est produite";
+		$message = "Une erreur s'est produite";
 		$r = $message;
 	}
 	
