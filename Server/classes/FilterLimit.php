@@ -11,9 +11,7 @@ class FilterLimit implements IRelationFilter
 	}
 	
 	public function filter(int $pos, int $count_relations, stdClass $r): bool
-	{
-		$limit_size = $this->limit + $this->from;
-		
-		return ($pos >= $this->limit || $pos < $this->to);
+	{		
+		return ($pos >= $this->from && $pos < $this->to);
 	}
 }
