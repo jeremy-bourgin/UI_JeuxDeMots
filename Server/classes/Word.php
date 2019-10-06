@@ -13,10 +13,21 @@ class Word
 	
 	public static function filterRelations(stdClass $word, array $filters)
 	{
+		$temp = array();
+		
 		foreach ($word->relation_types as &$rt)
 		{
 			RelationType::filterRelations($rt, $filters);
+			
+			if (empty($rt->associated_relations))
+			{
+				continue;
+			}
+			
+			$temp[] = $rt;
 		}
+		
+		$word->relation_types = $temp;
 	}
 
 	public static function findRelationTypeById(stdClass $word, int $id): ?stdClass
