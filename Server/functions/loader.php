@@ -18,13 +18,9 @@ ini_set("display_startup_errors", $is_display_error);
 header("content-type: application/json; charset=utf-8");
 
 // get classes
-require(__DIR__ . "/../classes/Benchmark.php");
-require(__DIR__ . "/../classes/Node.php");
-require(__DIR__ . "/../classes/NodeType.php");
-require(__DIR__ . "/../classes/Relation.php");
-require(__DIR__ . "/../classes/RelationType.php");
-require(__DIR__ . "/../classes/ServerException.php");
-require(__DIR__ . "/../classes/Word.php");
+spl_autoload_register(function ($class_name) {
+    require(__DIR__ . "/../classes/" . $class_name . '.php');
+});
 
 // get functions
 require(__DIR__ . "/function.php");

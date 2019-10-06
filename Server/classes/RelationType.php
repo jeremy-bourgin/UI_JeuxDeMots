@@ -29,6 +29,36 @@ class RelationType
 		return $obj;
 	}
 	
+	public static function filterRelations(stdClass $relation_type, array $filters)
+	{
+		$temp = array();
+		$count_relations = count($relation_type->associated_relations);
+		$count_flters = count($filters);
+		
+		for ($i = 0; $i < $count_relations; ++$i)
+		{
+			$r = $relation_type->associated_relations[$i];
+			$j = 0;
+			$kept = true;
+			
+			while ($j < $count_flters && $kept)
+			{
+				$kept = $filters[$j]->filter($i, $count_relations, $r);
+				
+				++$j;
+			}
+			
+			if (!$kept)
+			{
+				continue;
+			}
+			
+			$temp[] = $r;
+		}
+		
+		$relation_type->associated_relations = $temp;
+	}
+	
 	public static function deleteOutRelations(stdClass $relation_type)
 	{
 		$temp = array();
