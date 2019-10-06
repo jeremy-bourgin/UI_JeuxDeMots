@@ -8,7 +8,7 @@ class FilterNode implements IRelationFilter
 		$this->word_filter = $word_filter;
 	} 
 
-	public function filter(int $pos, int $count_relations, stdClass $r): bool
+	public function filter(int $pos, int $count_relations, int $deleted_relations, stdClass $r): bool
 	{
 		return strpos($r->node->name, $this->word_filter) === false);
 	}

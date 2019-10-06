@@ -10,8 +10,10 @@ class FilterLimit implements IRelationFilter
 		$this->to = $this->from + $limit;
 	}
 	
-	public function filter(int $pos, int $count_relations, stdClass $r): bool
-	{		
-		return ($pos >= $this->from && $pos < $this->to);
+	public function filter(int $pos, int $count_relations, int $deleted_relations, stdClass $r): bool
+	{
+		$calc_pos = $pos - $deleted_relations;
+		
+		return ($calc_pos >= $this->from && $calc_pos < $this->to);
 	}
 }

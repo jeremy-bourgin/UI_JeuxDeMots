@@ -2,6 +2,8 @@
 // DEV_MODE = true pour afficher en détail les erreurs
 // DEV_MODE = false pour cacher les informations sur les erreurs
 define("DEV_MODE", true);
+// si DEV_MODE = true et CACHE_IN_DEV_MODE = false alors il n'y aura pas de cache en DEV_MODE
+define("CACHE_IN_DEV_MODE", false);
 
 // url pour les requetes
 define("REQUEST_URL", "http://www.jeuxdemots.org/rezo-dump.php");

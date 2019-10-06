@@ -28,7 +28,7 @@ function get_url_request($word)
 
 function request($word)
 {
-    if (!DEV_MODE && has_cache($word))
+    if ((!DEV_MODE || CACHE_IN_DEV_MODE) && has_cache($word))
     {
         $serialized = retrieve_cache($word);
 

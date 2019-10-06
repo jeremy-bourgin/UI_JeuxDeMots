@@ -34,6 +34,7 @@ class RelationType
 		$temp = array();
 		$count_relations = count($relation_type->associated_relations);
 		$count_flters = count($filters);
+		$deleted_relations = 0;
 		
 		for ($i = 0; $i < $count_relations; ++$i)
 		{
@@ -43,17 +44,19 @@ class RelationType
 			
 			while ($j < $count_flters && $kept)
 			{
-				$kept = $filters[$j]->filter($i, $count_relations, $r);
+				$kept = $filters[$j]->filter($i, $count_relations, $deleted_relations, $r);
 				
 				++$j;
 			}
 			
 			if (!$kept)
 			{
-				continue;
+				++$deleted_relations;
 			}
-			
-			$temp[] = $r;
+			else
+			{
+				$temp[] = $r;
+			}
 		}
 		
 		$relation_type->associated_relations = $temp;
