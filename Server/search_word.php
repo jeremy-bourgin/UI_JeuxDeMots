@@ -1,24 +1,27 @@
 <?php
 function load()
 {
-	if (!isset($_GET[PARAMETER_TERM]))
+	if (!isset($_GET[PARAMETER_TERM]) || !isset($_GET[PARAMETER_PAGE]))
 	{
 		throw new ServerException("Requête invalide");
 	}
 	
 	$data = request($_GET[PARAMETER_TERM]);
+	$filters = array();
 	
 	if (isset($_GET[PARAMETER_NOT_OUT]))
 	{
-		Word::deleteOutRelations($data);
+		$filters[] = new FilterOut();
 	}
 	
 	if (isset($_GET[PARAMETER_NOT_IN]))
 	{
-		Word::deleteInRelations($data);
+		$filters[] = new FilterIn();
 	}
 	
-	Word::limit($data, LIMIT_NB_WORD);
+	$filters[] = new FilterLimit($_GET[PARAMETER_PAGE], LIMIT_NB_WORD);
+	
+	Word::filterRelations($data, $filters);
 	
 	return $data;
 }

@@ -1,8 +1,8 @@
 <?php
 class FilterOut implements IRelationFilter
 {
-	public function filter(int $i, int $count_relations, stdClass $r): bool
+	public function filter(int $pos, int $count_relations, stdClass $r): bool
 	{
-		return true;
+		return (!$r->is_out);
 	}
 }
