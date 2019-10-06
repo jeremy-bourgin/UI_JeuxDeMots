@@ -25,36 +25,4 @@ class Word
 
 		return $r;
 	}
-	
-	public static function deleteOutRelations(stdClass $word)
-	{
-		foreach ($word->relation_types as &$rt)
-		{
-			RelationType::deleteOutRelations($rt);
-		}
-	}
-	
-	public static function deleteInRelations(stdClass $word)
-	{
-		foreach ($word->relation_types as &$rt)
-		{
-			RelationType::deleteInRelations($rt);
-		}
-	}
-	
-	public static function limit(stdClass $word, int $size)
-	{
-		foreach ($word->relation_types as &$rt)
-		{
-			RelationType::limit($rt, $size);
-		}
-	}
-
-	public static function filterNodes(stdClass $word, string $filter)
-	{
-		foreach ($word->relation_types as &$rt)
-		{
-			RelationType::filterNodes($rt, $filter);
-		}
-	}
 }

@@ -61,67 +61,6 @@ class RelationType
 		
 		$relation_type->associated_relations = $temp;
 	}
-	
-	public static function deleteOutRelations(stdClass $relation_type)
-	{
-		$temp = array();
-		
-		foreach ($relation_type->associated_relations as &$r)
-		{
-			if ($r->is_out)
-			{
-				continue;
-			}
-			
-			$temp[] = $r;
-		}
-		
-		$relation_type->associated_relations = $temp;
-	}
-	
-	public static function deleteInRelations(stdClass $relation_type)
-	{
-		$temp = array();
-		
-		foreach ($relation_type->associated_relations as &$r)
-		{
-			if (!$r->is_out)
-			{
-				continue;
-			}
-			
-			$temp[] = $r;
-		}
-		
-		$relation_type->associated_relations = $temp;
-	}
-	
-	public static function limit(stdClass $relation_type, int $size)
-	{
-		$temp = array();
-		$count = sizeof($relation_type->associated_relations);
-		$limit = ($count > $size) ? $size : $count;
-		
-		for ($i = 0; $i < $limit; ++$i)
-		{
-			$temp[] = $relation_type->associated_relations[$i];
-		}
-		
-		$relation_type->associated_relations = $temp;
-	}
-
-	public static function filterNodes(stdClass $relation_type, string $filter)
-	{
-		$temp = array();
-
-		foreach ($relation_type->associated_relations as $ar) 
-		{
-			if(strpos($ar->node->name, $filter) !== false)
-				$temp[] = $ar;
-		}
-
-		$relation_type->associated_relations = $temp;
-	}
 
     public static function isBlacklisted (int $id): ?bool
     {
