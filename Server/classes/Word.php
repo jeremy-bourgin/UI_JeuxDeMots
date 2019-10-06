@@ -11,6 +11,14 @@ class Word
 
 		return $obj;
 	}
+	
+	public static function filterRelations(stdClass $word, array $filters)
+	{
+		foreach ($word->relation_types as &$rt)
+		{
+			RelationType::filterRelations($rt, $filters);
+		}
+	}
 
 	public static function findRelationTypeById(stdClass $word, int $id): ?stdClass
 	{
