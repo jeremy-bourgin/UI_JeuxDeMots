@@ -25,19 +25,39 @@ function retrieve_cache ($word)
 
 function check_and_delete()
 {
-	$files = glob(CACHE_DIRECTORY."\*");
-	$exclude_files = array('.', '..');
+	$dir = CACHE_DIRECTORY."/";
+	$files = scandir($dir);
 
-	if (!in_array($files, $exclude_files)) {
-		array_multisort(
-			array_map('filemtime',$files),
-			SORT_ASC,
-			$files
-		);
+	if(count($files) < LIMIT_NB_CACHE_FILE + 2)
+		return;
+
+	$excluded_files = array(
+		".",
+		"..",
+		".gitkeep"
+	);
+
+
+	$oldest_mtime = time();
+
+	foreach ($files as &$file)
+	{ 
+		if(in_array($file, $excluded_files))
+			continue;
+
+		$filename = $dir.$file;
+		$temp_mtime = filemtime($filename);
+
+		if ($temp_mtime < $oldest_mtime)
+		{
+			$oldest_file = $filename;
+			$oldest_mtime = $temp_mtime;
+
+		}
+
 	}
 
-	if(count($files) >= LIMIT_NB_CACHE_FILE)
-		unlink($files[0]);
+	unlink($oldest_file);
 }
 
 ?>
