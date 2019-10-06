@@ -1,5 +1,4 @@
 <?php
-
 class Word
 {
 	public static function instantiate (int $id, string $name, int $type_id, int $weight, string $formated_name, array $definition): stdClass
