@@ -42,4 +42,12 @@ class Word
 			RelationType::limit($rt, $size);
 		}
 	}
+
+	public static function filterNodes(stdClass $word, string $filter)
+	{
+		foreach ($word->relation_types as &$rt)
+		{
+			RelationType::filterNodes($rt, $filter);
+		}
+	}
 }

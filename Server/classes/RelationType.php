@@ -77,6 +77,19 @@ class RelationType
 		$relation_type->associated_relations = $temp;
 	}
 
+	public static function filterNodes(stdClass $relation_type, string $filter)
+	{
+		$temp = array();
+
+		foreach ($relation_type->associated_relations as $ar) 
+		{
+			if(strpos($ar->node->name, $filter) !== false)
+				$temp[] = $ar;
+		}
+
+		$relation_type->associated_relations = $temp;
+	}
+
     public static function isBlacklisted (int $id): ?bool
     {
     	return in_array($id, self::$blacklist, true);

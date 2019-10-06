@@ -95,6 +95,8 @@ define("LIMIT_NB_WORD", 10);
 
 // search paramètre : terme
 define("PARAMETER_TERM", "term");
+//search paramètre : noeud
+define("PARAMETER_NODE", "noeud");
 // search paramètre : masquer les relations sortantes
 define("PARAMETER_NOT_OUT", "not_out");
 // search paramètre : masquer les relations entrantes
