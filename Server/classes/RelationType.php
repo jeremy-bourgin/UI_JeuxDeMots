@@ -28,6 +28,21 @@ class RelationType
 
 		return $obj;
 	}
+	
+	public static function deleteOutRelations(stdClass $relation_type)
+	{
+		
+	}
+	
+	public static function deleteInRelations(stdClass $relation_type)
+	{
+		
+	}
+	
+	public static function limit(stdClass $relation_type, int $size)
+	{
+		
+	}
 
     public static function isBlacklisted (int $id): ?bool
     {

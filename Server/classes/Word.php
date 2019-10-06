@@ -18,4 +18,19 @@ class Word
 
 		return $r;
 	}
+	
+	public static function deleteOutRelations(stdClass $word)
+	{
+		
+	}
+	
+	public static function deleteInRelations(stdClass $word)
+	{
+		
+	}
+	
+	public static function limit(stdClass $word, int $size)
+	{
+		
+	}
 }
