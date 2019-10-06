@@ -14,7 +14,7 @@ function get_raw_data(&$data) // const data (/!\ ref)
 	$code_splitted = explode(DATA_DELIMITER_BEGIN, $data);
 
 	if(count($code_splitted) === 1)
-		throw new ServerException("No result", 1);
+		throw new ServerException("Pas de résultat");
 		
 	$data_part = $code_splitted[1];
 	$code_splitted = explode(DATA_DELIMITER_END, $data_part, -1);
