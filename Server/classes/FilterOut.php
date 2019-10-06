@@ -1,5 +1,5 @@
 <?php
-class InFilter implements IRelationFilter
+class FilterOut implements IRelationFilter
 {
 	public function filter(int $i, int $count_relations, stdClass $r): bool
 	{
