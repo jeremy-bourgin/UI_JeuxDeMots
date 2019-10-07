@@ -7,6 +7,8 @@ function delete_quotes(&$str) // out str
 	{
 		$str = substr($str, 1, ($len - 2));
 	}
+
+	$str = htmlentities($str, ENT_QUOTES, APP_ENCODING);
 }
 
 function get_raw_data(&$data) // const data (/!\ ref)
@@ -66,6 +68,12 @@ function parse_node(&$node) // const node (/!\ ref)
 		}
 
 		$columns = parse_columns($e);
+
+		// is INVALID_NODE
+		if(!isset($columns[DATA_NODE_TYPE_POS]))
+		{
+			continue;
+		}
 
 		if (NodeType::isBlacklisted($columns[DATA_NODE_TYPE_POS]))
 		{
@@ -277,13 +285,9 @@ function data_to_obj(&$data) // const data (/!\ ref)
 
 function data_parser(&$html_data)
 {
-	$bench_parser = Benchmark::startBench("data_parser");
-
 	$raw_data = get_raw_data($html_data);
 	$parsed_data = parse_raw_data($raw_data);
 	$data = data_to_obj($parsed_data);
-
-	$bench_parser->end();
 	
 	return $data;
 }

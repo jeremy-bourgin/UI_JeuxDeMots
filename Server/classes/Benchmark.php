@@ -1,15 +1,33 @@
 <?php
 class Benchmark implements JsonSerializable
 {
+    const TOTAL = "total";
+    const RESULTS = "results";
+
     private $start;
     private $end;
     private $result;
 
-    private static $bench = array();
+    private static $bench = array(self::RESULTS => array());
 
     public function __construct($name)
     {
-        self::$bench[$name] = $this;
+        if ($name === self::TOTAL)
+        {
+            return;
+        }
+
+        self::$bench[self::RESULTS][$name] = $this;
+    }
+
+    public static function total(): self
+    {
+        $o = new Benchmark(self::TOTAL);
+        $o->start();
+
+        self::$bench[self::TOTAL] = $o;
+
+        return $o;
     }
 
     public function start()

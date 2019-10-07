@@ -30,11 +30,10 @@ function request($word)
 {
     if ((!DEV_MODE || CACHE_IN_DEV_MODE) && has_cache($word))
     {
+        $bench_cache = Benchmark::startBench("cache");
         $serialized = retrieve_cache($word);
-
-        $bench_unserialize = Benchmark::startBench("unserialize");
         $data = json_decode($serialized);
-        $bench_unserialize->end();
+        $bench_cache->end();
 
         return $data;
     }
@@ -42,15 +41,20 @@ function request($word)
     {
         $url = get_url_request($word);
 
-        $request = utf8_encode(file_get_contents($url));
+        $bench_request = Benchmark::startBench("request");
+        $request = file_get_contents($url);
+        $bench_request->end();
+
+        $bench_parser = Benchmark::startBench("parser");
+        $request = utf8_encode($request);
+        $request = html_entity_decode($request, ENT_QUOTES, APP_ENCODING);
         $data = data_parser($request);
+        $bench_parser->end();
 
-        $bench_serialize = Benchmark::startBench("serialize");
-
+        $bench_cache = Benchmark::startBench("cache");
         $serialized = json_encode($data);
         save_cache($word, $serialized);
-
-        $bench_serialize->end();
+        $bench_cache->end();
 
         return $data;
     }
