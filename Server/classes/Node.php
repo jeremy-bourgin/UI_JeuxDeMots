@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 class Node
 {
 	public static function instantiate (int $id, string $name, int $type_id, int $weight, string $formated_name): stdClass

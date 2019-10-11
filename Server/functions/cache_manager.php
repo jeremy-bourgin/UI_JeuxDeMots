@@ -1,21 +1,23 @@
 <?php
-function word_to_filename($word)
+declare(strict_types=1);
+
+function word_to_filename(string $word): string
 {
 	return CACHE_DIRECTORY . "/" . hash("md5", $word);
 }
 
-function has_cache($word) 
+function has_cache(string $word): bool
 {
 	return file_exists(word_to_filename($word));
 }
 
-function save_cache($word, $data)
+function save_cache(string $word, $data): void
 {
 	check_and_delete();
-	return file_put_contents(word_to_filename($word), $data);
+	file_put_contents(word_to_filename($word), $data);
 }
 
-function retrieve_cache ($word)
+function retrieve_cache (string $word): string
 {
 	$filename = word_to_filename($word);
 	$result = file_get_contents($filename);
@@ -23,7 +25,7 @@ function retrieve_cache ($word)
 	return $result;
 }
 
-function check_and_delete()
+function check_and_delete(): void
 {
 	$dir = CACHE_DIRECTORY."/";
 	$files = scandir($dir);

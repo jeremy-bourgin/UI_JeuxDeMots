@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 class Benchmark implements JsonSerializable
 {
     const TOTAL = "total";
@@ -10,7 +12,7 @@ class Benchmark implements JsonSerializable
 
     private static $bench = array(self::RESULTS => array());
 
-    public function __construct($name)
+    public function __construct(string $name)
     {
         if ($name === self::TOTAL)
         {
@@ -30,28 +32,28 @@ class Benchmark implements JsonSerializable
         return $o;
     }
 
-    public function start()
+    public function start(): void
     {
         $this->start = microtime(true);
     }
 
-    public function end()
+    public function end(): void
     {
         $this->end = microtime(true);
         $this->result = $this->end - $this->start;
     }
 
-    public function result()
+    public function result(): float
     {
         return $this->result;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): float
     {
         return $this->result;
     }
 
-    public static function startBench($name)
+    public static function startBench(string $name): self
     {
         $o = new Benchmark($name);
         $o->start();
@@ -59,7 +61,7 @@ class Benchmark implements JsonSerializable
         return $o;
     }
 
-    public static function getBench()
+    public static function getBench(): array
     {
         return self::$bench;
     }

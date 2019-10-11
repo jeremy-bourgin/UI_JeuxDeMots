@@ -1,5 +1,7 @@
 <?php
-function delete_quotes(&$str) // out str
+declare(strict_types=1);
+
+function delete_quotes(string &$str): void
 {
 	$len = strlen($str);
 	
@@ -11,12 +13,14 @@ function delete_quotes(&$str) // out str
 	$str = htmlentities($str, ENT_QUOTES, APP_ENCODING);
 }
 
-function get_raw_data(&$data) // const data (/!\ ref)
+function get_raw_data(string &$data): string
 {
 	$code_splitted = explode(DATA_DELIMITER_BEGIN, $data);
 
 	if(count($code_splitted) === 1)
+	{
 		throw new ServerException("Pas de résultat");
+	}
 		
 	$data_part = $code_splitted[1];
 	$code_splitted = explode(DATA_DELIMITER_END, $data_part, -1);
@@ -26,7 +30,7 @@ function get_raw_data(&$data) // const data (/!\ ref)
 	return $data_part;
 }
 
-function parse_raw_data(&$data) // const data (/!\ ref)
+function parse_raw_data(string &$data): array
 {
 	$code_splitted = preg_split(DATA_PARTS_DELIMITER, $data);
 	$count = count($code_splitted) - 1;
@@ -49,14 +53,14 @@ function parse_raw_data(&$data) // const data (/!\ ref)
 	return $code_splitted;
 }
 
-function parse_columns(&$line) // const line (/!\ ref)
+function parse_columns(string &$line): array
 {
 	$columns = explode(DATA_COLUMN_DELIMITER, $line);
 	
 	return $columns;
 }
 
-function parse_node(&$node) // const node (/!\ ref)
+function parse_node(array &$node): array
 {
 	$r = array();
 	
@@ -74,6 +78,11 @@ function parse_node(&$node) // const node (/!\ ref)
 		{
 			continue;
 		}
+		
+		$columns[DATA_NODE_ID_POS] = (int)$columns[DATA_NODE_ID_POS];
+		// $columns[DATA_NODE_WORD_POS] = (string)$columns[DATA_NODE_WORD_POS]; -> useless to cast string to string
+		$columns[DATA_NODE_TYPE_POS] = (int)$columns[DATA_NODE_TYPE_POS];
+		$columns[DATA_NODE_WEIGHT_POS] = (int)$columns[DATA_NODE_WEIGHT_POS];
 
 		if (NodeType::isBlacklisted($columns[DATA_NODE_TYPE_POS]))
 		{
@@ -98,7 +107,7 @@ function parse_node(&$node) // const node (/!\ ref)
 	return $r;
 }
 
-function parse_rel(&$rel, $element_type) // const rel (/!\ ref), reltype
+function parse_rel(array &$rel, string $element_type): array
 {
 	$r = array();
 	
@@ -110,11 +119,15 @@ function parse_rel(&$rel, $element_type) // const rel (/!\ ref), reltype
 		}
 
 		$columns = parse_columns($e);
-		$columns[DATA_TYPE_POS] = $element_type;
-
-		$rel_type = (int)$columns[DATA_REL_TYPE_POS];
 		
-		if(RelationType::isBlacklisted($rel_type))
+		$columns[DATA_TYPE_POS] = $element_type;
+		$columns[DATA_REL_ID_POS] = (int)$columns[DATA_REL_ID_POS];
+		$columns[DATA_RELIN_ID_POS] = (int)$columns[DATA_RELIN_ID_POS];
+		$columns[DATA_RELOUT_ID_POS] = (int)$columns[DATA_RELOUT_ID_POS];
+		$columns[DATA_REL_TYPE_POS] = (int)$columns[DATA_REL_TYPE_POS];
+		$columns[DATA_REL_WEIGHT_POS] = (int)$columns[DATA_REL_WEIGHT_POS];
+		
+		if(RelationType::isBlacklisted($columns[DATA_REL_TYPE_POS]))
 		{
 			continue;
 		}
@@ -125,45 +138,43 @@ function parse_rel(&$rel, $element_type) // const rel (/!\ ref), reltype
 	return $r;
 }
 
-function is_rel_out(&$rel) // const rel (/!\ ref)
+function is_rel_out(array &$rel): bool
 {
 	return ($rel[DATA_TYPE_POS] === DATA_RELOUT);
 }
 
-function sort_int(&$a, &$b) // const a (/!\ ref), const b (/!\ ref)
+function sort_int(int &$a, int &$b): int
 {
-	$int_a = (int)$a;
-	$int_b = (int)$b;
-	
-	return ($int_a <=> $int_b);
+	return ($a <=> $b);
 }
 
-function sort_node(&$a, &$b) // const a (/!\ ref), const b (/!\ ref)
+function sort_node(array &$a, array &$b): int
 {
 	return sort_int($a[DATA_NODE_ID_POS], $b[DATA_NODE_ID_POS]);
 }
 
-function sort_rel(&$a, &$b)
+function sort_rel(array &$a, array &$b): int
 {
 	return -(sort_int($a[DATA_REL_WEIGHT_POS], $b[DATA_REL_WEIGHT_POS]));
 }
 
-function instantiate_word(&$data, &$nodes) // const data (/!\ ref), const nodes (/!\ ref)
+function instantiate_word(array &$data, array &$nodes): stdClass
 {
 	$node_word = $nodes[DATA_WORD_POS];
-	$word_id = (int)$node_word[DATA_NODE_ID_POS];
-	$word_name = $node_word[DATA_NODE_WORD_POS];
-	$word_type = (int)$node_word[DATA_NODE_TYPE_POS];
-	$word_weight = (int)$node_word[DATA_NODE_WEIGHT_POS];
-	$word_fname = $node_word[DATA_NODE_FNAME_POS];
-	$word_def = $data[DATA_DEF_POS];
 
-	$result = Word::instantiate($word_id, $word_name, $word_type, $word_weight, $word_fname, $word_def);
+	$result = Word::instantiate(
+		$node_word[DATA_NODE_ID_POS],
+		$node_word[DATA_NODE_WORD_POS],
+		$node_word[DATA_NODE_TYPE_POS],
+		$node_word[DATA_NODE_WEIGHT_POS],
+		$node_word[DATA_NODE_FNAME_POS],
+		$data[DATA_DEF_POS]
+	);
 
 	return $result;
 }
 
-function instantiate_node_type(&$types, $word) // const types (/!\ ref)
+function instantiate_node_type(array &$types, stdCLass $word): void
 {
 	foreach ($types as &$e)
 	{
@@ -174,23 +185,23 @@ function instantiate_node_type(&$types, $word) // const types (/!\ ref)
 
 		$columns = explode(DATA_COLUMN_DELIMITER, $e);
 		
-		$id = (int)$columns[DATA_NODETYPE_ID_POS];
-		$name = $columns[DATA_NODETYPE_NAME_POS];
-
-		if (NodeType::isBlacklisted($id))
+		$columns[DATA_NODETYPE_ID_POS] = (int)$columns[DATA_NODETYPE_ID_POS];
+		// $columns[DATA_NODETYPE_NAME_POS] = (string)$columns[DATA_NODETYPE_NAME_POS];  -> useless to cast string to string
+		
+		if (NodeType::isBlacklisted($columns[DATA_NODETYPE_ID_POS]))
 		{
 			continue;
 		}
 		
-		delete_quotes($name);
+		delete_quotes($columns[DATA_NODETYPE_NAME_POS]);
 
-		$o = NodeType::instantiate($id, $name);
+		$o = NodeType::instantiate($columns[DATA_NODETYPE_ID_POS], $columns[DATA_NODETYPE_NAME_POS]);
 		$word->node_types[] = $o;
 	}
 }
 
-function instantiate_rel_type(&$types, $word) // const types (/!\ ref)
-{	
+function instantiate_rel_type(array &$types, stdClass $word): void
+{
 	foreach ($types as &$e)
 	{
 		if (empty($e))
@@ -200,26 +211,32 @@ function instantiate_rel_type(&$types, $word) // const types (/!\ ref)
 
 		$columns = explode(DATA_COLUMN_DELIMITER, $e);
 		
-		$id = (int)$columns[DATA_RELTYPE_ID_POS];
-		$name = $columns[DATA_RELTYPE_NAME_POS];
-		$gpname = $columns[DATA_RELTYPE_GPNAME_POS];
-		$help = $columns[DATA_RELTYPE_HELP_POS];
+		$columns[DATA_RELTYPE_ID_POS] = (int)$columns[DATA_RELTYPE_ID_POS];
+		// $columns[DATA_RELTYPE_NAME_POS] = (string)$columns[DATA_RELTYPE_NAME_POS];  -> useless to cast string to string
+		// $columns[DATA_RELTYPE_GPNAME_POS] = (string)$columns[DATA_RELTYPE_GPNAME_POS];  -> useless to cast string to string
+		// $columns[DATA_RELTYPE_HELP_POS] = (string)$columns[DATA_RELTYPE_HELP_POS];  -> useless to cast string to string
 
-		if(RelationType::isBlacklisted($id))
+		if(RelationType::isBlacklisted($columns[DATA_RELTYPE_ID_POS]))
 		{
 			continue;
 		}
 		
-		delete_quotes($name);
-		delete_quotes($gpname);
-		delete_quotes($help);
+		delete_quotes($columns[DATA_RELTYPE_NAME_POS]);
+		delete_quotes($columns[DATA_RELTYPE_GPNAME_POS]);
+		delete_quotes($columns[DATA_RELTYPE_HELP_POS]);
 		
-		$o = RelationType::instantiate($id, $name, $gpname, $help);
+		$o = RelationType::instantiate(
+			$columns[DATA_RELTYPE_ID_POS],
+			$columns[DATA_RELTYPE_NAME_POS],
+			$columns[DATA_RELTYPE_GPNAME_POS],
+			$columns[DATA_RELTYPE_HELP_POS]
+		);
+		
 		$word->relation_types[] = $o;
 	}
 }
 
-function instantiate_relations(&$nodes, &$rels, $word) // ref nodes, const rels (/!\ ref), word
+function instantiate_relations(array &$nodes, array &$rels, $word): void
 {
 	usort($nodes, "sort_node");
 	usort($rels, "sort_rel");
@@ -231,14 +248,14 @@ function instantiate_relations(&$nodes, &$rels, $word) // ref nodes, const rels 
 	
 	foreach ($nodes as &$n)
 	{
-		$node_id = (int)$n[DATA_NODE_ID_POS];
-		$node_word = $n[DATA_NODE_WORD_POS];
-		$node_type = (int)$n[DATA_NODE_TYPE_POS];
-		$node_weight = (int)$n[DATA_NODE_WEIGHT_POS];
-		$node_fname = $n[DATA_NODE_FNAME_POS];
-
 		// instantiation du noeud
-		$node_obj = Node::instantiate($node_id, $node_word, $node_type, $node_weight, $node_fname);
+		$node_obj = Node::instantiate(
+			$n[DATA_NODE_ID_POS],
+			$n[DATA_NODE_WORD_POS],
+			$n[DATA_NODE_TYPE_POS],
+			$n[DATA_NODE_WEIGHT_POS],
+			$n[DATA_NODE_FNAME_POS]
+		);
 
 		$temp[] = $node_obj;
 	}
@@ -246,29 +263,28 @@ function instantiate_relations(&$nodes, &$rels, $word) // ref nodes, const rels 
 	foreach($rels as &$r)
 	{
 		$is_rel_out = is_rel_out($r);
-
-		$rel_id = (int)$r[DATA_REL_ID_POS];
-
-		$rel_node_id = (int)(($is_rel_out) ? $r[DATA_RELOUT_ID_POS] : $r[DATA_RELIN_ID_POS]);
+		$rel_node_id = ($is_rel_out) ? $r[DATA_RELOUT_ID_POS] : $r[DATA_RELIN_ID_POS];
 		$rel_node = binary_search($temp, $rel_node_id);
 
 		if ($rel_node === null)
 		{
 			continue;
 		}
-
-		$rel_type_id = (int)$r[DATA_REL_TYPE_POS];
-		$rel_type = Word::findRelationTypeById($word, $rel_type_id);
 		
-		$rel_weight = (int)$r[DATA_REL_WEIGHT_POS];
-
 		// instantiation de la relation + ajout de la relation dans le noeud
-		$rel_obj = Relation::instantiate($rel_id, $rel_node, $rel_weight, $is_rel_out);
+		$rel_obj = Relation::instantiate(
+			$r[DATA_REL_ID_POS],
+			$rel_node,
+			$r[DATA_REL_WEIGHT_POS],
+			$is_rel_out
+		);
+		
+		$rel_type = Word::findRelationTypeById($word, $r[DATA_REL_TYPE_POS]);
 		$rel_type->associated_relations[] = $rel_obj;
 	}
 }
 
-function data_to_obj(&$data) // const data (/!\ ref)
+function data_to_obj(array &$data): stdClass
 {
 	$nodes = parse_node($data[DATA_NODE_POS]);
 	$rels_out = parse_rel($data[DATA_RELOUT_POS], DATA_RELOUT);
@@ -283,7 +299,7 @@ function data_to_obj(&$data) // const data (/!\ ref)
 	return $result;
 }
 
-function data_parser(&$html_data)
+function data_parser(string &$html_data): stdClass
 {
 	$raw_data = get_raw_data($html_data);
 	$parsed_data = parse_raw_data($raw_data);

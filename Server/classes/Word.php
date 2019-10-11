@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 class Word
 {
 	public static function instantiate (int $id, string $name, int $type_id, int $weight, string $formated_name, array $definition): stdClass
@@ -11,7 +13,7 @@ class Word
 		return $obj;
 	}
 	
-	public static function filterRelations(stdClass $word, array $filters)
+	public static function filterRelations(stdClass $word, array $filters): void
 	{
 		$temp = array();
 		

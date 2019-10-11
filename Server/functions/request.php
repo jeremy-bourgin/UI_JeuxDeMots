@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-function make_request_url($url, $params)
+function make_request_url(string $url, array $params): string
 {
     $delim = "?";
 
@@ -13,7 +14,7 @@ function make_request_url($url, $params)
     return $url;
 }
 
-function get_url_request($word)
+function get_url_request(string $word): string
 {
     $params = array(
         REQUEST_SUBMIT_PARAMETER => REQUEST_SUBMIT_VALUE,
@@ -26,7 +27,7 @@ function get_url_request($word)
     return $url;
 }
 
-function request($word)
+function request(string $word): stdClass
 {
     if ((!DEV_MODE || CACHE_IN_DEV_MODE) && has_cache($word))
     {

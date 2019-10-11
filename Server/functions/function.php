@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-function binary_search (&$array, $id) // const array (/!\ ref)
+function binary_search (array &$array, int $id): ?stdClass
 {
     $count = count($array);
     

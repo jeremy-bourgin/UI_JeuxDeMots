@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 class RelationType
 {
 	private static $blacklist = array(
@@ -29,7 +31,7 @@ class RelationType
 		return $obj;
 	}
 	
-	public static function filterRelations(stdClass $relation_type, array $filters)
+	public static function filterRelations(stdClass $relation_type, array $filters): void
 	{
 		$temp = array();
 		$count_relations = count($relation_type->associated_relations);
