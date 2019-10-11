@@ -34,8 +34,6 @@ class Word
 
 	public static function findRelationTypeById(stdClass $word, int $id): ?stdClass
 	{
-		$r = binary_search($word->relation_types, $id);
-
-		return $r;
+		return binary_search($word->relation_types, $id);
 	}
 }

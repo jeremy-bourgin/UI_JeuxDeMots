@@ -22,9 +22,7 @@ function get_url_request(string $word): string
         REQUEST_REL_PARAMETER => ""
     );
 
-    $url = make_request_url(REQUEST_URL, $params);
-
-    return $url;
+    return make_request_url(REQUEST_URL, $params);
 }
 
 function request(string $word): stdClass

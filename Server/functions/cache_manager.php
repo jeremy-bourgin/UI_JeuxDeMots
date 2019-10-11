@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 function word_to_filename(string $word): string
 {
-	return CACHE_DIRECTORY . "/" . hash("md5", $word);
+	$hashed = hash("md5", $word);
+	
+	return CACHE_DIRECTORY . "/" . $hashed;
 }
 
 function has_cache(string $word): bool
@@ -20,9 +22,8 @@ function save_cache(string $word, $data): void
 function retrieve_cache (string $word): string
 {
 	$filename = word_to_filename($word);
-	$result = file_get_contents($filename);
 
-	return $result;
+	return file_get_contents($filename);
 }
 
 function check_and_delete(): void
@@ -31,7 +32,9 @@ function check_and_delete(): void
 	$files = scandir($dir);
 
 	if(count($files) < LIMIT_NB_CACHE_FILE + 2)
+	{
 		return;
+	}
 
 	$excluded_files = array(
 		".",
@@ -45,7 +48,9 @@ function check_and_delete(): void
 	foreach ($files as &$file)
 	{ 
 		if(in_array($file, $excluded_files))
+		{
 			continue;
+		}
 
 		$filename = $dir.$file;
 		$temp_mtime = filemtime($filename);

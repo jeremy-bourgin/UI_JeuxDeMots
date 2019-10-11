@@ -1,9 +1,7 @@
 <?php
 function load()
-{
-	$r = request("Montpellier");
-	
-	return $r;
+{	
+	return request("Montpellier");
 }
 
 include("./functions/loader.php");

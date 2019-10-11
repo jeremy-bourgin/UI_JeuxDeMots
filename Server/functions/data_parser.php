@@ -24,10 +24,8 @@ function get_raw_data(string &$data): string
 		
 	$data_part = $code_splitted[1];
 	$code_splitted = explode(DATA_DELIMITER_END, $data_part, -1);
-	$data_part = implode($code_splitted);
-	$data_part = strip_tags($data_part);
 
-	return $data_part;
+	return strip_tags(implode($code_splitted));
 }
 
 function parse_raw_data(string &$data): array
@@ -54,10 +52,8 @@ function parse_raw_data(string &$data): array
 }
 
 function parse_columns(string &$line): array
-{
-	$columns = explode(DATA_COLUMN_DELIMITER, $line);
-	
-	return $columns;
+{	
+	return explode(DATA_COLUMN_DELIMITER, $line);
 }
 
 function parse_node(array &$node): array
@@ -162,7 +158,7 @@ function instantiate_word(array &$data, array &$nodes): stdClass
 {
 	$node_word = $nodes[DATA_WORD_POS];
 
-	$result = Word::instantiate(
+	return Word::instantiate(
 		$node_word[DATA_NODE_ID_POS],
 		$node_word[DATA_NODE_WORD_POS],
 		$node_word[DATA_NODE_TYPE_POS],
@@ -170,8 +166,6 @@ function instantiate_word(array &$data, array &$nodes): stdClass
 		$node_word[DATA_NODE_FNAME_POS],
 		$data[DATA_DEF_POS]
 	);
-
-	return $result;
 }
 
 function instantiate_node_type(array &$types, stdCLass $word): void
@@ -241,9 +235,6 @@ function instantiate_relations(array &$nodes, array &$rels, $word): void
 	usort($nodes, "sort_node");
 	usort($rels, "sort_rel");
 
-	$rels_index = 0;
-	$count_rels = count($rels);
-
 	$temp = array();
 	
 	foreach ($nodes as &$n)
@@ -303,7 +294,6 @@ function data_parser(string &$html_data): stdClass
 {
 	$raw_data = get_raw_data($html_data);
 	$parsed_data = parse_raw_data($raw_data);
-	$data = data_to_obj($parsed_data);
 	
-	return $data;
+	return data_to_obj($parsed_data);
 }

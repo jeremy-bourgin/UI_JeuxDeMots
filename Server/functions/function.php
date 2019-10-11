@@ -5,8 +5,10 @@ function binary_search (array &$array, int $id): ?stdClass
 {
     $count = count($array);
     
-    if ($count === 0) 
-        return null; 
+    if ($count === 0)
+	{
+        return null;
+	}
 
     $low = 0; 
     $high = $count - 1; 
@@ -15,14 +17,17 @@ function binary_search (array &$array, int $id): ?stdClass
     { 
         $mid = floor(($low + $high) / 2); 
 
-        if($array[$mid]->id === $id) { 
+        if($array[$mid]->id === $id)
+		{ 
             return $array[$mid]; 
         } 
 
-        if ($id < $array[$mid]->id) { 
+        if ($id < $array[$mid]->id)
+		{ 
             $high = $mid -1; 
         } 
-        else { 
+        else
+		{ 
             $low = $mid + 1; 
         } 
     } 

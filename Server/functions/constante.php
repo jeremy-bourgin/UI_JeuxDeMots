@@ -30,7 +30,7 @@ define("DATA_PARTS_DELIMITER", "/\n\/\/\s(.+)\n/");
 // les différentes lignes sont séparé par un saut de lignes (exception pour les définitions où on a besoin d'une expression régulière)
 define("DATA_DEF_LINE_DELIMITER", "/[0-9]+\.\s/");
 define("DATA_LINE_DELIMITER", "\n");
-// les différentes colonnes sont séparé par un ;
+// les différentes colonnes sont séparé par un ";"
 define("DATA_COLUMN_DELIMITER", ";");
 // les définitions sont numéroté
 // la numérotation seront supprimé en séparant la numérotation de la définition avec le . au début
