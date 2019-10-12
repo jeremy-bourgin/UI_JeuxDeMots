@@ -33,7 +33,7 @@ function parse_raw_data(string &$data): array
 	$code_splitted = preg_split(DATA_PARTS_DELIMITER, $data);
 	$count = count($code_splitted) - 1;
 	
-	for ($i=1; $i < $count; $i++)
+	for ($i = 1; $i < $count; $i++)
 	{
 		$code_splitted[$i] = trim($code_splitted[$i]);
 		
@@ -47,8 +47,36 @@ function parse_raw_data(string &$data): array
 			$code_splitted[$i] = explode(DATA_LINE_DELIMITER, $code_splitted[$i]);
 		}
 	}
+	
+	for ($i = $count; $i < (DATA_COUNT_PARTS + 1); ++$i)
+	{
+		$code_splitted[$i] = array();
+	}
 
 	return $code_splitted;
+}
+
+function check_numerics_data(array &$data, array &$columns): bool
+{
+	$i = 0;
+	$count = count($columns);
+	$is_success = true;
+	
+	while ($i < $count && $is_success)
+	{
+		$c = $columns[$i];
+		
+		if (!isset($data[$c]) || !is_numeric($data[$c]))
+		{
+			$is_success = false;
+		}
+		
+		$data[$c] = (int)$data[$c];
+		
+		++$i;
+	}
+	
+	return $is_success;
 }
 
 function parse_columns(string &$line): array
@@ -68,23 +96,20 @@ function parse_node(array &$node): array
 		}
 
 		$columns = parse_columns($e);
-
-		// is INVALID_NODE
-		if(!isset($columns[DATA_NODE_TYPE_POS]))
-		{
+		
+		$numeric_columns = array(
+			DATA_NODE_ID_POS,
+			DATA_NODE_TYPE_POS,
+			DATA_NODE_WEIGHT_POS
+		);
+		
+		if (
+			!check_numerics_data($columns, $numeric_columns)
+			|| NodeType::isBlacklisted($columns[DATA_NODE_TYPE_POS])
+		) {
 			continue;
 		}
 		
-		$columns[DATA_NODE_ID_POS] = (int)$columns[DATA_NODE_ID_POS];
-		// $columns[DATA_NODE_WORD_POS] = (string)$columns[DATA_NODE_WORD_POS]; -> useless to cast string to string
-		$columns[DATA_NODE_TYPE_POS] = (int)$columns[DATA_NODE_TYPE_POS];
-		$columns[DATA_NODE_WEIGHT_POS] = (int)$columns[DATA_NODE_WEIGHT_POS];
-
-		if (NodeType::isBlacklisted($columns[DATA_NODE_TYPE_POS]))
-		{
-			continue;
-		}
-
 		$count_columns = count($columns);
 		delete_quotes($columns[DATA_NODE_WORD_POS]);
 		
@@ -116,15 +141,20 @@ function parse_rel(array &$rel, string $element_type): array
 
 		$columns = parse_columns($e);
 		
-		$columns[DATA_TYPE_POS] = $element_type;
-		$columns[DATA_REL_ID_POS] = (int)$columns[DATA_REL_ID_POS];
-		$columns[DATA_RELIN_ID_POS] = (int)$columns[DATA_RELIN_ID_POS];
-		$columns[DATA_RELOUT_ID_POS] = (int)$columns[DATA_RELOUT_ID_POS];
-		$columns[DATA_REL_TYPE_POS] = (int)$columns[DATA_REL_TYPE_POS];
-		$columns[DATA_REL_WEIGHT_POS] = (int)$columns[DATA_REL_WEIGHT_POS];
+		$numeric_columns = array(
+			DATA_REL_ID_POS,
+			DATA_RELIN_ID_POS,
+			DATA_RELOUT_ID_POS,
+			DATA_REL_TYPE_POS,
+			DATA_REL_WEIGHT_POS
+		);
 		
-		if(RelationType::isBlacklisted($columns[DATA_REL_TYPE_POS]))
-		{
+		$columns[DATA_TYPE_POS] = $element_type;
+		
+		if(
+			!check_numerics_data($columns, $numeric_columns)
+			|| RelationType::isBlacklisted($columns[DATA_REL_TYPE_POS])
+		) {
 			continue;
 		}
 
@@ -179,11 +209,14 @@ function instantiate_node_type(array &$types, stdCLass $word): void
 
 		$columns = explode(DATA_COLUMN_DELIMITER, $e);
 		
-		$columns[DATA_NODETYPE_ID_POS] = (int)$columns[DATA_NODETYPE_ID_POS];
-		// $columns[DATA_NODETYPE_NAME_POS] = (string)$columns[DATA_NODETYPE_NAME_POS];  -> useless to cast string to string
+		$numeric_columns = array(
+			DATA_NODETYPE_ID_POS
+		);
 		
-		if (NodeType::isBlacklisted($columns[DATA_NODETYPE_ID_POS]))
-		{
+		if (
+			!check_numerics_data($columns, $numeric_columns)
+			|| NodeType::isBlacklisted($columns[DATA_NODETYPE_ID_POS])
+		) {
 			continue;
 		}
 		
@@ -205,13 +238,14 @@ function instantiate_rel_type(array &$types, stdClass $word): void
 
 		$columns = explode(DATA_COLUMN_DELIMITER, $e);
 		
-		$columns[DATA_RELTYPE_ID_POS] = (int)$columns[DATA_RELTYPE_ID_POS];
-		// $columns[DATA_RELTYPE_NAME_POS] = (string)$columns[DATA_RELTYPE_NAME_POS];  -> useless to cast string to string
-		// $columns[DATA_RELTYPE_GPNAME_POS] = (string)$columns[DATA_RELTYPE_GPNAME_POS];  -> useless to cast string to string
-		// $columns[DATA_RELTYPE_HELP_POS] = (string)$columns[DATA_RELTYPE_HELP_POS];  -> useless to cast string to string
-
-		if(RelationType::isBlacklisted($columns[DATA_RELTYPE_ID_POS]))
-		{
+		$numeric_columns = array(
+			DATA_RELTYPE_ID_POS
+		);
+		
+		if (
+			!check_numerics_data($columns, $numeric_columns)
+			|| RelationType::isBlacklisted($columns[DATA_RELTYPE_ID_POS])
+		) {
 			continue;
 		}
 		
@@ -278,6 +312,7 @@ function instantiate_relations(array &$nodes, array &$rels, $word): void
 function data_to_obj(array &$data): stdClass
 {
 	$nodes = parse_node($data[DATA_NODE_POS]);
+		
 	$rels_out = parse_rel($data[DATA_RELOUT_POS], DATA_RELOUT);
 	$rels_in = parse_rel($data[DATA_RELIN_POS], DATA_RELIN);
 	$rels = array_merge($rels_out, $rels_in);

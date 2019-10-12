@@ -37,6 +37,7 @@ define("DATA_COLUMN_DELIMITER", ";");
 define("DATA_DEF_DIAL", ". ");
 
 // position des différentes parties dans les données
+define("DATA_COUNT_PARTS", 6); // nombre de parties
 define("DATA_DEF_POS", 1); // définition
 define("DATA_NODETYPE_POS", 2); // type des noeuds
 define("DATA_NODE_POS", 3); // noeuds
