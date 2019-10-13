@@ -24,8 +24,10 @@ function get_raw_data(string &$data): string
 		
 	$data_part = $code_splitted[1];
 	$code_splitted = explode(DATA_DELIMITER_END, $data_part, -1);
-
-	return strip_tags(implode($code_splitted));
+	$code_imploded = implode($code_splitted);
+	$code_without_warning = preg_replace(DATA_WARNING, "", $code_imploded);
+	
+	return strip_tags($code_without_warning);
 }
 
 function parse_raw_data(string &$data): array
@@ -39,8 +41,13 @@ function parse_raw_data(string &$data): array
 		
 		if ($i === 1)
 		{
-			$code_splitted[$i] = preg_split(DATA_DEF_LINE_DELIMITER, $code_splitted[$i]);
-			array_shift($code_splitted[$i]);
+			$code_splitted[$i] = preg_split(DATA_DEF_LINE_DELIMITER, $code_splitted[$i]);			
+			$temp = array_shift($code_splitted[$i]);
+			
+			if (empty($code_splitted[$i]))
+			{
+				$code_splitted[$i] = array($temp);
+			}
 		}
 		else
 		{
