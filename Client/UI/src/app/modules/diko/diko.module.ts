@@ -5,7 +5,8 @@ import { DikoRoutingModule } from './diko-routing.module';
 import { FormComponent } from './components/form/form.component';
 import { ResultComponent } from './components/result/result.component';
 import { SemanticRefinementComponent } from './components/semantic-refinement/semantic-refinement.component';
-import { BaseComponent } from './components/base/base.component';
+import { IndexComponent } from './components/index/index.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { BaseComponent } from './components/base/base.component';
 		FormComponent, 
 		ResultComponent, 
 		SemanticRefinementComponent,
-		BaseComponent
+		IndexComponent,
+		SearchComponent
 	],
 	imports: [
 		CommonModule, 
