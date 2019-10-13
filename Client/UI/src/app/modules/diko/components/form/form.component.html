@@ -1,1 +1,47 @@
-<p>form works!</p>
+<form class= "" action="#" method="GET">
+    <div class="">
+        <div class="">
+          <label for="term">Terme</label>
+        </div>
+        <div class="">
+          <input type="text" id="term" name="term">
+        </div>
+    </div>
+
+    <div class="">
+        <div class="">
+          <label for="associated_terms">Termes associés</label>
+        </div>
+        <div class="">
+          <input type="text" id="associated_terms" name="associated_terms">
+        </div>
+    </div>
+
+    <div class="">
+        <div class="">
+          <label for="in_relations">Pas de Relations Entrantes</label>
+        </div>
+        <div class="">
+            <input type="checkbox" id="in_relations" name="in_relations">
+        </div>
+        <div class="">
+            <label for="out_relations">Pas de Relations Sortantes</label>
+          </div>
+          <div class="">
+              <input type="checkbox" id="out_relations" name="out_relations">
+          </div>
+    </div>
+
+    <div class="">
+        <div class="">
+          <label for="fname">Limiter le nombre de termes</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="nb_terms" name="nb_terms" placeholder="par défaut : 10">
+        </div>
+    </div>
+
+    <div class="">
+        <input type="submit" value="Rechercher">
+    </div>
+</form>
