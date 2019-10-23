@@ -53,11 +53,7 @@ export class FormComponent implements OnInit {
 			this.nb_terms = params.nb_terms;
 		}
 
-		if (params.page)
-		{
-			this.page = params.page;
-		}
-
+		this.page = (params.p) ? params.p : "0";
 	}
 	
 }
