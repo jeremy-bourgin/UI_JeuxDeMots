@@ -26,8 +26,38 @@ export class FormComponent implements OnInit {
 
 	ngOnInit()
 	{
-		this.page = "0";		
-    this.term = "ok";
+		let params = this.search_service.getParams();
+
+		if (params.term)
+		{
+			this.term = params.term;
+		}
+
+		if (params.node)
+		{
+			this.node = params.node;
+		}
+
+		if (params.not_out)
+		{
+			this.not_out = params.not_out;
+		}
+
+		if (params.not_in)
+		{
+			this.not_in = params.not_in;
+		}
+
+		if (params.nb_terms)
+		{
+			this.nb_terms = params.nb_terms;
+		}
+
+		if (params.page)
+		{
+			this.page = params.page;
+		}
+
 	}
 	
 }
