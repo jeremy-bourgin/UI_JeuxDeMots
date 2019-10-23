@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 
 export class RequestHandlerService
 {
-	static readonly url: string = "http://lafourcade/Server/";
+	public static readonly url: string = "http://lafourcade/Server/";
 	
-	static readonly services: any = {
-		"search_word": "search_word.php"
+	public static readonly services: any = {
+		search_word: "search_word.php"
 	};
 	
 	constructor(private http: HttpClient)
@@ -21,7 +21,7 @@ export class RequestHandlerService
 	
 	public request(service_name : string, params : any, callback : Function): void
 	{
-		var self: KernelService = this;
+		var self: RequestHandlerService = this;
 		var o : any = this.makeInformations(service_name, params);
 		var service : Observable<any> = this.http.get(o.action, {headers: o.headers});		
 
@@ -54,7 +54,7 @@ export class RequestHandlerService
 		/* end : header */
 
 		/* begin : service url */
-		var action : string = RequestHandlerService.url + RequestHandlerService.services[service_name];
+		var action : string = RequestHandlerService.url + service_name;
 
 		// url parameters
 		var sign : string = "?";

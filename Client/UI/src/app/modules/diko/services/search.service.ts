@@ -7,79 +7,60 @@ import { RequestHandlerService } from './request-handler.service';
 export class SearchService 
 {
 
-  private term : string;
-	private node : string;
-	private not_out : string;
-	private not_in : string;
-  private nb_terms : string;
-  private p : string;
+	private params : any;
+	private data : any;
 
-  private params : any;
-  private data : any;
+	constructor(request_service : RequestHandlerService)
+	{
+		var self : SearchService = this;
 
-  constructor(urlSP: URLSearchParams, requestHS : RequestHandlerService) { 
-    this.term = "";
-    this.node = "";
-    this.not_out = "";
-    this.not_in = "";
-    this.nb_terms = "20";
-    this.p = "";
+		function callback(data : any)
+		{
+			self.data = data;
+		}
+		
+		this.data = null;
+		this.params = {};
+		
+		var url_params = new URLSearchParams(window.location.search);
+		
+		var params_name = [
+			"term",
+			"node",
+			"not_out",
+			"not_in",
+			"nb_terms",
+			"p"
+		];
+		
+		var is_requested = url_params.has("submit");
+		var e;
+		var temp;
+		
+		for (var i in params_name)
+		{
+			e = params_name[i];
+			
+			if (url_params.has(e) && url_params.get(e) != "")
+			{
+				this.params[e] = url_params.get(e);
+			}
+		}
+		
+		if (is_requested)
+		{
+			request_service.request(RequestHandlerService.services.search_word, this.params, callback);
+		}
 
-    if(urlSP.has("term"))
-    {
-      this.term = urlSP.get("term");
-    }
+	}
 
-    if(urlSP.has("node"))
-    {
-      this.node = urlSP.get("node");
-    }
+	public getParams(): any
+	{
+		return this.params;
+	}
 
-    if(urlSP.has("not_out"))
-    {
-      this.not_out = urlSP.get("not_out");
-    }
-
-    if(urlSP.has("not_in"))
-    {
-      this.not_in = urlSP.get("not_in");
-    }
-
-    if(urlSP.has("nb_terms"))
-    {
-      this.nb_terms = urlSP.get("nb_terms");
-    }
-
-    if(urlSP.has("p"))
-    {
-      this.p = urlSP.get("p");
-    }
-
-    let url = RequestHandlerService.services.search_word;
-
-    this.params = {
-      "term" : this.term,
-      "node" : this.node,
-      "not_out" : this.not_out,
-      "not_in" : this.not_in,
-      "nb_terms" : this.nb_terms,
-      "p" : this.p
-    };
-
-    requestHS.request(url, this.params, function succes_callback(data:any) {
-        this.data = data;
-      }
-    );
-
-  }
-
-  public getParams(): any
-  {
-	return this.params;
-  }
-
-  public getData(): any
-  {
-	return this.data;
-  }
+	public getData(): any
+	{
+		return this.data;
+	}
 }

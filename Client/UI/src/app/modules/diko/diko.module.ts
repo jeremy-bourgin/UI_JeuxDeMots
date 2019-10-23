@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { DikoRoutingModule } from './diko-routing.module';
 
@@ -10,6 +11,8 @@ import { SemanticRefinementComponent } from './components/semantic-refinement/se
 import { IndexComponent } from './components/index/index.component';
 import { SearchComponent } from './components/search/search.component';
 
+import { RequestHandlerService } from './services/request-handler.service';
+import { SearchService } from './services/search.service';
 
 @NgModule({
 	declarations: [
@@ -22,7 +25,12 @@ import { SearchComponent } from './components/search/search.component';
 	imports: [
 		CommonModule, 
 		FormsModule,
+		HttpClientModule,
 		DikoRoutingModule
+	],
+	providers: [
+		RequestHandlerService,
+		SearchService
 	]
 })
 
