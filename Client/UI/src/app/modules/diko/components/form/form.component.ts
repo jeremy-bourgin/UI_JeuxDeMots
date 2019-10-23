@@ -24,11 +24,8 @@ export class FormComponent implements OnInit {
 
 	ngOnInit()
 	{
+		this.term = "ok";
 	}
 	
-	onSubmit()
-	{
-		console.log(this.term);
-	}
 
 }
