@@ -1,24 +1,24 @@
-<form ngNoForm method="get">
+<form method="get" (ngSubmit)="onSubmit()">
     <div>
-		<input type="text" id="term" name="term" placeholder="Terme">
+		<input type="text" name="term" [(ngModel)]="term" placeholder="Terme" required>
     </div>
 
     <div>
-		<input type="text" id="node" name="node" placeholder="Terme associé">
+		<input type="text" name="node" [(ngModel)]="node" placeholder="Terme associé">
 	</div>
 
 	<div>
 		<label for="not_out">Pas de Relations Sortantes</label>
-		<input type="checkbox" id="not_out" name="not_out">
+		<input type="checkbox" name="not_out" [(ngModel)]="not_out">
     </div>
 	
     <div>
 		<label for="not_in">Pas de Relations Entrantes</label>
-		<input type="checkbox" id="not_in" name="not_in">
+		<input type="checkbox" name="not_in" [(ngModel)]="not_in">
 	</div>
 
     <div>
-		<input type="text" id="nb_terms" name="nb_terms" placeholder="Limiter le nombre de terme (20 par défaut)">
+		<input type="text" name="nb_terms" [(ngModel)]="nb_terms" placeholder="Limiter le nombre de terme (20 par défaut)">
     </div>
 
     <div>
