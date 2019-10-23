@@ -21,7 +21,7 @@ export class RequestHandlerService
 	
 	public request(service_name : string, params : any, success_callback : Function): void
 	{
-		var o = makeInformations(service_name, params);
+		var o = this.makeInformations(service_name, params);
 		var http_get: Observable<any> = this.http.get(o.action, {headers: o.headers});
 	}
 	
