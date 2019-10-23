@@ -27,7 +27,7 @@ export class FormComponent implements OnInit {
 	ngOnInit()
 	{
 		this.page = "0";		
-		this.term = "ok";
+    this.term = "ok";
 	}
 	
 }
