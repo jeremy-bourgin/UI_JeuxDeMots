@@ -19,13 +19,15 @@ export class FormComponent implements OnInit {
 	private not_in : string;
 
 	private nb_terms : string;
-
+	
+	private page : string;
+	
 	constructor(private search_service : SearchService) { }
 
 	ngOnInit()
 	{
+		this.page = "0";		
 		this.term = "ok";
 	}
 	
-
 }
