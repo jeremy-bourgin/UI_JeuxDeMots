@@ -19,18 +19,36 @@ export class RequestHandlerService
 		
 	}
 	
-	public request(service_name : string, params : any, success_callback : Function): void
+	public request(service_name : string, params : any, callback : Function): void
 	{
-		var o = this.makeInformations(service_name, params);
-		var http_get: Observable<any> = this.http.get(o.action, {headers: o.headers});
+		var self: KernelService = this;
+		var o : any = this.makeInformations(service_name, params);
+		var service : Observable<any> = this.http.get(o.action, {headers: o.headers});		
+
+		function action_callback(data: any): void {
+			if (data.error) {
+				alert(data.message);
+				return;
+			}
+
+			if (!data.error && data.message) {
+				alert(data.message);
+			}
+
+			if (callback) {
+				callback(data);
+			}
+		}
+
+		service.subscribe(action_callback);
+
 	}
 	
 	private makeInformations(service_name : string, params: any): any {
 		/* begin : header */
-		var temp: any = {};
-
-		temp["Accept"] = "application/json";
-		temp["Content-Type"] = "application/json";
+		var temp: any = {
+			Accept: "application/json"
+		};
 
 		var headers : HttpHeaders = new HttpHeaders(temp);
 		/* end : header */

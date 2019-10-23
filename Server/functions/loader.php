@@ -78,6 +78,8 @@ if (DEV_MODE)
 }
 
 header("content-type: application/json; charset=" . APP_ENCODING);
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, OPTIONS");
 
 // envoie des données au client au format JSON
 $json = json_encode($obj);
