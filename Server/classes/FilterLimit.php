@@ -21,7 +21,7 @@ class FilterLimit implements IRelationFilter
 			$this->count_limited = 0;
 		}
 		
-		$calc_pos = $pos - ($deleted_relations + $this->count_limited);
+		$calc_pos = $pos - ($deleted_relations - $this->count_limited);
 		$result = ($calc_pos >= $this->from && $calc_pos < $this->to);
 		
 		if (!$result)
