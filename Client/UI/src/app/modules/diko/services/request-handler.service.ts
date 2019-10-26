@@ -36,7 +36,7 @@ export class RequestHandlerService
 			}
 
 			if (callback) {
-				callback(data);
+				callback(data.result);
 			}
 		}
 
