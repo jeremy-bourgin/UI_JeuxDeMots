@@ -4,4 +4,17 @@
 			<li *ngFor="let e of search_service.getData().definition">{{e}}</li>
 		</ul>
 	</article>
+	
+	<section id="relations">
+		<div *ngFor="let e of search_service.getData().relation_types">
+			<article id="{{e.name}}">
+				<header>
+					<h2 title="{{e.help}}">{{e.gpname}}</h2>
+				</header>
+				<ul>
+					<li *ngFor="let n of e.associated_relations">{{n.node.name}}</li>
+				</ul>
+			</article>
+		</div>
+	</section>
 </section>
