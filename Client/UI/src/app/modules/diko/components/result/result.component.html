@@ -1,5 +1,7 @@
 <section *ngIf="search_service.getData() !== null">
 	<article id="definitions">
-		<p *ngFor="let e of search_service.getData().definition">{{e}}</p>
+		<ul>
+			<li *ngFor="let e of search_service.getData().definition">{{e}}</li>
+		</ul>
 	</article>
 </section>
