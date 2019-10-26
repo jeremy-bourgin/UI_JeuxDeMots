@@ -15,7 +15,7 @@ function delete_quotes(string &$str): void
 		$str = substr($str, 1, ($len - 2));
 	}
 
-	html_encode($str);
+	//html_encode($str);
 }
 
 function get_raw_data(string &$data): string
@@ -46,7 +46,7 @@ function parse_raw_data(string &$data): array
 		
 		if ($i === 1)
 		{
-			html_encode($code_splitted[$i]);
+			//html_encode($code_splitted[$i]);
 
 			$code_splitted[$i] = preg_split(DATA_DEF_LINE_DELIMITER, $code_splitted[$i]);			
 			$temp = array_shift($code_splitted[$i]);
