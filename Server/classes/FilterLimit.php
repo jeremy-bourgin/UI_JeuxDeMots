@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 class FilterLimit implements IRelationFilter
 {
+	private $temp;
+	private $count_limited;
+	
 	private $from;
 	private $to;
 	
@@ -10,12 +13,25 @@ class FilterLimit implements IRelationFilter
 	{
 		$this->from = $page * $limit;
 		$this->to = $this->from + $limit;
+		$this->temp = null;
 	}
 	
 	public function filter(int $pos, int $count_relations, int $deleted_relations, stdClass $r): bool
 	{
-		$calc_pos = $pos - $deleted_relations;
+		if ($this->temp !== $r)
+		{
+			$this->count_limited = 0;
+			$this->temp = $r;
+		}
 		
-		return ($calc_pos >= $this->from && $calc_pos < $this->to);
+		$calc_pos = $pos - ($deleted_relations + $this->count_limited);
+		$r = ($calc_pos >= $this->from && $calc_pos < $this->to);
+		
+		if (!$r)
+		{
+			++$this->count_limited;
+		}
+		
+		return $r;
 	}
 }
