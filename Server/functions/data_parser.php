@@ -53,7 +53,7 @@ function parse_raw_data(string &$data): array
 			
 			if (empty($code_splitted[$i]))
 			{
-				$code_splitted[$i] = array($temp);
+				$code_splitted[$i] = (empty($temp)) ? array() : array($temp);
 			}
 		}
 		else
