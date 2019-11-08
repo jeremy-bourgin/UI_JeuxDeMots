@@ -23,6 +23,7 @@ section#form {
 	position: absolute;
 	height: 100%;
 	width: 45px;
+	z-index: 9;
 }
 
 .icon-submit {
