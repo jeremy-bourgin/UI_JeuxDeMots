@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { SearchService } from '../../services/search.service';
 
@@ -19,9 +19,13 @@ export class FormComponent implements OnInit {
 	private not_in : string;
 
 	private nb_terms : string;
-	
+
 	private page : string;
-	
+
+	private default_is_advanced: boolean;
+
+	@Input('is_advanced') is_advanced: boolean;
+
 	constructor(private search_service : SearchService) { }
 
 	ngOnInit()
@@ -54,6 +58,13 @@ export class FormComponent implements OnInit {
 		}
 
 		this.page = (params.p) ? params.p : "0";
+		this.default_is_advanced = this.is_advanced;
 	}
-	
+
+	public toggleAdvanced(): void
+	{
+		this.is_advanced = !this.is_advanced;
+	}
+
+
 }

@@ -4,7 +4,7 @@ import { RequestHandlerService } from './request-handler.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService 
+export class SearchService
 {
 
 	private params : any;
@@ -18,12 +18,12 @@ export class SearchService
 		{
 			self.data = data;
 		}
-		
+
 		this.data = null;
 		this.params = {};
-		
+
 		var url_params = new URLSearchParams(window.location.search);
-		
+
 		var params_name = [
 			"term",
 			"node",
@@ -32,21 +32,21 @@ export class SearchService
 			"nb_terms",
 			"p"
 		];
-		
+
 		var is_requested = url_params.has("submit");
 		var e;
 		var temp;
-		
+
 		for (var i in params_name)
 		{
 			e = params_name[i];
-			
+
 			if (url_params.has(e) && url_params.get(e) != "")
 			{
 				this.params[e] = url_params.get(e);
 			}
 		}
-		
+
 		if (is_requested)
 		{
 			request_service.request(RequestHandlerService.services.search_word, this.params, callback);

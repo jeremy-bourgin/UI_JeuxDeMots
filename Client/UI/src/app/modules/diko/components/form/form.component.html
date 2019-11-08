@@ -1,29 +1,47 @@
-<form ngNoForm method="get">
-    <div>
-		<input type="text" name="term" [(ngModel)]="term" placeholder="Terme" required>
-    </div>
+<section id="form" class="text-left">
+	<form ngNoForm method="get" action="/search">
+	    <div class="form-group input-group">
+			<input type="text" name="term" [(ngModel)]="term" placeholder="Terme" class="form-control" required>
+			<div class="input-group-prepend" *ngIf="!default_is_advanced">
+				<input type="submit" name="submit" value="" class="btn btn-primary icon-input icon-submit">
+				<input type="button" (click)="toggleAdvanced()" class="btn btn-secondary icon-input icon-advanced">
+			</div>
+	    </div>
 
-    <div>
-		<input type="text" name="node" [(ngModel)]="node" placeholder="Terme associé">
-	</div>
+		<div id="advanced-block" [ngClass]="{'show-advanced': is_advanced, 'hide-advanced': !is_advanced}">
+		    <div class="form-group">
+				<input type="text" name="node" [(ngModel)]="node" placeholder="Terme associé" class="form-control">
+			</div>
 
-	<div>
-		<label for="not_out">Pas de Relations Sortantes</label>
-		<input type="checkbox" name="not_out" [(ngModel)]="not_out" value="true">
-    </div>
-	
-    <div>
-		<label for="not_in">Pas de Relations Entrantes</label>
-		<input type="checkbox" name="not_in" [(ngModel)]="not_in" value="true">
-	</div>
+			<div class="form-group container row">
+				<div class="form-check col-md-6">
+					<input type="checkbox" name="not_out" id="not_out" [(ngModel)]="not_out" value="true" class="form-check-input">
+					<label for="not_out" class="form-check-label">Pas de Relations Sortantes</label>
+			    </div>
 
-    <div>
-		<input type="text" name="nb_terms" [(ngModel)]="nb_terms" placeholder="Limiter le nombre de terme (20 par défaut)">
-    </div>
+			    <div class="form-check col-md-6">
+					<input type="checkbox" name="not_in" id="not_in" [(ngModel)]="not_in" value="true" class="form-check-input">
+					<label for="not_in" class="form-check-label">Pas de Relations Entrantes</label>
+				</div>
+			</div>
 
-	<input type="hidden" name="p" [(ngModel)]="page">
-	
-    <div>
-        <input type="submit" name="submit" value="Rechercher" class="btn btn-primary">
-    </div>
-</form>
+		    <div class="form-group">
+				<input type="text" name="nb_terms" [(ngModel)]="nb_terms" placeholder="Limiter le nombre de terme (20 par défaut)" class="form-control">
+		    </div>
+		</div>
+
+		<input type="hidden" name="p" [(ngModel)]="page">
+
+	    <div class="row" *ngIf="default_is_advanced">
+			<div class="col-md-2"></div>
+			<div class="col-md-4 form-group">
+	        	<input type="submit" name="submit" value="Rechercher" class="btn btn-primary col-md-12">
+			</div>
+			<div class="col-md-4 form-group">
+				<input type="button" value="Recherche avancée" (click)="toggleAdvanced()" class="btn btn-secondary col-md-12">
+			</div>
+	    </div>
+
+	</form>
+
+</section>

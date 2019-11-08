@@ -13,6 +13,7 @@ import { SearchComponent } from './components/search/search.component';
 
 import { RequestHandlerService } from './services/request-handler.service';
 import { SearchService } from './services/search.service';
+import { LogoComponent } from './components/logo/logo.component';
 
 @NgModule({
 	declarations: [
@@ -20,7 +21,8 @@ import { SearchService } from './services/search.service';
 		ResultComponent, 
 		SemanticRefinementComponent,
 		IndexComponent,
-		SearchComponent
+		SearchComponent,
+		LogoComponent
 	],
 	imports: [
 		CommonModule, 
