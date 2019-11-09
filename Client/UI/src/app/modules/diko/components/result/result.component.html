@@ -1,14 +1,14 @@
 <section *ngIf="search_service.getData() !== null">
 	<article>
 		<div *ngIf="search_service.getData().definition.length !== 0">
-			<button class="btn btn-primary" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
-				Afficher les définitions
+			<button class="btn btn-primary px-5" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false" (click)="changeDefButton()">
+				{{ def_text_button }}
 			</button>
-			<div id="definitions" class="collapse">
-				<table class="table table-striped table-bordered table-rounded">
+			<div id="definitions" class="collapse mt-3 mb-4">
+				<table class="table table-striped table-bordered">
 					<tbody>
 						<tr *ngFor="let e of search_service.getData().definition">
-							<td scope="row" class="text-justify" >{{e}}</td>
+							<td scope="row" class="text-justify text-break">{{e}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -18,6 +18,8 @@
 			Il n'y a aucune définition pour ce terme
 		</p>
 	</article>
+	
+	<div class="border-top my-3"></div>
 	
 	<section id="relations">
 		<div *ngFor="let e of search_service.getData().relation_types">

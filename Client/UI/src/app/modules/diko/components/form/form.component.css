@@ -27,8 +27,12 @@
 	right: 0;
 }
 
-.icon-advanced {
+.icon-advanced-add {
 	mask-image: url(img/add.svg);
+}
+
+.icon-advanced-remove {
+	mask-image: url(img/remove.svg);
 }
 
 input[type="text"] {

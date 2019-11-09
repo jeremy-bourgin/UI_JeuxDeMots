@@ -10,9 +10,27 @@ import { SearchService } from '../../services/search.service';
 
 export class ResultComponent implements OnInit {
 
-  constructor(private search_service : SearchService) { }
+	private def_text_button: string;
 
-  ngOnInit() {
-  }
+	constructor(private search_service : SearchService) { }
 
+	ngOnInit()
+	{
+		this.changeDefButton();
+	}
+
+	public changeDefButton(): void
+	{
+		var show_def = "Afficher les définitions";
+		var hide_def = "Cacher les définitions";
+		
+		if (this.def_text_button === show_def)
+		{
+			this.def_text_button = hide_def;
+		}
+		else
+		{
+			this.def_text_button = show_def;
+		}
+	}
 }
