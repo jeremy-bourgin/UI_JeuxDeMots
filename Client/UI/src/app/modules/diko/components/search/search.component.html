@@ -1,7 +1,13 @@
 <section id="search">
-	<div class="row search-logo">
+	<div class="row search-logo d-none d-xl-block">
 		<div class="col-xl-3">
 			<app-logo></app-logo>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="col-xl-3 d-block d-xl-none input-group-prepend">
+			<input type="button" (click)="toggleAdvanced()" class="btn btn-light icon-previous">
+			<a href="/" class="btn btn-primary previous-button">Retour</a>
 		</div>
 	</div>
 

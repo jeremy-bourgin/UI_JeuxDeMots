@@ -5,3 +5,20 @@ section#search {
 .search-logo {
 	margin-bottom: 40px;
 }
+
+.previous-button {
+	padding-left: 40px;
+	padding-right: 10px;
+}
+
+.icon-previous {
+	mask-image: url(img/back.svg);
+	mask-repeat: no-repeat;
+	mask-size: 30px;
+	mask-position: center;
+	position: absolute;
+	height: 100%;
+	width: 45px;
+	left: 10px;
+	z-index: 9;
+}
