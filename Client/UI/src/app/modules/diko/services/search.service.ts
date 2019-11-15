@@ -10,7 +10,7 @@ export class SearchService
 	private params : any;
 	private data : any;
 
-	constructor(request_service : RequestHandlerService)
+	constructor(private request_service : RequestHandlerService)
 	{
 		var self : SearchService = this;
 
