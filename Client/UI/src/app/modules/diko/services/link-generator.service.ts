@@ -16,8 +16,11 @@ export class LinkGeneratorService
 	{
 		var r = "";
 		var params = search_service.getParams();
-		
+
+		var separator
 
 		return r;
 	}
+
+	
 }
