@@ -48,7 +48,7 @@
 						</tbody>
 					</table>
 
-					<ngb-pagination (page)="1" pageSize="10" [maxSize]="5" [rotate]="true" [collectionSize]="e.count" [ellipses]="true" (pageChange)="loadPage($event, e)" class="justify-content-end"></ngb-pagination>
+					<ngb-pagination *ngIf="e.nb_pages !== 1" (page)="1" pageSize="10" [maxSize]="5" [rotate]="true" [collectionSize]="e.count" [ellipses]="true" (pageChange)="loadPage($event, e)" class="justify-content-end"></ngb-pagination>
 				</div>				
 			</article>
 		</div>
