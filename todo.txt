@@ -1,0 +1,3 @@
+- chargement page
+- raffinement sémantique
+- graph d'exploration

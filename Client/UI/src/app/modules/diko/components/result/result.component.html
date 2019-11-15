@@ -43,7 +43,7 @@
 					<table class="table table-striped table-bordered table-hover ">
 						<tbody>
 							<tr *ngFor="let n of e.associated_relations">
-								<td scope="row" class="text-justify text-break"><a href="{{ search_service.generateLink({term: n.node.name, submit: 'Rechercher'}) }}" class="block-link">{{n.node.name}}</a></td>
+								<td scope="row" class="text-justify text-break p-0"><a href="{{ search_service.generateLink({term: n.node.name, submit: 'Rechercher'}) }}" class="block-link">{{n.node.name}}</a></td>
 							</tr>
 						</tbody>
 					</table>
