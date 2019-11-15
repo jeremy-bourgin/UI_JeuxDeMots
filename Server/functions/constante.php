@@ -112,3 +112,7 @@ define("PARAMETER_NOT_OUT", "not_out");
 define("PARAMETER_NOT_IN", "not_in");
 // search paramètre : limiter le nombre d'occurence
 define("PARAMETER_NB_TERMS", "nb_terms");
+// search paramètre : page
+define("PARAMETER_PAGE", "p");
+// search paramètre : type de relation paginé
+define("PARAMETER_PAGE_NAME", "pname");

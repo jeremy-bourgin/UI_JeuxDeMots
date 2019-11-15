@@ -44,4 +44,25 @@ class Word
 	{
 		return binary_search($word->relation_types, $id);
 	}
+
+	public static function findRelationTypeByName(stdClass $word, string $name): ?stdClass
+	{
+		$i = 0;
+		$count = count($word->relation_types);
+		$r = null;
+
+		while ($i < $count && $r === null)
+		{
+			$e = $word->relation_types[$i];
+
+			if ($e->name === $name)
+			{
+				$r = $e;
+			}
+
+			++$i;
+		}
+
+		return $e;
+	}
 }
