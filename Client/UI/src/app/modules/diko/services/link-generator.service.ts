@@ -15,12 +15,12 @@ export class LinkGeneratorService
 	public generateLink(): string
 	{
 		var r = "";
-		var params = search_service.getParams();
+		var params = this.search_service.getParams();
 
 		var separator
 
 		return r;
 	}
 
-	
+
 }
