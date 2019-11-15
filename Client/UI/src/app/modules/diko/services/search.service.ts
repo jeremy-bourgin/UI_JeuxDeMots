@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { RequestHandlerService } from './request-handler.service';
 import { LinkGeneratorService } from './link-generator.service';
 
@@ -11,7 +13,7 @@ export class SearchService
 	private params : any;
 	private data : any;
 
-	constructor(private request_service : RequestHandlerService, private link_generator: LinkGeneratorService)
+	constructor(private request_service: RequestHandlerService, private activated_route: ActivatedRoute, private link_generator: LinkGeneratorService)
 	{
 		var self : SearchService = this;
 
@@ -23,32 +25,22 @@ export class SearchService
 		this.data = null;
 		this.params = {};
 
-		var url_params = new URLSearchParams(window.location.search);
-
-		var params_name = [
-			"term",
-			"node",
-			"not_out",
-			"not_in",
-			"nb_terms",
-			"p"
-		];
-
-		var is_requested = url_params.has("submit");
+		var temp = this.activated_route.snapshot.queryParams;
 		var e;
-		var temp;
 
-		for (var i in params_name)
+		for (var p in temp)
 		{
-			e = params_name[i];
+			e = temp[p];
 
-			if (url_params.has(e) && url_params.get(e) != "")
+			if (e === "")
 			{
-				this.params[e] = url_params.get(e);
+				continue;
 			}
+
+			this.params[p] = e;
 		}
 
-		if (is_requested)
+		if ("submit" in this.params)
 		{
 			request_service.request(RequestHandlerService.services.search_word, this.params, callback);
 		}
