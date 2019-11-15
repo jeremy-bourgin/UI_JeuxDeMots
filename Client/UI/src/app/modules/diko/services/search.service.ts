@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestHandlerService } from './request-handler.service';
+import { LinkGeneratorService } from './link-generator.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class SearchService
 	private params : any;
 	private data : any;
 
-	constructor(private request_service : RequestHandlerService)
+	constructor(private request_service : RequestHandlerService, private link_generator: LinkGeneratorService)
 	{
 		var self : SearchService = this;
 
@@ -52,6 +53,11 @@ export class SearchService
 			request_service.request(RequestHandlerService.services.search_word, this.params, callback);
 		}
 
+	}
+
+	public generateLink(params: any): string
+	{
+		return this.link_generator.generateLink("/search", params);
 	}
 
 	public getParams(): any

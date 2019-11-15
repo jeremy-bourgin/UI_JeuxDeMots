@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { LinkGeneratorService } from './link-generator.service';
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class RequestHandlerService
 {
-	public static readonly url: string = "http://lafourcade/Server/";
+	public static readonly url: string = "http://localhost:8000/";
 
 	public static readonly services: any = {
 		search_word: "search_word.php"
 	};
 
-	constructor(private http: HttpClient)
+	constructor(private http: HttpClient, private link_generator: LinkGeneratorService)
 	{
 
 	}
@@ -54,16 +56,8 @@ export class RequestHandlerService
 		/* end : header */
 
 		/* begin : service url */
-		var action : string = RequestHandlerService.url + service_name;
-
-		// url parameters
-		var sign : string = "?";
-
-		for (var p in params)
-		{
-			action += sign + p + "=" + params[p];
-			sign = "&";
-		}
+		var url : string = RequestHandlerService.url + service_name;
+		var action : string = this.link_generator.generateLink(url, params);
 		/* end : service url */
 
 		var result: any = {

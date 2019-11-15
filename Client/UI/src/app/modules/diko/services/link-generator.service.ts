@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SearchService } from './search.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -7,17 +6,21 @@ import { SearchService } from './search.service';
 export class LinkGeneratorService
 {
 
-	constructor(private search_service : SearchService)
+	constructor()
 	{
 
 	}
 
-	public generateLink(): string
+	public generateLink(url: string, params: any): string
 	{
-		var r = "";
-		var params = this.search_service.getParams();
+		var r :string = url;
+		var sign : string = "?";
 
-		var separator
+		for (var p in params)
+		{
+			r += sign + p + "=" + params[p];
+			sign = "&";
+		}
 
 		return r;
 	}
