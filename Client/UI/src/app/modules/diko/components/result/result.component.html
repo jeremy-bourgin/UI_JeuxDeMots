@@ -2,14 +2,14 @@
 	<article>
 		<div *ngIf="search_service.getData().definition.length !== 0">
 			<div class="row">
-					<div class="form-group col-md-2">
-						<button class="btn btn-primary col-md-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
+					<div class="form-group col-lg-2">
+						<button class="btn btn-primary col-lg-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
 							Définitions
 						</button>
 					</div>
 					
-					<div class="form-group col-md-2">
-						<button class="btn btn-secondary col-md-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
+					<div class="form-group col-lg-2">
+						<button class="btn btn-secondary col-lg-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
 							Raffinements sémantiques
 						</button>
 					</div>
@@ -33,14 +33,23 @@
 	<div class="border-top mb-3"></div>
 	
 	<section id="relations">
-		<div *ngFor="let e of search_service.getData().relation_types">
-			<article id="{{e.name}}">
+		<div *ngFor="let e of search_service.getData().relation_types" class="article-margin">
+			<article id="{{e.name}}" >
 				<header>
-					<h2 title="{{e.help}}">{{e.gpname}}</h2>
+					<h1 title="{{e.help}}">{{e.gpname}}</h1>
 				</header>
-				<ul>
-					<li *ngFor="let n of e.associated_relations"><a href="search?term={{n.node.name}}&node=&nb_terms=&p=0&submit=Rechercher">{{n.node.name}}</a></li>
-				</ul>
+				
+				<div class="col-lg-8 ml-lg-5">
+					<table class="table table-striped table-bordered table-hover ">
+						<tbody>
+							<tr *ngFor="let n of e.associated_relations">
+								<td scope="row" class="text-justify text-break"><a href="{{ search_service.generateLink({term: n.node.name, submit: 'Rechercher'}) }}" class="block-link">{{n.node.name}}</a></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<ngb-pagination (page)="1" pageSize="10" [maxSize]="5" [rotate]="true" [collectionSize]="e.count" [ellipses]="true" class="justify-content-end"></ngb-pagination>
+				</div>				
 			</article>
 		</div>
 	</section>

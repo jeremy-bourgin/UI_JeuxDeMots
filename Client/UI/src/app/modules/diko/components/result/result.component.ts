@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { SearchService } from '../../services/search.service';
 
 @Component({
@@ -10,10 +9,12 @@ import { SearchService } from '../../services/search.service';
 
 export class ResultComponent implements OnInit {
 
-	constructor(private search_service : SearchService) { }
+
+	constructor(private search_service : SearchService) {
+		
+	}
 
 	ngOnInit()
 	{
 	}
-
 }
