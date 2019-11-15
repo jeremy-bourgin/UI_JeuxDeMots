@@ -42,9 +42,14 @@ export class SearchService
 
 		if ("submit" in this.params)
 		{
-			request_service.request(RequestHandlerService.services.search_word, this.params, callback);
+			this.request(this.params, callback);
 		}
 
+	}
+	
+	public request(params: any, callback: Function): void
+	{
+		this.request_service.request(RequestHandlerService.services.search_word, params, callback);
 	}
 
 	public generateLink(params: any): string
