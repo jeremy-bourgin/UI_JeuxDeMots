@@ -1,4 +1,4 @@
-- chargement page
+- chargement page + gestion erreur
 - raffinement sémantique
 - graph d'exploration
 - nettoyer résultat
