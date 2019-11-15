@@ -104,11 +104,11 @@ define("LIMIT_NB_WORD", 10);
 
 // search paramètre : terme
 define("PARAMETER_TERM", "term");
-// search paramètre : page
-define("PARAMETER_PAGE", "p");
 //search paramètre : node
 define("PARAMETER_NODE", "node");
 // search paramètre : masquer les relations sortantes
 define("PARAMETER_NOT_OUT", "not_out");
 // search paramètre : masquer les relations entrantes
 define("PARAMETER_NOT_IN", "not_in");
+// search paramètre : limiter le nombre d'occurence
+define("PARAMETER_NB_TERMS", "nb_terms");

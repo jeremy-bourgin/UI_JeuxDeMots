@@ -13,6 +13,14 @@ class Word
 		return $obj;
 	}
 	
+	public static function calcNbPages(stdClass $word, int $limit): void
+	{
+		foreach ($word->relation_types as &$rt)
+		{
+			RelationType::calcNbPages($rt, $limit);
+		}
+	}
+
 	public static function filterRelations(stdClass $word, array $filters): void
 	{
 		$temp = array();

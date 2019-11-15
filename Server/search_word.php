@@ -1,7 +1,7 @@
 <?php
 function load()
 {
-	if (!isset($_GET[PARAMETER_TERM]) || !isset($_GET[PARAMETER_PAGE]))
+	if (!isset($_GET[PARAMETER_TERM]))
 	{
 		throw new ServerException("Requête invalide");
 	}
@@ -25,10 +25,24 @@ function load()
 	{
 		$filters[] = new FilterNode($_GET[PARAMETER_NODE]);
 	}
+
+	$nb_terms = (isset($_GET[PARAMETER_NB_TERMS]) && is_numeric($_GET[PARAMETER_NB_TERMS]))
+		? $_GET[PARAMETER_NB_TERMS]
+		: LIMIT_NB_WORD;
 	
-	$filters[] = new FilterLimit($_GET[PARAMETER_PAGE], LIMIT_NB_WORD);
+	foreach ($data->relation_types as &$rt)
+	{
+		$relation_name = $rt->name;
+
+		$page = (isset($_GET[$relation_name]) && is_numeric($_GET[$relation_name]))
+			? $_GET[$relation_name]
+			: 0;
+
+		$filters[] = new FilterLimit($relation_name, $page, $nb_terms);
+	}
 	
 	Word::filterRelations($data, $filters);
+	Word::calcNbPages($data, $nb_terms);
 	
 	$bench_filter->end();
 	

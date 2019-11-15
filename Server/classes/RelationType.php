@@ -26,11 +26,18 @@ class RelationType
 		$obj->name					= $name; 
 		$obj->gpname				= $gpname;
 		$obj->help					= $help;
+		$obj->count 				= 0;
 		$obj->associated_relations	= array();
 
 		return $obj;
 	}
 	
+	public static function calcNbPages(stdClass $relation_type, int $limit): void
+	{
+		$calc = ceil($relation_type->count / $limit);
+		$relation_type->nb_pages = $calc;
+	}
+
 	public static function filterRelations(stdClass $relation_type, array $filters): void
 	{
 		$temp = array();
@@ -46,7 +53,7 @@ class RelationType
 			
 			while ($j < $count_flters && $kept)
 			{
-				$kept = $filters[$j]->filter($i, $count_relations, $deleted_relations, $r);
+				$kept = $filters[$j]->filter($i, $count_relations, $deleted_relations, $relation_type, $r);
 				
 				++$j;
 			}
