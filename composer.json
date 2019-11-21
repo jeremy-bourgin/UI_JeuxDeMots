@@ -1,0 +1,14 @@
+{
+    "name": "g-eremy/ui_jeux-de-mots",
+    "authors": [
+        {
+            "name": "jbourgin",
+            "email": "jeremy.bourgin@etu.umontpellier.fr"
+        },
+        {
+            "name": "aherri",
+            "email": "abdallah.herri@etu.umontpellier.fr"
+        }
+    ],
+    "require": {}
+}
