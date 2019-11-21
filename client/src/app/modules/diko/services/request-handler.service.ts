@@ -10,7 +10,7 @@ import { LinkGeneratorService } from './link-generator.service';
 
 export class RequestHandlerService
 {
-	public static readonly url: string = "http://localhost:8000/";
+	public static readonly url: string = "http://lafourcade/api/";
 
 	public static readonly services: any = {
 		search_word: "search_word.php"

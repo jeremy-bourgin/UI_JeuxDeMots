@@ -24,16 +24,16 @@
 }
 
 .icon-submit {
-	mask-image: url(img/search.svg);
+	mask-image: url(img/svg_search.svg);
 	right: 0;
 }
 
 .icon-advanced-add {
-	mask-image: url(img/add.svg);
+	mask-image: url(img/svg_add.svg);
 }
 
 .icon-advanced-remove {
-	mask-image: url(img/remove.svg);
+	mask-image: url(img/svg_remove.svg);
 }
 
 input[type="text"] {

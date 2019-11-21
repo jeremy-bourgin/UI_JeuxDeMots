@@ -10,23 +10,23 @@ import { SearchService } from '../../services/search.service';
 
 export class FormComponent implements OnInit {
 
-	private term : string;
+	public term : string;
 
-	private node : string;
+	public node : string;
 
-	private not_out : string;
+	public not_out : string;
 
-	private not_in : string;
+	public not_in : string;
 
-	private nb_terms : string;
+	public nb_terms : string;
 
-	private page : string;
+	public page : string;
 
-	private default_is_advanced: boolean;
+	public default_is_advanced: boolean;
 
 	@Input('is_advanced') is_advanced: boolean;
 
-	constructor(private search_service : SearchService) { }
+	constructor(public search_service : SearchService) { }
 
 	ngOnInit()
 	{

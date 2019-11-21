@@ -10,7 +10,7 @@ import { SearchService } from '../../services/search.service';
 export class ResultComponent implements OnInit {
 
 
-	constructor(private search_service : SearchService) {
+	constructor(public search_service : SearchService) {
 		
 	}
 

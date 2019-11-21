@@ -12,7 +12,7 @@ section#search {
 }
 
 .icon-previous {
-	mask-image: url(img/back.svg);
+	mask-image: url(img/svg_back.svg);
 	mask-repeat: no-repeat;
 	mask-size: 30px;
 	mask-position: center;
