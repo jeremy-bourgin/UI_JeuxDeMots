@@ -1,0 +1,41 @@
+#advanced-block {
+	height: auto;
+	overflow: hidden;
+	transition: max-height 0.2s ease-in-out;
+}
+
+.show-advanced {
+	max-height: 200px;
+}
+
+.hide-advanced {
+	max-height: 0;
+}
+
+.icon-input {
+	mask-repeat: no-repeat;
+	mask-size: 30px;
+	mask-position: center;
+	position: absolute;
+	height: 100%;
+	width: 45px;
+	font-size: 0;
+	z-index: 9;
+}
+
+.icon-submit {
+	mask-image: url(img/search.svg);
+	right: 0;
+}
+
+.icon-advanced-add {
+	mask-image: url(img/add.svg);
+}
+
+.icon-advanced-remove {
+	mask-image: url(img/remove.svg);
+}
+
+input[type="text"] {
+	border-radius: 0.25rem !important;
+}

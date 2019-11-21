@@ -1,0 +1,19 @@
+{
+	"name": "ui_jeuxdemots",
+	"version": "1.0.0",
+	"description": "Serveur API jeuxdemots :\r - http://www.jeuxdemots.org/rezo-dump.php",
+	"main": "index.js",
+	"scripts": {
+		"postinstall": "cd client && npm install"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/g-eremy/UI_JeuxDeMots.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/g-eremy/UI_JeuxDeMots/issues"
+	},
+	"homepage": "https://ui-jeuxdemots.herokuapp.com/"
+}
