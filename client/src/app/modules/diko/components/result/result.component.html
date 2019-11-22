@@ -33,7 +33,7 @@
 	<div class="border-top mb-3"></div>
 	
 	<section id="relations">
-		<div *ngFor="let e of search_service.getData().relation_types" class="article-margin">
+		<div *ngFor="let e of search_service.getData().relation_types" class="mb-5">
 			<article id="{{e.name}}" >
 				<header>
 					<h1 title="{{e.help}}">{{e.gpname}}</h1>
@@ -48,7 +48,7 @@
 						</tbody>
 					</table>
 
-					<ngb-pagination *ngIf="e.nb_pages !== 1" (page)="1" pageSize="10" [maxSize]="5" [rotate]="true" [collectionSize]="e.count" [ellipses]="true" (pageChange)="loadPage($event, e)" class="justify-content-end"></ngb-pagination>
+					<ngb-pagination *ngIf="e.nb_pages !== 1" (page)="1" pageSize="10" [maxSize]="3" [rotate]="true" [collectionSize]="e.count" [ellipses]="true" (pageChange)="loadPage($event, e)" class="justify-content-end"></ngb-pagination>
 				</div>				
 			</article>
 		</div>

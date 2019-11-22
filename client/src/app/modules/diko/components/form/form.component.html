@@ -2,8 +2,8 @@
 	<form ngNoForm method="get" action="/search">
 	    <div class="form-group input-group">
 			<input type="text" name="term" [(ngModel)]="term" placeholder="Terme" class="form-control" required>
-			<div class="input-group-prepend" *ngIf="!default_is_advanced">
-				<input type="submit" name="submit" value="Rechercher" class="btn btn-primary icon-input icon-submit">
+			<div class="input-group-prepend pr-5" *ngIf="!default_is_advanced">
+				<input type="submit" name="submit" value="Rechercher" class="btn btn-primary icon-input icon-submit mr-5">
 				<input type="button" (click)="toggleAdvanced()" [ngClass]="{
 					'btn': true,
 					'btn-secondary': true,
