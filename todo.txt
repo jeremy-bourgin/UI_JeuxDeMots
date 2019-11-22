@@ -2,3 +2,4 @@
 - raffinement sémantique
 - graph d'exploration
 - nettoyer résultat
+- type de relation collapsable
