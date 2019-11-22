@@ -8,7 +8,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
 	
-	"postinstall": "ng build --prod --base-href /app/"
+	"postinstall": "ng build --aot --prod --base-href /app/"
   },
   "private": true,
   "dependencies": {
