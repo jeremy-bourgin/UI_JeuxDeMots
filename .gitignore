@@ -1,6 +1,8 @@
+!.gitkeep
+
 .vscode
 **/cache/*
 .scannerwork
 
 /vendor/
-/public/app
+/public/
