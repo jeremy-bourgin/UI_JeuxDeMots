@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+	production: true,
+	apiUrl: 'https://ui-jeuxdemots.herokuapp.com/api/'
 };

@@ -1,4 +1,3 @@
-- chargement page + gestion erreur
 - type de relation collapsable
 - raffinement sémantique
 - graph d'exploration

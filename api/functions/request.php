@@ -7,7 +7,8 @@ function make_request_url(string $url, array $params): string
 
     foreach ($params as $p => &$e)
     {
-        $url .= $delim . $p . "=" . urlencode($e);
+		$value_encoded = urlencode(iconv("UTF-8", "ISO-8859-1", $e));
+        $url .= $delim . $p . "=" . $value_encoded;
         $delim = "&";
     }
 

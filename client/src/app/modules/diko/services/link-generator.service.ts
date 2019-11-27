@@ -18,7 +18,7 @@ export class LinkGeneratorService
 
 		for (var p in params)
 		{
-			r += sign + p + "=" + params[p];
+			r += sign + p + "=" + encodeURIComponent(params[p]);
 			sign = "&";
 		}
 

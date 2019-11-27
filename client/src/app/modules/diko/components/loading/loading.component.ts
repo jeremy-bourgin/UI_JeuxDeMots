@@ -21,11 +21,8 @@ export class LoadingComponent implements OnInit
 	{
 		var self: LoadingComponent = this;
 
-		console.log("ngOnInit : ok1");
-
 		function loading()
 		{
-			console.log("ok laoding");
 			self.is_loading = true;
 		}
 

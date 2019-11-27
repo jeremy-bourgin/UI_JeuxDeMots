@@ -6,13 +6,15 @@ import { LinkGeneratorService } from './link-generator.service';
 import { LoadingService } from './loading.service';
 import { MessageService } from './message.service';
 
+import { environment } from './../../../../environments/environment';
+
 @Injectable({
 	providedIn: 'root'
 })
 
 export class RequestHandlerService
 {
-	public static readonly url: string = "http://localhost:8000/";
+	public static readonly url: string = environment.apiUrl;
 
 	public static readonly services: any = {
 		search_word: "search_word.php"
