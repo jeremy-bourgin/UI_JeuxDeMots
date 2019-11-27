@@ -7,7 +7,6 @@ class Word
 	{
 		$obj					= Node::instantiate($id, $name, $type_id, $weight, $formated_name);
 		$obj->definition		= $definition;
-		$obj->node_types 		= array();
 		$obj->relation_types	= array();
 
 		return $obj;

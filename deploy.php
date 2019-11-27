@@ -31,7 +31,7 @@ function xcopy($src, $dst)
 		$src_file = $src . '/' . $file;
 		$dest_file = $dst . '/' . $file;
 		
-		if (is_dir($src . '/' . $file))
+		if (is_dir($src_file))
 		{
 			// Recursively calling custom copy function
 			// for sub directory

@@ -98,7 +98,38 @@ function parse_columns(string &$line): array
 	return explode(DATA_COLUMN_DELIMITER, $line);
 }
 
-function parse_node(array &$node): array
+function parse_node_type(array &$types): array
+{
+	$result = array();
+
+	foreach ($types as &$e)
+	{
+		if (empty($e))
+		{
+			continue;
+		}
+
+		
+		$columns = explode(DATA_COLUMN_DELIMITER, $e);
+		
+		$numeric_columns = array(
+			DATA_NODETYPE_ID_POS
+		);
+		
+		if (
+			!check_numerics_data($columns, $numeric_columns)
+			|| NodeType::isBlacklisted($columns[DATA_NODETYPE_ID_POS])
+		) {
+			continue;
+		}
+		
+		$result[] = $columns[DATA_NODETYPE_ID_POS];
+	}
+
+	return $result;
+}
+
+function parse_node(array &$node, array &$node_types): array
 {
 	$r = array();
 	
@@ -119,7 +150,7 @@ function parse_node(array &$node): array
 		
 		if (
 			!check_numerics_data($columns, $numeric_columns)
-			|| NodeType::isBlacklisted($columns[DATA_NODE_TYPE_POS])
+			|| !in_array($columns[DATA_NODE_TYPE_POS], $node_types, true)
 		) {
 			continue;
 		}
@@ -212,35 +243,6 @@ function instantiate_word(array &$data, array &$nodes): stdClass
 	);
 }
 
-function instantiate_node_type(array &$types, stdCLass $word): void
-{
-	foreach ($types as &$e)
-	{
-		if (empty($e))
-		{
-			continue;
-		}
-
-		$columns = explode(DATA_COLUMN_DELIMITER, $e);
-		
-		$numeric_columns = array(
-			DATA_NODETYPE_ID_POS
-		);
-		
-		if (
-			!check_numerics_data($columns, $numeric_columns)
-			|| NodeType::isBlacklisted($columns[DATA_NODETYPE_ID_POS])
-		) {
-			continue;
-		}
-		
-		delete_quotes($columns[DATA_NODETYPE_NAME_POS]);
-
-		$o = NodeType::instantiate($columns[DATA_NODETYPE_ID_POS], $columns[DATA_NODETYPE_NAME_POS]);
-		$word->node_types[] = $o;
-	}
-}
-
 function instantiate_rel_type(array &$types, stdClass $word): void
 {
 	foreach ($types as &$e)
@@ -326,14 +328,15 @@ function instantiate_relations(array &$nodes, array &$rels, $word): void
 
 function data_to_obj(array &$data): stdClass
 {
-	$nodes = parse_node($data[DATA_NODE_POS]);
-		
+	$node_types = parse_node_type($data[DATA_NODETYPE_POS]);
+	$nodes = parse_node($data[DATA_NODE_POS], $node_types);
+	
 	$rels_out = parse_rel($data[DATA_RELOUT_POS], DATA_RELOUT);
 	$rels_in = parse_rel($data[DATA_RELIN_POS], DATA_RELIN);
 	$rels = array_merge($rels_out, $rels_in);
 
 	$result = instantiate_word($data, $nodes);
-	instantiate_node_type($data[DATA_NODETYPE_POS], $result);
+	
 	instantiate_rel_type($data[DATA_RELTYPE_POS], $result);
 	instantiate_relations($nodes, $rels, $result);
 

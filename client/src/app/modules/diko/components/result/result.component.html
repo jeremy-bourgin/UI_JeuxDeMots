@@ -7,14 +7,14 @@
 							Définitions
 						</button>
 					</div>
-					
+
 					<div class="form-group col-lg-2">
 						<button class="btn btn-secondary col-lg-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
 							Raffinements sémantiques
 						</button>
 					</div>
 			</div>
-			
+
 			<div id="definitions" class="collapse mt-3 mb-4">
 				<table class="table table-striped table-bordered">
 					<tbody>
@@ -29,16 +29,16 @@
 			Il n'y a aucune définition pour ce terme
 		</p>
 	</article>
-	
+
 	<div class="border-top mb-3"></div>
-	
+
 	<section id="relations">
 		<div *ngFor="let e of search_service.getData().relation_types" class="mb-5">
 			<article id="{{e.name}}" >
 				<header>
 					<h1 title="{{e.help}}">{{e.gpname}}</h1>
 				</header>
-				
+
 				<div class="col-lg-8 ml-lg-5">
 					<table class="table table-striped table-bordered table-hover ">
 						<tbody>
@@ -49,12 +49,8 @@
 					</table>
 
 					<ngb-pagination *ngIf="e.nb_pages !== 1" (page)="1" pageSize="10" [maxSize]="3" [rotate]="true" [collectionSize]="e.count" [ellipses]="true" (pageChange)="loadPage($event, e)" class="justify-content-end"></ngb-pagination>
-				</div>				
+				</div>
 			</article>
 		</div>
 	</section>
 </section>
-
-<div *ngIf="search_service.getData() === null">
-	<app-loading></app-loading>
-</div>

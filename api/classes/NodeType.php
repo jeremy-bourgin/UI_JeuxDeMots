@@ -6,6 +6,7 @@ class NodeType
 	private static $blacklist = array(
 		6,
 		8,
+		36,
 		200
 	);
 

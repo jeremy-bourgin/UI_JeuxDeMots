@@ -5,8 +5,9 @@ import { RequestHandlerService } from './request-handler.service';
 import { LinkGeneratorService } from './link-generator.service';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
+
 export class SearchService
 {
 
@@ -15,13 +16,6 @@ export class SearchService
 
 	constructor(private request_service: RequestHandlerService, private activated_route: ActivatedRoute, private link_generator: LinkGeneratorService)
 	{
-		var self : SearchService = this;
-
-		function callback(data : any)
-		{
-			self.data = data;
-		}
-
 		this.data = null;
 		this.params = {};
 
@@ -39,14 +33,23 @@ export class SearchService
 
 			this.params[p] = e;
 		}
+	}
+
+	public run()
+	{
+		var self : SearchService = this;
+
+		function callback(data : any)
+		{
+			self.data = data;
+		}
 
 		if ("submit" in this.params)
 		{
 			this.request(this.params, callback);
 		}
-
 	}
-	
+
 	public request(params: any, callback: Function): void
 	{
 		this.request_service.request(RequestHandlerService.services.search_word, params, callback);

@@ -3,21 +3,27 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { LinkGeneratorService } from './link-generator.service';
+import { LoadingService } from './loading.service';
+import { MessageService } from './message.service';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 
 export class RequestHandlerService
 {
-	public static readonly url: string = "https://ui-jeuxdemots.herokuapp.com/api/";
+	public static readonly url: string = "http://localhost:8000/";
 
 	public static readonly services: any = {
 		search_word: "search_word.php"
 	};
 
-	constructor(private http: HttpClient, private link_generator: LinkGeneratorService)
-	{
+	constructor(
+		private http: HttpClient,
+		private link_generator_service: LinkGeneratorService,
+		private loading_service: LoadingService,
+		private message_service: MessageService
+	) {
 
 	}
 
@@ -28,13 +34,11 @@ export class RequestHandlerService
 		var service : Observable<any> = this.http.get(o.action, {headers: o.headers});
 
 		function action_callback(data: any): void {
-			if (data.error) {
-				alert(data.message);
-				return;
-			}
+			self.loading_service.stopLoading();
 
-			if (!data.error && data.message) {
-				alert(data.message);
+			if (data.error) {
+				self.message_service.sendMessage("error", data.message);
+				return;
 			}
 
 			if (callback) {
@@ -43,7 +47,7 @@ export class RequestHandlerService
 		}
 
 		service.subscribe(action_callback);
-
+		this.loading_service.loading();
 	}
 
 	private makeInformations(service_name : string, params: any): any {
@@ -57,7 +61,7 @@ export class RequestHandlerService
 
 		/* begin : service url */
 		var url : string = RequestHandlerService.url + service_name;
-		var action : string = this.link_generator.generateLink(url, params);
+		var action : string = this.link_generator_service.generateLink(url, params);
 		/* end : service url */
 
 		var result: any = {
