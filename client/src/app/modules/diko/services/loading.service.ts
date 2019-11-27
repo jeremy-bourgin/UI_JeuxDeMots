@@ -19,14 +19,10 @@ export class LoadingService
 			stop_loader: stop_loader
 		};
 
-		console.log(this.listener);
 	}
 
 	public loading(): void
 	{
-		console.log(LoadingService.count);
-		console.log(this.listener);
-
 		if (this.listener == null)
 		{
 			return;
