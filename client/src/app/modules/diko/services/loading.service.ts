@@ -22,7 +22,7 @@ export class LoadingService
 	}
 
 	public loading(): void
-	{
+	{		
 		if (this.listener == null)
 		{
 			return;

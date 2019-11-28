@@ -13,11 +13,6 @@ import { IndexComponent } from './components/index/index.component';
 import { SearchComponent } from './components/search/search.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { LoadingComponent } from './components/loading/loading.component';
-
-import { RequestHandlerService } from './services/request-handler.service';
-import { SearchService } from './services/search.service';
-import { LoadingService } from './services/loading.service';
-import { MessageService } from './services/message.service';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
 @NgModule({
@@ -39,13 +34,11 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 		NgbPaginationModule
 	],
 	exports: [
-		LoadingComponent
+		LoadingComponent,
+		ErrorMessageComponent
 	],
 	providers: [
-		RequestHandlerService,
-		SearchService,
-		LoadingService,
-		MessageService
+
 	]
 })
 
