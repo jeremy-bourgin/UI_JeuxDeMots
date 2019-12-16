@@ -1,3 +1,5 @@
+import * as $ from 'jquery';
+
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 
@@ -36,5 +38,21 @@ export class ResultComponent implements OnInit
 
 		this.search_service.request(params, callback);
 
+	}
+
+	public arrowCollapse(event: any)
+	{
+		var e = $(event.target);
+
+		if (e.hasClass("collapsed-arrow"))
+		{
+			e.removeClass("collapsed-arrow");
+			e.addClass("expended-arrow");
+		}
+		else
+		{
+			e.addClass("collapsed-arrow");
+			e.removeClass("expended-arrow");
+		}
 	}
 }

@@ -24,17 +24,17 @@
     text-decoration: none;
 }
 
+#relations h1 a::after {
+	content: url(img/svg_arrow.svg);
+	position: absolute;
+	right: 1rem;
+	transition: transform 0.2s ease-in-out;
+}
+
 #relations h1 a.collapsed-arrow::after {
-    content: url(img/svg_arrow.svg);
-    position: absolute;
-    margin-top: 2px;
     transform: rotate(180deg);
-    right: 1rem;
 }
 
 #relations h1 a.expended-arrow::after {
-    content: url(img/svg_arrow.svg);
-    position: absolute;
-    transform: translateY(-2px);
-    right: 1rem;
+
 }
