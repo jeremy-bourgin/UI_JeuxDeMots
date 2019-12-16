@@ -14,17 +14,17 @@ export class FormComponent implements OnInit {
 
 	public node : string;
 
-	public not_out : string;
+	public not_out : boolean;
 
-	public not_in : string;
+	public not_in : boolean;
 
 	public nb_terms : string;
 
-	public page : string;
+	public page : number;
 
-	public default_is_advanced: boolean;
+	public is_advanced: boolean;
 
-	@Input('is_advanced') is_advanced: boolean;
+	@Input('is_min') is_min: boolean;
 
 	constructor(public search_service : SearchService) { }
 
@@ -32,39 +32,45 @@ export class FormComponent implements OnInit {
 	{
 		let params = this.search_service.getParams();
 
-		if (params.term)
+		if (params.submit)
 		{
-			this.term = params.term;
+			if (params.term)
+			{
+				this.term = params.term;
+			}
+	
+			if (params.node)
+			{
+				this.node = params.node;
+			}
+	
+			if (params.not_out)
+			{
+				this.not_out = params.not_out;
+			}
+	
+			if (params.not_in)
+			{
+				this.not_in = params.not_in;
+			}
+	
+			if (params.nb_terms)
+			{
+				this.nb_terms = params.nb_terms;
+			}	
 		}
-
-		if (params.node)
+		else
 		{
-			this.node = params.node;
-		}
-
-		if (params.not_out)
-		{
-			this.not_out = params.not_out;
-		}
-
-		if (params.not_in)
-		{
-			this.not_in = params.not_in;
-		}
-
-		if (params.nb_terms)
-		{
-			this.nb_terms = params.nb_terms;
+			this.not_in = true;
 		}
 
 		this.page = (params.p) ? params.p : "0";
-		this.default_is_advanced = this.is_advanced;
+		this.is_advanced = false;
 	}
 
 	public toggleAdvanced(): void
 	{
 		this.is_advanced = !this.is_advanced;
 	}
-
-
+	
 }

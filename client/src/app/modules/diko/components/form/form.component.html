@@ -2,9 +2,9 @@
 	<form ngNoForm method="get" action="/search">
 	    <div class="form-group input-group">
 			<input type="text" name="term" [(ngModel)]="term" placeholder="Terme" class="form-control" required>
-			<div class="input-group-prepend pr-5" *ngIf="!default_is_advanced">
+			<div class="input-group-prepend pr-5" *ngIf="is_min">
 				<input type="submit" name="submit" value="Rechercher" class="btn btn-primary icon-input icon-submit mr-5">
-				<input type="button" (click)="toggleAdvanced()" [ngClass]="{
+				<input type="button" data-toggle="collapse" href="#advanced-block" role="button" aria-expanded="false" (click)="toggleAdvanced()" [ngClass]="{
 					'btn': true,
 					'btn-secondary': true,
 					'icon-input': true,
@@ -14,10 +14,7 @@
 			</div>
 	    </div>
 
-		<div id="advanced-block" [ngClass]="{
-			'show-advanced': is_advanced,
-			'hide-advanced': !is_advanced
-		}">
+		<div id="advanced-block" class="collapse animated-collapse">
 		    <div class="form-group">
 				<input type="text" name="node" [(ngModel)]="node" placeholder="Terme associé" class="form-control">
 			</div>
@@ -39,16 +36,15 @@
 		    </div>
 		</div>
 
-	    <div class="row" *ngIf="default_is_advanced">
+	    <div class="row" *ngIf="!is_min">
 			<div class="col-md-2"></div>
 			<div class="col-md-4 form-group">
 	        	<input type="submit" name="submit" value="Rechercher" class="btn btn-primary col-md-12">
 			</div>
 			<div class="col-md-4 form-group">
-				<input type="button" value="Recherche avancée" (click)="toggleAdvanced()" class="btn btn-secondary col-md-12">
+				<input type="button" value="Recherche avancée" data-toggle="collapse" href="#advanced-block" role="button" aria-expanded="false"  (click)="toggleAdvanced()" class="btn btn-secondary col-md-12">
 			</div>
 	    </div>
 
 	</form>
-
 </section>

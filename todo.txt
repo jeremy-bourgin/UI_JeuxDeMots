@@ -1,3 +1,4 @@
 - type de relation collapsable
 - raffinement sémantique
+- tri alphabétique
 - graph d'exploration

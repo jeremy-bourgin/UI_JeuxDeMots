@@ -15,7 +15,7 @@
 					</div>
 			</div>
 
-			<div id="definitions" class="collapse mt-3 mb-4 animated-collapse" data-parent="#accordion-definition">
+			<div id="definitions" class="collapse animated-collapse mt-3 mb-4" data-parent="#accordion-definition">
 				<table class="table table-striped table-bordered">
 					<tbody>
 						<tr *ngFor="let e of search_service.getData().definition">
@@ -25,7 +25,7 @@
 				</table>
 			</div>
 
-			<div id="semantic-refinement" class="collapse mt-3 mb-4 animated-collapse" data-parent="#accordion-definition">
+			<div id="semantic-refinement" class="collapse animated-collapse mt-3 mb-4" data-parent="#accordion-definition">
 				<app-semantic-refinement></app-semantic-refinement>
 			</div>
 		</div>
@@ -39,10 +39,16 @@
 		<div *ngFor="let e of search_service.getData().relation_types" class="mb-5">
 			<article id="{{e.name}}" >
 				<header>
-					<h1 ngbTooltip="{{e.help}}" placement="top-left">{{e.gpname}}</h1>
+					<h1 class="col-lg-9 bg-light border border-secondary rounded h3" ngbTooltip="{{e.help}}" placement="top-left">
+						<a href="#relation_list_{{e.name}}" data-toggle="collapse" aria-expanded="false" [ngClass]="{
+							'collapsed-arrow': true,
+							'text-dark': true,
+							'p-3': true
+						}">{{e.gpname}}</a>
+					</h1>
 				</header>
 
-				<div class="col-lg-8 ml-lg-5">
+				<div class="collapse animated-collapse col-lg-9 p-0" id="relation_list_{{e.name}}" data-parent="#relations">
 					<table class="table table-striped table-bordered table-hover ">
 						<tbody>
 							<tr *ngFor="let n of e.associated_relations">
