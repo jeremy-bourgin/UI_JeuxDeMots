@@ -1,16 +1,14 @@
-.loading {
-	background-color: rgba(0, 0, 0, 0.5);
-	position: fixed;
-	top: 0;
-	left: 0;
+
+.black-foreground > div {
+	background-color: #007bff;
+	mask-image: url(img/svg_loading.svg);
+	mask-repeat: no-repeat;
+	mask-size: 20%;
+	mask-position: center;
+	text-align: center;
 	height: 100%;
 	width: 100%;
-	z-index: 99;
-}
-
-.loading > p {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
 }

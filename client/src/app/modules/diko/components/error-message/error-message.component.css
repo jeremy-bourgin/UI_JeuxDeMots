@@ -1,23 +1,13 @@
-.error-popup {
-	background-color: rgba(0,0,0,0.5);
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	z-index: 99;
-}
-
-.error-popup > div {
+.black-foreground > div {
 	background-color: #FFF;
 	text-align: center;
 }
 
-.error-popup img {
+.black-foreground img {
 	width: 25%;
 	height: auto;
 }
 
-.error-popup p {
+.black-foreground p {
 	font-size: 2rem;
 }
