@@ -2,3 +2,4 @@
 - raffinement sémantique
 - tri alphabétique
 - graph d'exploration
+- texte formulaire
