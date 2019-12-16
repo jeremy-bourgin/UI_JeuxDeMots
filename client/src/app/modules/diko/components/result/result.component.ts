@@ -40,19 +40,33 @@ export class ResultComponent implements OnInit
 
 	}
 
-	public arrowCollapse(event: any)
+	public arrowCollapse(event: any, current: any, relation_types: any)
 	{
-		var e = $(event.target);
-
-		if (e.hasClass("collapsed-arrow"))
+		for (var e of relation_types)
 		{
-			e.removeClass("collapsed-arrow");
-			e.addClass("expended-arrow");
+			if (current.id === e.id)
+			{
+				continue;
+			}
+
+			var temp = $("#rt_" + e.id + " header a");
+			temp.addClass("collapsed-arrow");
+			temp.removeClass("expended-arrow");
+
+			console.log(temp);
+		}
+
+		var target = $(event.target);
+
+		if (target.hasClass("collapsed-arrow"))
+		{
+			target.removeClass("collapsed-arrow");
+			target.addClass("expended-arrow");
 		}
 		else
 		{
-			e.addClass("collapsed-arrow");
-			e.removeClass("expended-arrow");
+			target.addClass("collapsed-arrow");
+			target.removeClass("expended-arrow");
 		}
 	}
 }

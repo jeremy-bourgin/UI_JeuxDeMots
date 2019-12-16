@@ -322,7 +322,7 @@ function instantiate_relations(array &$nodes, array &$rels, $word): void
 		
 		$rel_type = Word::findRelationTypeById($word, $r[DATA_REL_TYPE_POS]);
 		$rel_type->associated_relations[] = $rel_obj;
-		++$rel_type->count;
+		++$rel_type->total_count;
 	}
 }
 

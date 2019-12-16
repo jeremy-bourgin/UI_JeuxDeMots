@@ -34,6 +34,7 @@ class RelationType
 		$obj->name					= $name; 
 		$obj->gpname				= $gpname;
 		$obj->help					= $help;
+		$obj->total_count 			= 0;
 		$obj->count 				= 0;
 		$obj->associated_relations	= array();
 
