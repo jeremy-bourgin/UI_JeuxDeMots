@@ -1,3 +1,4 @@
+- paramètre avancé dans les liens
 - raffinement sémantique
 - tri alphabétique
 - graph d'exploration

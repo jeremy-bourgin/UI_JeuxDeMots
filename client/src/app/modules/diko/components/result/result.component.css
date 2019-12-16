@@ -13,24 +13,36 @@
     transition: height 0.2s ease-in-out;
 }
 
-#relations h1 a {
+#relations article h1 {
+	hyphens: auto;
+	word-break: break-word;
+}
+
+#relations article h1 a {
     font-size: inherit;
     height: 100%;
     width: 100%;
     display: block;
 }
 
-#relations h1 a:hover {
+#relations article h1 a:hover {
     text-decoration: none;
 }
 
-#relations h1 a::after {
-	content: url(img/svg_arrow.svg);
+#relations article h1 a::after {
+	content: "";
+	background-color: #6c757d;
+	mask-image: url(img/svg_arrow.svg);
+	mask-repeat: no-repeat;
+	mask-size: 100%;
+	mask-position: center;
+	height: 1.75rem;
+	width: 1.75rem;
 	position: absolute;
 	right: 1rem;
 	transition: transform 0.2s ease-in-out;
 }
 
-#relations h1 a.collapsed-arrow::after {
+#relations article h1 a.collapsed-arrow::after {
     transform: rotate(180deg);
 }
