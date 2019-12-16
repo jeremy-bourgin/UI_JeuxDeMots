@@ -8,9 +8,9 @@ class Node
 		$obj 				= new stdClass();
 		$obj->id 			= $id;
 		$obj->name 			= ($formated_name == "") ? $name : $formated_name;
-		$obj->type_id 		= $type_id;
-		$obj->weight		= $weight;
-		$obj->formated_name	= $formated_name;
+		//$obj->type_id 		= $type_id;
+		//$obj->weight		= $weight;
+		//$obj->formated_name	= $formated_name;
 
 		return $obj;
 	}

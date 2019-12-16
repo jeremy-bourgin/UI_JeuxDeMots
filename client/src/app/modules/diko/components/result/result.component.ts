@@ -13,7 +13,6 @@ export class ResultComponent implements OnInit
 
 	constructor(public search_service : SearchService)
 	{
-
 	}
 
 	ngOnInit()
@@ -28,6 +27,7 @@ export class ResultComponent implements OnInit
 		function callback(data: any)
 		{
 			relation_type.associated_relations = data.associated_relations;
+
 		}
 
 		params = this.search_service.getParams();
@@ -35,5 +35,6 @@ export class ResultComponent implements OnInit
 		params["pname"] = relation_type.name;
 
 		this.search_service.request(params, callback);
+
 	}
 }

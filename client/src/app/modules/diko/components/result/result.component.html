@@ -35,19 +35,18 @@
 	</article>
 
 	<div class="border-top mb-3"></div>
-
 	<section id="relations">
 		<div *ngFor="let e of search_service.getData().relation_types" class="mb-5">
 			<article id="{{e.name}}" >
 				<header>
-					<h1 title="{{e.help}}">{{e.gpname}}</h1>
+					<h1 ngbTooltip="{{e.help}}" placement="top-left">{{e.gpname}}</h1>
 				</header>
 
 				<div class="col-lg-8 ml-lg-5">
 					<table class="table table-striped table-bordered table-hover ">
 						<tbody>
 							<tr *ngFor="let n of e.associated_relations">
-								<td scope="row" class="text-justify text-break p-0"><a href="{{ search_service.generateLink({term: n.node.name, submit: 'Rechercher'}) }}" class="block-link">{{n.node.name}}</a></td>
+								<td scope="row" class="text-justify text-break p-0"><a href="{{ search_service.generateLink({term: n.name, submit: 'Rechercher'}) }}" class="block-link">{{n.name}}</a></td>
 							</tr>
 						</tbody>
 					</table>

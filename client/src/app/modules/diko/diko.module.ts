@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DikoRoutingModule } from './diko-routing.module';
 
@@ -31,7 +31,7 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 		FormsModule,
 		HttpClientModule,
 		DikoRoutingModule,
-		NgbPaginationModule
+		NgbModule
 	],
 	exports: [
 		LoadingComponent,
