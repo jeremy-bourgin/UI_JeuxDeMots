@@ -34,7 +34,3 @@
 #relations h1 a.collapsed-arrow::after {
     transform: rotate(180deg);
 }
-
-#relations h1 a.expended-arrow::after {
-
-}
