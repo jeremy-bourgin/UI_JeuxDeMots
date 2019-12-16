@@ -23,6 +23,7 @@
     height: 100%;
     width: 100%;
     display: block;
+	padding-right: 3rem !important;
 }
 
 #relations article h1 a:hover {
