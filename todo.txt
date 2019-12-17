@@ -1,9 +1,8 @@
-- paramètre avancé dans les liens
 - changer effet collapse relation
 - séparer relations entrante / sortante
-- raffinement sémantique
-
 - afficher par défaut idée associé
+- paramètre avancé dans les liens
+- raffinement sémantique
 - mélanger raffinement sémantique avec définition
 - texte formulaire
 - complétion recherche (http://www.jeuxdemots.org/JDM-LEXICALNET-FR/11112019-LEXICALNET-JEUXDEMOTS-ENTRIES.txt)

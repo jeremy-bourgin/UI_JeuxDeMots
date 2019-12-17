@@ -70,17 +70,12 @@ export class ResultComponent implements OnInit
 		}
 	}
 
-	public changeClassSortArrow(img: any, order: string)
-	{
-
-	}
-
 	public changeOrder(column_name:string, relation_type:any): void
 	{
 		var other_column = (column_name === "name") ? "weight" : "name";
 
-		var img = $('#svg_' + column_name);
-		var old_img = $("#svg_" + other_column)
+		var img = $('#svg_' + column_name + "_" + relation_type.id);
+		var old_img = $("#svg_" + other_column + "_" + relation_type.id)
 
 		if (relation_type.sorted_by === column_name)
 		{
@@ -88,7 +83,7 @@ export class ResultComponent implements OnInit
 		}
 		else
 		{
-			if (relation_type.sorted_by === "weight")
+			if (column_name === "weight")
 			{
 				relation_type.order = "desc";
 			}
@@ -98,7 +93,12 @@ export class ResultComponent implements OnInit
 			}
 
 			img.attr('src', '/assets/svg_sort_arrow.svg');
+			img.removeClass('not_sorted_arrow');
+			img.addClass('sorted_arrow');
+
 			old_img.attr('src', '/assets/svg_not_sort_arrow.svg');
+			old_img.addClass('not_sorted_arrow');
+			old_img.removeClass('sorted_arrow');
 		}
 
 		relation_type.sorted_by = column_name;
