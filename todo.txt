@@ -1,5 +1,10 @@
 - paramètre avancé dans les liens
+- changer effet collapse relation
+- séparer relations entrante / sortante
 - raffinement sémantique
-- tri alphabétique
-- graph d'exploration
+- afficher nom / poids (cliquer pour tirer)
+- désactiver majuscule par défaut dans input sur téléphone
+- afficher par défaut idée associé
+- mélanger raffinement sémantique avec définition
 - texte formulaire
+- complétion recherche (http://www.jeuxdemots.org/JDM-LEXICALNET-FR/11112019-LEXICALNET-JEUXDEMOTS-ENTRIES.txt)

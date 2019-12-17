@@ -1,18 +1,21 @@
-Serveur API jeuxdemots :
+URL du site en ligne :
+http://ui-jeuxdemots.herokuapp.com/
+
+Serveur API jeuxdemots utilisé :
 - http://www.jeuxdemots.org/rezo-dump.php
+- http://www.jeuxdemots.org/JDM-LEXICALNET-FR/11112019-LEXICALNET-JEUXDEMOTS-ENTRIES.txt (complétion)
 
-Serveur UI en ligne :
-- https://ui-jeuxdemots.zd.fr/
+Déployer le projet :
+- ouvrir le terminal dans la racine du projet et faire : "npm install"
 
-Information connexion FTP :
-- hote : world-399.fr.planethoster.net
-- port : 21
-- identifiant FTP : root@ui-jeuxdemots.zd.fr
-- mot de passe FTP : qSHj*KX#o,hHwg~w9p
+Version de PHP utilisé (côté serveur) :
+- 7.2
+- 7.3
 
-Information connexion hébergeur web :
-- https://www.planethoster.com/fr/
-- email : lifeburnout34@gmail.com	
-- mot de passe : Lafourcade34
+Version de Angular utilisé (côté client) :
+- 8.3
 
-
+Utiliser le projet en local (après avoir fait "Déployer le projet") :
+- ouvrir un terminal dans le dossier "api" et faire : "php -S localhost:8000"
+- ouvrir un terminal dans le dossier "client" et faire : "ng serve"
+- http://localhost:4200/
