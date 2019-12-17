@@ -2,8 +2,7 @@
 - changer effet collapse relation
 - séparer relations entrante / sortante
 - raffinement sémantique
-- afficher nom / poids (cliquer pour tirer)
-- désactiver majuscule par défaut dans input sur téléphone
+
 - afficher par défaut idée associé
 - mélanger raffinement sémantique avec définition
 - texte formulaire

@@ -42,6 +42,11 @@ export class SearchService
 		function callback(data : any)
 		{
 			self.data = data;
+			for (var e of data.relation_types)
+			{
+				e.sorted_by = "weight";
+				e.order="asc";
+			}
 		}
 
 		if ("submit" in this.params)

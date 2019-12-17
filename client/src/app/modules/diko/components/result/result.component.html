@@ -48,9 +48,27 @@
 
 				<div class="collapse animated-collapse col-lg-9 p-0" id="relation_list_{{e.id}}" data-parent="#relations">
 					<table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th class="th_rt">
+									<a href="javascript:void(0)" (click)="changeOrder('name', e)" class="text-dark">
+										Nom
+										<img src="/assets/svg_not_sort_arrow.svg" class="sorted_arrow" id="svg_name" alt="non trié">
+									</a>
+								</th>
+								<th>
+									<a href="javascript:void(0)" (click)="changeOrder('weight', e)" class="text-dark">
+										Pertinence
+										<img src="/assets/svg_sort_arrow.svg" class="sorted_arrow" id="svg_weight" alt="trié">
+									</a>
+
+								</th>
+							</tr>
+						</thead>
 						<tbody>
-							<tr *ngFor="let n of e.associated_relations">
-								<td scope="row" class="text-justify text-break p-0"><a href="{{ search_service.generateLink({term: n.name, submit: 'Rechercher'}) }}" class="block-link">{{n.name}}</a></td>
+							<tr *ngFor="let n of e.associated_relations| sortBy:e.order:e.sorted_by">
+								<td class="text-justify text-break p-0"><a href="{{ search_service.generateLink({term: n.name, submit: 'Rechercher'}) }}" class="block-link">{{n.name}}</a></td>
+								<td class="">{{n.weight}}</td>
 							</tr>
 						</tbody>
 					</table>

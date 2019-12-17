@@ -47,3 +47,18 @@
 #relations article h1 a.collapsed-arrow::after {
     transform: rotate(180deg);
 }
+
+.arrow_rotated {
+	transform: rotate(180deg);
+}
+
+.th_rt {
+	width: 85%;
+}
+
+.sorted_arrow {
+	margin-left: 0.25rem;
+	width: 0.75rem;
+	height: auto;
+}
+

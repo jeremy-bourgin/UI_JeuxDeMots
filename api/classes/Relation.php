@@ -9,7 +9,7 @@ abstract class Relation
 		$obj			= new stdClass();
 
 		//$obj->id		= $id;
-		//$obj->weight	= $weight; 
+		$obj->weight	= $weight; 
 		$obj->name		= $node->name;
 		$obj->is_out	= $is_out;
 

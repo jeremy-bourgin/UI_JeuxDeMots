@@ -15,6 +15,8 @@ import { LogoComponent } from './components/logo/logo.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
+import { SortByPipe } from './pipe/SortByPipe';
+
 @NgModule({
 	declarations: [
 		FormComponent,
@@ -24,7 +26,8 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 		SearchComponent,
 		LogoComponent,
 		LoadingComponent,
-		ErrorMessageComponent
+		ErrorMessageComponent,
+		SortByPipe
 	],
 	imports: [
 		CommonModule,
