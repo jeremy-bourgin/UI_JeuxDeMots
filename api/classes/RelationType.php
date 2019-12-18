@@ -44,7 +44,9 @@ class RelationType
 	public static function calcNbPages(stdClass $relation_type, int $limit): void
 	{
 		$calc = ceil($relation_type->count / $limit);
+		
 		$relation_type->nb_pages = $calc;
+		$relation_type->nb_term = $limit;
 	}
 
 	public static function filterRelations(stdClass $relation_type, array $filters): void

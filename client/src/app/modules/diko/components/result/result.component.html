@@ -88,7 +88,7 @@
 					<ngb-pagination
 						*ngIf="e.nb_pages !== 1"
 						(page)="1"
-						pageSize="10"
+						[pageSize]="e.nb_term"
 						[maxSize]="3"
 						[rotate]="true"
 						[collectionSize]="e.count"

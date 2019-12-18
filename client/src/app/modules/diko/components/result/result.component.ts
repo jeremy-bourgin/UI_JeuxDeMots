@@ -63,8 +63,7 @@ export class ResultComponent implements OnInit
 		new_button.addClass('btn-outline-primary');
 		new_content.removeClass('d-none');
 
-		$("html")[0].scrollTop = new_content.offset().top;
-		$("body")[0].scrollTop = new_content.offset().top;
+		$("html, body").prop('scrollTop', new_content.offset().top);
 	}
 
 	public loadPage(page: number, relation_type: any): void
@@ -81,7 +80,6 @@ export class ResultComponent implements OnInit
 		params["pname"] = relation_type.name;
 
 		this.search_service.request(params, callback);
-
 	}
 
 	public arrowCollapse(event: any, current: any, relation_types: any): void
