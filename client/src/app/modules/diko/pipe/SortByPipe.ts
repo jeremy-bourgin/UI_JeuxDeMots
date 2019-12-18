@@ -18,7 +18,7 @@ export class SortByPipe implements PipeTransform {
         numeric: false
       }
 
-      if (isNaN(a[column]) && isNaN(b[column]))
+      if (!isNaN(a[column]) && !isNaN(b[column]))
       {
         options.numeric = true;
       }
