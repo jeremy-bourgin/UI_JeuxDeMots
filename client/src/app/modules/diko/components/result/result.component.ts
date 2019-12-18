@@ -34,7 +34,7 @@ export class ResultComponent implements OnInit
 
 	showFirstRelationType(): void
 	{
-		if (this.data.relation_types.length === 0)
+		if (this.relation_type_selected !== null || this.data.relation_types.length === 0)
 		{
 			return;
 		}
