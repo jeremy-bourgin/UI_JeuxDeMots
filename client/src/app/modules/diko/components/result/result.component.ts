@@ -39,10 +39,10 @@ export class ResultComponent implements OnInit
 			return;
 		}
 
-		this.showRelations(this.data.relation_types[0]);
+		this.showRelations(this.data.relation_types[0], false);
 	}
 	
-	public showRelations(relation_type: any): void
+	public showRelations(relation_type: any, is_scroll: boolean = true): void
 	{
 		if (this.relation_type_selected !== null)
 		{
@@ -63,7 +63,10 @@ export class ResultComponent implements OnInit
 		new_button.addClass('btn-outline-primary');
 		new_content.removeClass('d-none');
 
-		$("html, body").prop('scrollTop', new_content.offset().top);
+		if (is_scroll)
+		{
+			$("html, body").prop('scrollTop', new_content.offset().top);
+		}
 	}
 
 	public loadPage(page: number, relation_type: any): void
