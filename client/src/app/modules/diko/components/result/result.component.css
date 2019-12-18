@@ -13,41 +13,6 @@
     transition: height 0.1s ease-in-out;
 }
 
-#relations article h1 {
-	hyphens: auto;
-	word-break: break-word;
-}
-
-#relations article h1 a {
-    font-size: inherit;
-    height: 100%;
-    width: 100%;
-    display: block;
-	padding-right: 3rem !important;
-}
-
-#relations article h1 a:hover {
-    text-decoration: none;
-}
-
-#relations article h1 a::after {
-	content: "";
-	background-color: #6c757d;
-	mask-image: url(img/svg_arrow.svg);
-	mask-repeat: no-repeat;
-	mask-size: 100%;
-	mask-position: center;
-	height: 1.75rem;
-	width: 1.75rem;
-	position: absolute;
-	right: 1rem;
-	transition: transform 0.2s ease-in-out;
-}
-
-#relations article h1 a.collapsed-arrow::after {
-    transform: rotate(180deg);
-}
-
 .th_relation_type_name {
 	width: 85%;
 }
@@ -72,4 +37,10 @@
 	margin-left: 0.5rem;
 	width: 0.55rem;
 	height: auto;
+}
+
+.btn-outline-primary:hover {
+	background-color: var(--white) !important;
+	color: var(--primary) !important;
+
 }

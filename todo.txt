@@ -1,8 +1,8 @@
-- changer effet collapse relation
-- séparer relations entrante / sortante
-- afficher par défaut idée associé
-- paramètre avancé dans les liens
-- raffinement sémantique
-- mélanger raffinement sémantique avec définition
-- texte formulaire
-- complétion recherche (http://www.jeuxdemots.org/JDM-LEXICALNET-FR/11112019-LEXICALNET-JEUXDEMOTS-ENTRIES.txt)
+- séparer relations entrante / sortante (moyen)
+- paramètre avancé dans les liens (moyen)
+- raffinement sémantique (long)
+- mélanger raffinement sémantique avec définition (moyen)
+- texte formulaire (rapide)
+- complétion recherche (http://www.jeuxdemots.org/JDM-LEXICALNET-FR/11112019-LEXICALNET-JEUXDEMOTS-ENTRIES.txt) (long)
+- séparer request manager, loading et message dans un module (rapide)
+- séparer pipe dans un module (rapide)

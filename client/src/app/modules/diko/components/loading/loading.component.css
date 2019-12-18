@@ -1,6 +1,6 @@
 
 .black-foreground > div > div > div {
-	background-color: #007bff;
+	background-color: var(--primary);
 	mask-image: url(img/svg_loading.svg);
 	mask-repeat: no-repeat;
 	mask-size: 60%;

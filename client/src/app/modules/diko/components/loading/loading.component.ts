@@ -19,21 +19,18 @@ export class LoadingComponent implements OnInit
 
 	ngOnInit()
 	{
-		var self: LoadingComponent = this;
+		this.stopLoading();
+		this.loading_service.setListener(this.loading.bind(this), this.stopLoading.bind(this));
+	}
 
-		function loading()
-		{
-			self.is_loading = true;
-		}
+	public loading()
+	{
+		this.is_loading = true;
+	}
 
-		function stop_loading()
-		{
-			self.is_loading = false;
-		}
-
-		stop_loading();
-
-		this.loading_service.setListener(loading, stop_loading);
+	public stopLoading()
+	{
+		this.is_loading = false;
 	}
 
 }

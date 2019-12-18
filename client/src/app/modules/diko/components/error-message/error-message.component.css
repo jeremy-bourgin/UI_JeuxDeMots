@@ -1,5 +1,5 @@
 .black-foreground > div {
-	background-color: #FFF;
+	background-color: var(--white);
 	text-align: center;
 }
 

@@ -31,15 +31,14 @@ export class RequestHandlerService
 
 	public request(service_name : string, params : any, callback : Function): void
 	{
-		var self: RequestHandlerService = this;
 		var o : any = this.makeInformations(service_name, params);
 		var service : Observable<any> = this.http.get(o.action, {headers: o.headers});
 
 		function action_callback(data: any): void {
-			self.loading_service.stopLoading();
+			this.loading_service.stopLoading();
 
 			if (data.error) {
-				self.message_service.sendMessage("error", data.message);
+				this.message_service.sendMessage("error", data.message);
 				return;
 			}
 
@@ -48,7 +47,7 @@ export class RequestHandlerService
 			}
 		}
 
-		service.subscribe(action_callback);
+		service.subscribe(action_callback.bind(this));
 		this.loading_service.loading();
 	}
 

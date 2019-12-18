@@ -17,17 +17,15 @@ export class ErrorMessageComponent implements OnInit {
 	constructor(private message_service: MessageService) { }
 
 	ngOnInit() {
-		var self: ErrorMessageComponent = this;
-
 		this.is_error = false;
 
 		function callback(message: string)
 		{
-			self.is_error = true;
-			self.message = message;
+			this.is_error = true;
+			this.message = message;
 		}
 
-		this.message_service.addListener("error", callback)
+		this.message_service.addListener("error", callback.bind(this))
 	}
 
 	public close(): void

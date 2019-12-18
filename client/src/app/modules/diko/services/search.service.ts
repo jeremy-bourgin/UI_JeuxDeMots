@@ -35,24 +35,27 @@ export class SearchService
 		}
 	}
 
-	public run()
+	public run(callback?: Function): void
 	{
-		var self : SearchService = this;
-
-		function callback(data : any)
+		function f(data : any)
 		{
-			self.data = data;
+			this.data = data;
 
 			for (var e of data.relation_types)
 			{
 				e.sorted_by = "weight";
 				e.order = "desc";
 			}
+
+			if (callback)
+			{
+				callback();
+			}
 		}
 
 		if ("submit" in this.params)
 		{
-			this.request(this.params, callback);
+			this.request(this.params, f.bind(this));
 		}
 	}
 
