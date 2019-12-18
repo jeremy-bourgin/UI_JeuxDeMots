@@ -78,7 +78,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngFor="let n of e.associated_relations | sortBy:e.order:e.sorted_by">
+							<tr [ngClass]="{'table-warning': n.weight < 0}" *ngFor="let n of e.associated_relations | sortBy:e.order:e.sorted_by">
 								<td class="text-justify text-break p-0"><a href="{{ search_service.generateLink({term: n.name, submit: 'Rechercher'}) }}" class="block-link">{{n.name}}</a></td>
 								<td class="">{{n.weight}}</td>
 							</tr>
