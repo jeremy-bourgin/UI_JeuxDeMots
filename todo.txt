@@ -1,4 +1,5 @@
 - séparer relations entrante / sortante (moyen)
+- bug pagination (limit perso)
 - paramètre avancé dans les liens (moyen)
 - raffinement sémantique (long)
 - mélanger raffinement sémantique avec définition (moyen)
