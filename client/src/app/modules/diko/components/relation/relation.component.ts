@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class RelationComponent implements OnInit
 	
 	@Input('is_out') is_out: boolean;
 
-    constructor(public search_service : SearchService) { }
+    constructor(private elRef : ElementRef, public search_service : SearchService) { }
 
     ngOnInit()
     {
@@ -41,9 +41,11 @@ export class RelationComponent implements OnInit
 
 		function callback(data: any)
 		{
-			this.container = data;
+			data.sorted_by = this.container.sorted_by;
+			data.order = this.container.order;
 
-			this.search_service.initContainer(this.container);
+			this.container = data;
+			this.setOrder(this.container.sorted_by, true);
 		}
 
 		params = this.search_service.getParams();
@@ -64,39 +66,23 @@ export class RelationComponent implements OnInit
 		return result;
 	}
 
-	public changeOrder(column_name: string, event: any): void
+	public setOrder(column_name: string, is_column_changed: boolean): void
 	{
 		var other_column = (column_name === "name") ? "weight" : "name";
 
-		var container = $(event.target).parent().parent();
-		var img = container.find('.svg_' + column_name);
-		var old_img = container.find(".svg_" + other_column);
+		var img = $(this.elRef.nativeElement.querySelector('.svg_' + column_name));
+		var old_img = $(this.elRef.nativeElement.querySelector(".svg_" + other_column));
 
-		if (this.container.sorted_by === column_name)
+		if (is_column_changed)
 		{
-			this.container.order = (this.container.order === "desc") ? "asc" : "desc";
-		}
-		else
-		{
-			if (column_name === "weight")
-			{
-				this.container.order = "desc";
-			}
-			else
-			{
-				this.container.order = "asc";
-			}
-
 			img.attr('src', '/assets/svg_sort_arrow.svg');
 			img.removeClass('not_sorted_arrow');
 			img.addClass('sorted_arrow');
-
+	
 			old_img.attr('src', '/assets/svg_not_sort_arrow.svg');
 			old_img.addClass('not_sorted_arrow');
 			old_img.removeClass('sorted_arrow');
 		}
-
-		this.container.sorted_by = column_name;
 
 		if(this.container.order === "desc")
 		{
@@ -106,5 +92,29 @@ export class RelationComponent implements OnInit
 		{
 			img.addClass('arrow_rotated');
 		}
+	}
+
+	public changeOrder(column_name: string): void
+	{
+		var is_column_changed = this.container.sorted_by !== column_name;
+
+		if (is_column_changed)
+		{
+			if (column_name === "weight")
+			{
+				this.container.order = "desc";
+			}
+			else
+			{
+				this.container.order = "asc";
+			}
+		}
+		else
+		{
+			this.container.order = (this.container.order === "desc") ? "asc" : "desc";
+		}
+
+		this.container.sorted_by = column_name;
+		this.setOrder(column_name, is_column_changed);
 	}
 }
