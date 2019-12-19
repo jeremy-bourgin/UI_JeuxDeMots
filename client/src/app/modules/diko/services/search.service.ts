@@ -35,22 +35,22 @@ export class SearchService
 		}
 	}
 
+	public initContainer(container: any): void
+	{
+		container.sorted_by = "weight";
+		container.order = "desc";
+	}
+
 	public run(callback?: Function): void
 	{
-		function initOrder(o: any): void
-		{
-			o.sorted_by = "weight";
-			o.order = "desc";
-		}
-
 		function f(data : any)
 		{
 			this.data = data;
 
 			for (var e of data.relation_types)
 			{
-				initOrder(e.relations_in);
-				initOrder(e.relations_out);
+				this.initContainer(e.relations_in);
+				this.initContainer(e.relations_out);
 			}
 
 			if (callback)

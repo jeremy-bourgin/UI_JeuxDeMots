@@ -35,18 +35,20 @@ export class RelationComponent implements OnInit
 		return 10;
 	}
 
-	public loadPage(page: number, relation_type: any): void
+	public loadPage(page: number): void
 	{
 		var params: any;
 
 		function callback(data: any)
 		{
 			this.container = data;
+
+			this.search_service.initContainer(this.container);
 		}
 
 		params = this.search_service.getParams();
 		params.p = page - 1;
-		params.pname = relation_type.name;
+		params.pname = this.relation_type.name;
 		params.pinout = (this.is_out) ? "out" : "in";
 
 		this.search_service.request(params, callback.bind(this));
