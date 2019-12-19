@@ -44,7 +44,7 @@ export class RelationComponent implements OnInit
 
 	public generateWordLink(n : any): string
 	{
-		var params: any = this.search_service.getParams();
+		var params: any = { ... this.search_service.getParams() };
 		params.term = n.name;
 
 		var result: string = this.search_service.generateLink(params);

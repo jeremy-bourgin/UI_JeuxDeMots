@@ -59,6 +59,10 @@
 				*ngFor="let e of data.relation_types">
 				
 				<article [ngClass]="{
+					'm-0': true,
+					'p-0': true,
+					'mb-5': true,
+					'mr-lg-5': e.relations_in.data.length > 0,
 					'd-none': e.relations_out.data.length === 0,
 					'col-lg-9': e.relations_in.data.length === 0,
 					'col-lg-5': e.relations_in.data.length > 0
@@ -68,6 +72,8 @@
 				</article>
 
 				<article [ngClass]="{
+					'm-0': true,
+					'p-0': true,
 					'd-none': e.relations_in.data.length === 0,
 					'col-lg-9': e.relations_out.data.length === 0,
 					'col-lg-5': e.relations_out.data.length > 0
