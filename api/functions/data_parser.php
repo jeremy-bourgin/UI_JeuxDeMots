@@ -235,8 +235,6 @@ function instantiate_word(array &$data, array &$nodes): stdClass
 	return Word::instantiate(
 		$node_word[DATA_NODE_ID_POS],
 		$node_word[DATA_NODE_WORD_POS],
-		$node_word[DATA_NODE_TYPE_POS],
-		$node_word[DATA_NODE_WEIGHT_POS],
 		$node_word[DATA_NODE_FNAME_POS],
 		$data[DATA_DEF_POS]
 	);
@@ -292,8 +290,6 @@ function instantiate_relations(array &$nodes, array &$rels, $word): void
 		$node_obj = Node::instantiate(
 			$n[DATA_NODE_ID_POS],
 			$n[DATA_NODE_WORD_POS],
-			$n[DATA_NODE_TYPE_POS],
-			$n[DATA_NODE_WEIGHT_POS],
 			$n[DATA_NODE_FNAME_POS]
 		);
 
@@ -315,8 +311,7 @@ function instantiate_relations(array &$nodes, array &$rels, $word): void
 		$rel_obj = Relation::instantiate(
 			$r[DATA_REL_ID_POS],
 			$rel_node,
-			$r[DATA_REL_WEIGHT_POS],
-			$is_rel_out
+			$r[DATA_REL_WEIGHT_POS]
 		);
 		
 		$rel_type = Word::findRelationTypeById($word, $r[DATA_REL_TYPE_POS]);

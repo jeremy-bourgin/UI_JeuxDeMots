@@ -12,14 +12,8 @@ class RelationContainer
         $obj->is_out        = $is_out;
 		$obj->total_count 	= 0;
 		$obj->count 		= 0;
-        $obj->nb_pages		= 0;
         
         return $obj;
-    }
-
-    public static function calcNbPages(stdClass $obj, int $limit): void
-    {
-		$obj->nb_pages = ceil($obj->count / $limit);
     }
 
 	public static function filterRelations(stdClass $relation_container, stdClass $relation_type, array $filters): void

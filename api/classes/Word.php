@@ -3,21 +3,13 @@ declare(strict_types=1);
 
 class Word
 {
-	public static function instantiate (int $id, string $name, int $type_id, int $weight, string $formated_name, array $definition): stdClass
+	public static function instantiate (int $id, string $name, string $formated_name, array $definition): stdClass
 	{
-		$obj					= Node::instantiate($id, $name, $type_id, $weight, $formated_name);
+		$obj					= Node::instantiate($id, $name, $formated_name);
 		$obj->definition		= $definition;
 		$obj->relation_types	= array();
 
 		return $obj;
-	}
-	
-	public static function calcNbPages(stdClass $word, int $limit): void
-	{
-		foreach ($word->relation_types as &$rt)
-		{
-			RelationType::calcNbPages($rt, $limit);
-		}
 	}
 
 	public static function filterRelations(stdClass $word, array $filters): void

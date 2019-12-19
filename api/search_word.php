@@ -53,7 +53,11 @@ function load()
 	else
 	{
 		Word::filterRelations($data, $filters);
-		Word::calcNbPages($data, $nb_terms);
+
+		if (empty($data->relation_types))
+		{
+			throw new ServerException('Pas de résultat');
+		}
 	}
 
 	$bench_filter->end();

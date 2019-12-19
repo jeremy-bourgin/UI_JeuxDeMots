@@ -37,14 +37,20 @@ export class SearchService
 
 	public run(callback?: Function): void
 	{
+		function initOrder(o: any): void
+		{
+			o.sorted_by = "weight";
+			o.order = "desc";
+		}
+
 		function f(data : any)
 		{
 			this.data = data;
 
 			for (var e of data.relation_types)
 			{
-				e.sorted_by = "weight";
-				e.order = "desc";
+				initOrder(e.relations_in);
+				initOrder(e.relations_out);
 			}
 
 			if (callback)
@@ -71,7 +77,7 @@ export class SearchService
 
 	public getParams(): any
 	{
-		return this.params;
+		return { ... this.params };
 	}
 
 	public getData(): any

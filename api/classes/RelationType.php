@@ -41,14 +41,6 @@ class RelationType
 		return $obj;
 	}
 
-	public static function calcNbPages(stdClass $relation_type, int $limit): void
-	{
-		RelationContainer::calcNbPages($relation_type->relations_in, $limit);
-		RelationContainer::calcNbPages($relation_type->relations_out, $limit);
-
-		$relation_type->nb_term = $limit;
-	}
-
 	public static function filterRelations(stdClass $relation_type, array $filters): void
 	{
 		RelationContainer::filterRelations($relation_type->relations_in, $relation_type, $filters);
