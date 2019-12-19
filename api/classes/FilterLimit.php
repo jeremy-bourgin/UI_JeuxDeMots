@@ -16,9 +16,9 @@ class FilterLimit implements IRelationFilter
 		$this->to = $this->from + $limit;
 	}
 	
-	public function filter(int $pos, int $count_relations, int $deleted_relations, stdClass $rt, stdClass $r): bool
+	public function filter(int $pos, int $count_relations, int $deleted_relations, stdClass $rt, stdClass $rc, stdClass $r, bool &$is_break): bool
 	{
-		++$rt->count;
+		++$rc->count;
 
 		if ($this->last_rt !== $rt)
 		{

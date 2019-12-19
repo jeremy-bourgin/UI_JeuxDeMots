@@ -30,20 +30,32 @@ function load()
 		? $_GET[PARAMETER_NB_TERMS]
 		: LIMIT_NB_WORD;
 
-	$is_pagined = (isset($_GET[PARAMETER_PAGE]) && isset($_GET[PARAMETER_PAGE_NAME]) && is_numeric($_GET[PARAMETER_PAGE]));
+	$is_pagined = (
+		isset($_GET[PARAMETER_PAGE])
+		&& isset($_GET[PARAMETER_PAGE_NAME])
+		&& isset($_GET[PARAMETER_PAGE_INOUT])
+		&& is_numeric($_GET[PARAMETER_PAGE])
+		&& ($_GET[PARAMETER_PAGE_INOUT] === PARAMETER_PAGE_IN || $_GET[PARAMETER_PAGE_INOUT] === PARAMETER_PAGE_OUT)
+	);
 
-	$data = ($is_pagined)
-		? Word::findRelationTypeByName($data, $_GET[PARAMETER_PAGE_NAME])
-		: $data;
-	
 	$page = ($is_pagined) ? $_GET[PARAMETER_PAGE] : 0;
-	$selector = ($is_pagined) ? "RelationType" : "Word";
-
 	$filters[] = new FilterLimit($page, $nb_terms);
-	
-	$selector::filterRelations($data, $filters);
-	$selector::calcNbPages($data, $nb_terms);
-	
+
+	if ($is_pagined)
+	{
+		$relation_type =  Word::findRelationContainerByName($data, $_GET[PARAMETER_PAGE_NAME]);
+		$data = ($_GET[PARAMETER_PAGE_INOUT] === PARAMETER_PAGE_IN)
+			? $relation_type->relations_in
+			: $relation_type->relation_out;
+		
+		RelationContainer::filterRelations($data, $relation_type, $filters);
+	}
+	else
+	{
+		Word::filterRelations($data, $filters);
+		Word::calcNbPages($data, $nb_terms);
+	}
+
 	$bench_filter->end();
 
 	return $data;

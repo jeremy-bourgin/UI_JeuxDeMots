@@ -34,52 +34,25 @@ class RelationType
 		$obj->name					= $name; 
 		$obj->gpname				= $gpname;
 		$obj->help					= $help;
-		$obj->total_count 			= 0;
-		$obj->count 				= 0;
-		$obj->associated_relations	= array();
+
+		$obj->relations_in 			= RelationContainer::instantiate(false);
+		$obj->relations_out 		= RelationContainer::instantiate(true);
 
 		return $obj;
 	}
-	
+
 	public static function calcNbPages(stdClass $relation_type, int $limit): void
 	{
-		$calc = ceil($relation_type->count / $limit);
-		
-		$relation_type->nb_pages = $calc;
+		RelationContainer::calcNbPages($relation_type->relations_in, $limit);
+		RelationContainer::calcNbPages($relation_type->relations_out, $limit);
+
 		$relation_type->nb_term = $limit;
 	}
 
 	public static function filterRelations(stdClass $relation_type, array $filters): void
 	{
-		$temp = array();
-		$count_relations = count($relation_type->associated_relations);
-		$count_flters = count($filters);
-		$deleted_relations = 0;
-		
-		for ($i = 0; $i < $count_relations; ++$i)
-		{
-			$r = $relation_type->associated_relations[$i];
-			$j = 0;
-			$kept = true;
-			
-			while ($j < $count_flters && $kept)
-			{
-				$kept = $filters[$j]->filter($i, $count_relations, $deleted_relations, $relation_type, $r);
-				
-				++$j;
-			}
-			
-			if (!$kept)
-			{
-				++$deleted_relations;
-			}
-			else
-			{
-				$temp[] = $r;
-			}
-		}
-		
-		$relation_type->associated_relations = $temp;
+		RelationContainer::filterRelations($relation_type->relations_in, $relation_type, $filters);
+		RelationContainer::filterRelations($relation_type->relations_out, $relation_type, $filters);
 	}
 
     public static function isBlacklisted (int $id): ?bool

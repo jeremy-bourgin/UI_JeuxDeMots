@@ -28,7 +28,7 @@ class Word
 		{
 			RelationType::filterRelations($rt, $filters);
 			
-			if (empty($rt->associated_relations))
+			if (empty($rt->relations_in->data) && empty($rt->relations_out->data))
 			{
 				continue;
 			}
@@ -44,7 +44,7 @@ class Word
 		return binary_search($word->relation_types, $id);
 	}
 
-	public static function findRelationTypeByName(stdClass $word, string $name): ?stdClass
+	public static function findRelationContainerByName(stdClass $word, string $name): ?stdClass
 	{
 		$i = 0;
 		$count = count($word->relation_types);

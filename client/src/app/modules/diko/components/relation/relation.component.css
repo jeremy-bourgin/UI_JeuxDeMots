@@ -1,0 +1,26 @@
+
+.th_relation_type_name {
+	width: 85%;
+}
+
+.th_relation_type > a {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.arrow_rotated {
+	transform: rotate(180deg);
+}
+
+.sorted_arrow {
+	margin-left: 0.5rem;
+	width: 0.75rem;
+	height: auto;
+}
+
+.not_sorted_arrow {
+	margin-left: 0.5rem;
+	width: 0.55rem;
+	height: auto;
+}

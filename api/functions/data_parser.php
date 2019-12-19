@@ -109,7 +109,6 @@ function parse_node_type(array &$types): array
 			continue;
 		}
 
-		
 		$columns = explode(DATA_COLUMN_DELIMITER, $e);
 		
 		$numeric_columns = array(
@@ -321,8 +320,10 @@ function instantiate_relations(array &$nodes, array &$rels, $word): void
 		);
 		
 		$rel_type = Word::findRelationTypeById($word, $r[DATA_REL_TYPE_POS]);
-		$rel_type->associated_relations[] = $rel_obj;
-		++$rel_type->total_count;
+
+		$relation_container = ($is_rel_out) ? $rel_type->relations_out : $rel_type->relations_in;
+		$relation_container->data[] = $rel_obj;
+		++$relation_container->total_count;
 	}
 }
 

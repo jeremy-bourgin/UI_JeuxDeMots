@@ -116,3 +116,9 @@ define("PARAMETER_NB_TERMS", "nb_terms");
 define("PARAMETER_PAGE", "p");
 // search paramètre : type de relation paginé
 define("PARAMETER_PAGE_NAME", "pname");
+// search paramètre : relation sortante ou entrante paginé
+define("PARAMETER_PAGE_INOUT", "pinout");
+// search valeur de paramètre : pagination sur relation entrante
+define("PARAMETER_PAGE_IN", "in");
+// search valeur de paramètre : pagination sur relation sortante
+define("PARAMETER_PAGE_OUT", "out");

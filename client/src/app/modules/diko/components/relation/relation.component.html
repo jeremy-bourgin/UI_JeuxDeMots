@@ -1,0 +1,38 @@
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th class="th_relation_type th_relation_type_name">
+                <a href="javascript:void(0)" (click)="changeOrder('name', relation_type)" class="text-dark">
+                    Nom
+                    <img src="/assets/svg_not_sort_arrow.svg" class="not_sorted_arrow" id="svg_name_{{relation_type.id}}" alt="non trié">
+                </a>
+            </th>
+            <th class="th_relation_type">
+                <a href="javascript:void(0)" (click)="changeOrder('weight', relation_type)" class="text-dark">
+                    Pertinence
+                    <img src="/assets/svg_sort_arrow.svg" class="sorted_arrow" id="svg_weight_{{relation_type.id}}" alt="trié">
+                </a>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr [ngClass]="{'table-warning': n.weight < 0}" *ngFor="let n of container.data | sortBy:relation_type.order:relation_type.sorted_by">
+            <td class="text-break p-0">
+                <a href="{{ search_service.generateLink({term: n.name, submit: 'Rechercher'}) }}" class="block-link">{{n.name}}</a>
+            </td>
+            <td class="">{{n.weight}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ngb-pagination
+    *ngIf="container.nb_pages !== 1"
+    (page)="1"
+    [pageSize]="relation_type.nb_term"
+    [maxSize]="3"
+    [rotate]="true"
+    [collectionSize]="container.count"
+    [ellipses]="true"
+    (pageChange)="loadPage($event, relation_type)"
+    class="d-flex justify-content-center"></ngb-pagination>

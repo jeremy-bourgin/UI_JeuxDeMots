@@ -16,6 +16,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
 import { SortByPipe } from './pipe/SortByPipe';
+import { RelationComponent } from './components/relation/relation.component';
 
 @NgModule({
 	declarations: [
@@ -27,7 +28,8 @@ import { SortByPipe } from './pipe/SortByPipe';
 		LogoComponent,
 		LoadingComponent,
 		ErrorMessageComponent,
-		SortByPipe
+		SortByPipe,
+		RelationComponent
 	],
 	imports: [
 		CommonModule,
