@@ -37,14 +37,14 @@
 	<div class="border-top mb-3"></div>
 
 	<section id="relations">
-		<header class="row d-flex justify-content-center">
+		<header class="d-flex flex-wrap justify-content-xl-start justify-content-center">
 			<input
 				type="button"
 				id="button_rt_{{e.id}}"
 				value="{{e.gpname}}"
 				ngbTooltip="{{e.help}}"
 				placement="top"
-				class="btn btn-primary m-1 btn-lg"
+				class="btn btn-primary mr-2 my-1 btn-lg"
 				*ngFor="let e of data.relation_types | sortBy:'asc':'gpname'"
 				(click)="showRelations(e)">
 		</header>
