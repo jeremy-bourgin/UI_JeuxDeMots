@@ -46,7 +46,7 @@ function load()
 		$relation_type =  Word::findRelationContainerByName($data, $_GET[PARAMETER_PAGE_NAME]);
 		$data = ($_GET[PARAMETER_PAGE_INOUT] === PARAMETER_PAGE_IN)
 			? $relation_type->relations_in
-			: $relation_type->relation_out;
+			: $relation_type->relations_out;
 		
 		RelationContainer::filterRelations($data, $relation_type, $filters);
 	}

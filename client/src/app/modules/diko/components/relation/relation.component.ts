@@ -2,6 +2,7 @@ import * as $ from 'jquery';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { SearchService } from '../../services/search.service';
+import { ResultComponent } from '../result/result.component';
 
 @Component({
     selector: 'app-relation',
@@ -39,6 +40,16 @@ export class RelationComponent implements OnInit
 		params["pinout"] = (this.is_out) ? "out" : "in";
 
 		this.search_service.request(params, callback.bind(this));
+	}
+
+	public generateWordLink(n : any): string
+	{
+		var params: any = this.search_service.getParams();
+		params.term = n.name;
+
+		var result: string = this.search_service.generateLink(params);
+
+		return result;
 	}
 
 	public changeOrder(column_name:string, relation_type:any): void

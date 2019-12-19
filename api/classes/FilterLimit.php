@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 class FilterLimit implements IRelationFilter
 {
-	private $last_rt;
+	private $last_rc;
 	private $count_limited;
 	
 	private $from;
@@ -11,7 +11,7 @@ class FilterLimit implements IRelationFilter
 	
 	public function __construct(int $page, int $limit)
 	{
-		$this->last_rt = null;
+		$this->last_rc = null;
 		$this->from = $page * $limit;
 		$this->to = $this->from + $limit;
 	}
@@ -20,9 +20,9 @@ class FilterLimit implements IRelationFilter
 	{
 		++$rc->count;
 
-		if ($this->last_rt !== $rt)
+		if ($this->last_rc !== $rc)
 		{
-			$this->last_rt = $rt;
+			$this->last_rc = $rc;
 			$this->count_limited = 0;
 		}
 		

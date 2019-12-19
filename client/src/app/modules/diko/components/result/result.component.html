@@ -52,16 +52,30 @@
 		<div class="border-top my-3"></div>
 
 		<div class="position-relative">
-			<article
+			<section
 				#relation_types_view
 				id="content_rt_{{e.id}}"
-				class="d-none position-absolute row justify-content-center p-0 m-0 w-100"
+				class="my-3 d-none position-absolute row justify-content-center p-0 m-0 w-100"
 				*ngFor="let e of data.relation_types">
 				
-				<div class="col-lg-9">
+				<article [ngClass]="{
+					'd-none': e.relations_out.data.length === 0,
+					'col-lg-9': e.relations_in.data.length === 0,
+					'col-lg-5': e.relations_in.data.length > 0
+				}">
+					<header><h2>Relations sortantes</h2></header>
+					<app-relation [relation_type]="e" [is_out]="true"></app-relation>
+				</article>
+
+				<article [ngClass]="{
+					'd-none': e.relations_in.data.length === 0,
+					'col-lg-9': e.relations_out.data.length === 0,
+					'col-lg-5': e.relations_out.data.length > 0
+				}">
+					<header><h2>Relations entrantes</h2></header>
 					<app-relation [relation_type]="e" [is_out]="false"></app-relation>
-				</div>
-			</article>
+				</article>
+			</section>
 		</div>
 	</section>
 </section>
