@@ -2,14 +2,14 @@
 	<article>
 		<div *ngIf="data.definition.length !== 0" class="accordion" id="accordion-definition">
 			<div class="row">
-					<div class="form-group col-lg-2">
-						<button class="btn btn-primary col-lg-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
+					<div class="form-group col-xl-2">
+						<button class="btn btn-primary col-xl-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
 							Définitions
 						</button>
 					</div>
 
-					<div class="form-group col-lg-2">
-						<button class="btn btn-secondary col-lg-12" data-toggle="collapse" href="#semantic-refinement" role="button" aria-expanded="false">
+					<div class="form-group col-xl-2">
+						<button class="btn btn-secondary col-xl-12" data-toggle="collapse" href="#semantic-refinement" role="button" aria-expanded="false">
 							Raffinements sémantiques
 						</button>
 					</div>
@@ -62,10 +62,10 @@
 					'm-0': true,
 					'p-0': true,
 					'mb-5': true,
-					'mr-lg-5': e.relations_in.data.length > 0,
+					'mr-xl-5': e.relations_in.data.length > 0,
 					'd-none': e.relations_out.data.length === 0,
-					'col-lg-9': e.relations_in.data.length === 0,
-					'col-lg-5': e.relations_in.data.length > 0
+					'col-xl-9': e.relations_in.data.length === 0,
+					'col-xl-5': e.relations_in.data.length > 0
 				}">
 					<header><h2>Relations sortantes</h2></header>
 					<app-relation [relation_type]="e" [is_out]="true"></app-relation>
@@ -75,8 +75,8 @@
 					'm-0': true,
 					'p-0': true,
 					'd-none': e.relations_in.data.length === 0,
-					'col-lg-9': e.relations_out.data.length === 0,
-					'col-lg-5': e.relations_out.data.length > 0
+					'col-xl-9': e.relations_out.data.length === 0,
+					'col-xl-5': e.relations_out.data.length > 0
 				}">
 					<header><h2>Relations entrantes</h2></header>
 					<app-relation [relation_type]="e" [is_out]="false"></app-relation>
