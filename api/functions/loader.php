@@ -83,4 +83,6 @@ header("Access-Control-Allow-Methods: GET, OPTIONS");
 
 // envoie des données au client au format JSON
 $json = json_encode($obj);
+
+jsoned_data($json);
 echo $json;

@@ -6,7 +6,7 @@ function load()
 		throw new ServerException("Requête invalide");
 	}
 	
-	$data = request($_GET[PARAMETER_TERM]);
+	$data = request_search($_GET[PARAMETER_TERM]);
 	$filters = array();
 	
 	$bench_filter = Benchmark::startBench("filter");
@@ -63,6 +63,11 @@ function load()
 	$bench_filter->end();
 
 	return $data;
+}
+
+function jsoned_data(string &$json)
+{
+
 }
 
 include("./functions/loader.php");

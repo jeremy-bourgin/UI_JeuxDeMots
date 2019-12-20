@@ -15,7 +15,9 @@ function has_cache(string $word): bool
 
 function save_cache(string $word, $data): void
 {
-	check_and_delete();
+	$pref = explode(".", $word, 2)[0];
+	
+	check_and_delete($pref);
 	file_put_contents(word_to_filename($word), $data);
 }
 
@@ -26,9 +28,10 @@ function retrieve_cache (string $word): string
 	return file_get_contents($filename);
 }
 
-function check_and_delete(): void
+function check_and_delete(string $pref): void
 {
-	$dir = CACHE_DIRECTORY . "/*";
+	
+	$dir = CACHE_DIRECTORY . '/' . $pref . '.*';
 	$files = glob($dir);
 
 	if(count($files) < LIMIT_NB_CACHE_FILE)

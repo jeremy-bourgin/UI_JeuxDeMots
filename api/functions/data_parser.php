@@ -98,9 +98,10 @@ function parse_columns(string &$line): array
 	return explode(DATA_COLUMN_DELIMITER, $line);
 }
 
-function parse_node_type(array &$types): array
+function parse_node_type(array &$types, ?array $white_list = null): array
 {
 	$result = array();
+	$has_white_list = ($white_list !== null);
 
 	foreach ($types as &$e)
 	{
@@ -114,10 +115,13 @@ function parse_node_type(array &$types): array
 		$numeric_columns = array(
 			DATA_NODETYPE_ID_POS
 		);
-		
+
 		if (
 			!check_numerics_data($columns, $numeric_columns)
-			|| NodeType::isBlacklisted($columns[DATA_NODETYPE_ID_POS])
+			|| (
+				(!$has_white_list && NodeType::isBlacklisted($columns[DATA_NODETYPE_ID_POS]))
+				|| ($has_white_list && in_array($columns[DATA_NODETYPE_ID_POS], $white_list, true))
+			)
 		) {
 			continue;
 		}
@@ -172,9 +176,10 @@ function parse_node(array &$node, array &$node_types): array
 	return $r;
 }
 
-function parse_rel(array &$rel, string $element_type): array
+function parse_rel(array &$rel, string $element_type, ?array $white_list = null): array
 {
 	$r = array();
+	$has_white_list = ($white_list !== null);
 	
 	foreach ($rel as &$e)
 	{
@@ -197,7 +202,10 @@ function parse_rel(array &$rel, string $element_type): array
 		
 		if(
 			!check_numerics_data($columns, $numeric_columns)
-			|| RelationType::isBlacklisted($columns[DATA_REL_TYPE_POS])
+			|| (
+				(!$has_white_list && RelationType::isBlacklisted($columns[DATA_REL_TYPE_POS]))
+				|| ($has_white_list && in_array($columns[DATA_REL_TYPE_POS], $white_list, true))
+			)
 		) {
 			continue;
 		}
@@ -240,8 +248,10 @@ function instantiate_word(array &$data, array &$nodes): stdClass
 	);
 }
 
-function instantiate_rel_type(array &$types, stdClass $word): void
+function instantiate_rel_type(array &$types, stdClass $word, ?array $white_list = null): void
 {
+	$has_white_list = ($white_list !== null);
+
 	foreach ($types as &$e)
 	{
 		if (empty($e))
@@ -255,13 +265,16 @@ function instantiate_rel_type(array &$types, stdClass $word): void
 			DATA_RELTYPE_ID_POS
 		);
 		
-		if (
+		if(
 			!check_numerics_data($columns, $numeric_columns)
-			|| RelationType::isBlacklisted($columns[DATA_RELTYPE_ID_POS])
+			|| (
+				(!$has_white_list && RelationType::isBlacklisted($columns[DATA_RELTYPE_ID_POS]))
+				|| ($has_white_list && !in_array($columns[DATA_RELTYPE_ID_POS], $white_list, true))
+			)
 		) {
 			continue;
 		}
-		
+
 		delete_quotes($columns[DATA_RELTYPE_NAME_POS]);
 		delete_quotes($columns[DATA_RELTYPE_GPNAME_POS]);
 		delete_quotes($columns[DATA_RELTYPE_HELP_POS]);
@@ -322,27 +335,40 @@ function instantiate_relations(array &$nodes, array &$rels, $word): void
 	}
 }
 
-function data_to_obj(array &$data): stdClass
+function data_to_obj(array &$data, ?array $nt_white_list = null, ?array $rt_white_list = null): stdClass
 {
-	$node_types = parse_node_type($data[DATA_NODETYPE_POS]);
+	$node_types = parse_node_type($data[DATA_NODETYPE_POS], $nt_white_list);
 	$nodes = parse_node($data[DATA_NODE_POS], $node_types);
 	
-	$rels_out = parse_rel($data[DATA_RELOUT_POS], DATA_RELOUT);
-	$rels_in = parse_rel($data[DATA_RELIN_POS], DATA_RELIN);
+	$rels_out = parse_rel($data[DATA_RELOUT_POS], DATA_RELOUT, $rt_white_list);
+	$rels_in = parse_rel($data[DATA_RELIN_POS], DATA_RELIN, $rt_white_list);
 	$rels = array_merge($rels_out, $rels_in);
 
 	$result = instantiate_word($data, $nodes);
 	
-	instantiate_rel_type($data[DATA_RELTYPE_POS], $result);
+	instantiate_rel_type($data[DATA_RELTYPE_POS], $result, $rt_white_list);
 	instantiate_relations($nodes, $rels, $result);
 
 	return $result;
 }
 
-function data_parser(string &$html_data): stdClass
+function data_parser(string &$html_data, ?array $nt_white_list = null, ?array $rt_white_list = null): stdClass
 {
 	$raw_data = get_raw_data($html_data);
 	$parsed_data = parse_raw_data($raw_data);
 	
-	return data_to_obj($parsed_data);
+	return data_to_obj($parsed_data, $nt_white_list, $rt_white_list);
+}
+
+function data_parser_raff(string &$html_data, ?array $nt_white_list = null): stdClass
+{
+	$data = data_parser(
+		$html_data,
+		$nt_white_list, 
+		array(
+			1
+		)
+	);
+
+	return Raffinement::instantiate($data);
 }
