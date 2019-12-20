@@ -14,3 +14,7 @@
 	left: 10px;
 	z-index: 9;
 }
+
+.logo-height {
+	line-height: 2.25rem;
+}

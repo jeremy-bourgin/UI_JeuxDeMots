@@ -34,6 +34,10 @@ label {
     text-decoration: none;
 }
 
+.logo-height img {
+	max-height: 2.25rem !important;
+}
+
 @media screen and (max-width: 960px) {
 	.tooltip {
 		display: none !important;
