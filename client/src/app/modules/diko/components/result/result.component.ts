@@ -15,6 +15,9 @@ export class ResultComponent implements OnInit
 
 	public relation_type_selected: any = null;
 
+	public definition_page_size: number = 5;
+	public definition_page_current : number = 1;
+
 	@ViewChildren('relation_types_view') relation_types_view: QueryList<any>;
 
 	constructor(public search_service : SearchService)
@@ -23,6 +26,7 @@ export class ResultComponent implements OnInit
 
 	ngOnInit()
 	{
+		console
 		function callback()
 		{
 			this.data = this.search_service.getData();
@@ -67,5 +71,10 @@ export class ResultComponent implements OnInit
 		{
 			$("html, body").prop('scrollTop', new_content.offset().top);
 		}
+	}
+
+	scrollDefinitions(): void
+	{
+		$("html, body").prop('scrollTop', $('#accordion-definition').offset().top);
 	}
 }
