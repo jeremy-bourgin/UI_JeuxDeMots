@@ -29,3 +29,7 @@ input[type="text"] {
 .animated-collapse {
     transition: height 0.1s ease-in-out;
 }
+
+.search-min {
+	padding-right: 45px;
+}

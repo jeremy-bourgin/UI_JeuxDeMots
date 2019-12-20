@@ -27,7 +27,7 @@
 </table>
 
 <ngb-pagination
-    *ngIf="container.nb_pages !== 1"
+    *ngIf="container.count > getNbTerms()"
     (page)="1"
     [pageSize]="getNbTerms()"
     [maxSize]="3"

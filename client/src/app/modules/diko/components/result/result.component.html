@@ -1,21 +1,21 @@
 <section *ngIf="data !== null">
 	<article>
 		<div *ngIf="data.definition.length !== 0" class="accordion" id="accordion-definition">
-			<div class="row">
-					<div class="form-group col-xl-2">
-						<button class="btn btn-primary col-xl-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
-							Définitions
-						</button>
-					</div>
+			<div class="row button-def">
+				<div class="form-group col-lg-6 col-xl-2">
+					<button class="btn btn-primary col-xl-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
+						Définitions
+					</button>
+				</div>
 
-					<div class="form-group col-xl-2">
-						<button class="btn btn-secondary col-xl-12" data-toggle="collapse" href="#semantic-refinement" role="button" aria-expanded="false">
-							Raffinements sémantiques
-						</button>
-					</div>
+				<div class="form-group col-lg-6 col-xl-2">
+					<button class="btn btn-secondary col-xl-12" data-toggle="collapse" href="#semantic-refinement" role="button" aria-expanded="false">
+						Raffinements sémantiques
+					</button>
+				</div>
 			</div>
 
-			<div id="definitions" class="collapse animated-collapse mt-3 mb-4" data-parent="#accordion-definition">
+			<div id="definitions" class="collapse animated-collapse my-3" data-parent="#accordion-definition">
 				<table class="table table-striped table-bordered">
 					<tbody>
 						<tr *ngFor="let e of data.definition">

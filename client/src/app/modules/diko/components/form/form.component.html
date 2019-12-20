@@ -1,7 +1,14 @@
 <section id="form" class="text-left">
 	<form ngNoForm method="get" action="/search">
 	    <div class="form-group input-group">
-			<input type="text" name="term" [(ngModel)]="term" placeholder="Terme" class="form-control" autocapitalize="off" required>
+			<input
+				type="search"
+				name="term"
+				[(ngModel)]="term"
+				placeholder="Terme"
+				[ngClass]="{'form-control': true, 'search-min': is_min}"
+				autocapitalize="off"
+				required>
 			<div class="input-group-prepend pr-5" *ngIf="is_min">
 				<input type="submit" name="submit" value="Rechercher" class="btn btn-primary icon-input icon-submit mr-5">
 				<input type="button" data-toggle="collapse" href="#advanced-block" role="button" aria-expanded="false" (click)="toggleAdvanced()" [ngClass]="{
