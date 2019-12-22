@@ -24,7 +24,7 @@ export class ResultComponent implements OnInit
 
 	public raffs: any = null;
 	public raffs_keys: any = null;
-	public raffs_is_loading: boolean = true;
+	public raffs_is_loading: boolean = false;
 
 	@ViewChildren('relation_types_view') relation_types_view: QueryList<any>;
 
@@ -148,5 +148,14 @@ export class ResultComponent implements OnInit
 		}
 		
 		$("html, body").prop('scrollTop', def_offset);
+	}
+
+	public filterRelationType(name: string): boolean
+	{
+		var bl = [
+			"r_raff_sem"
+		];
+
+		return (!bl.includes(name));
 	}
 }
