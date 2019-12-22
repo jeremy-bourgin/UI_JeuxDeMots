@@ -84,8 +84,10 @@ function check_numerics_data(array &$data, array &$columns): bool
 		{
 			$is_success = false;
 		}
-		
-		$data[$c] = (int)$data[$c];
+		else
+		{
+			$data[$c] = (int)$data[$c];
+		}
 		
 		++$i;
 	}
@@ -197,14 +199,14 @@ function parse_rel(array &$rel, string $element_type, ?array $white_list = null)
 			DATA_REL_TYPE_POS,
 			DATA_REL_WEIGHT_POS
 		);
-		
+
 		$columns[DATA_TYPE_POS] = $element_type;
-		
+
 		if(
 			!check_numerics_data($columns, $numeric_columns)
 			|| (
 				(!$has_white_list && RelationType::isBlacklisted($columns[DATA_REL_TYPE_POS]))
-				|| ($has_white_list && in_array($columns[DATA_REL_TYPE_POS], $white_list, true))
+				|| ($has_white_list && !in_array($columns[DATA_REL_TYPE_POS], $white_list, true))
 			)
 		) {
 			continue;
