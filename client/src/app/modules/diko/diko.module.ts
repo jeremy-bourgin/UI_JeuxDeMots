@@ -8,7 +8,6 @@ import { DikoRoutingModule } from './diko-routing.module';
 
 import { FormComponent } from './components/form/form.component';
 import { ResultComponent } from './components/result/result.component';
-import { SemanticRefinementComponent } from './components/semantic-refinement/semantic-refinement.component';
 import { IndexComponent } from './components/index/index.component';
 import { SearchComponent } from './components/search/search.component';
 import { LogoComponent } from './components/logo/logo.component';
@@ -22,7 +21,6 @@ import { RelationComponent } from './components/relation/relation.component';
 	declarations: [
 		FormComponent,
 		ResultComponent,
-		SemanticRefinementComponent,
 		IndexComponent,
 		SearchComponent,
 		LogoComponent,

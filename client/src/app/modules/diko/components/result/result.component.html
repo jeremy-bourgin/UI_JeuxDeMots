@@ -7,14 +7,6 @@
 						Définitions
 					</button>
 				</div>
-
-				<!--
-					<div class="form-group col-lg-6 col-xl-2">
-						<button class="btn btn-secondary col-xl-12" data-toggle="collapse" href="#semantic-refinement" role="button" aria-expanded="false">
-							Raffinements sémantiques
-						</button>
-					</div>
-				-->
 			</div>
 
 			<div id="definitions" class="collapse animated-collapse my-3" data-parent="#accordion-definition">
@@ -27,6 +19,7 @@
 				</table>
 
 				<ngb-pagination
+					*ngIf="data.definition.length > definition_page_size"
 					[(page)]="definition_page_current"
 					[pageSize]="definition_page_size"
 					[maxSize]="3"
@@ -36,10 +29,6 @@
 					class="d-flex justify-content-center"
 					(click)="scrollDefinitions()">
 				</ngb-pagination>
-			</div>
-
-			<div id="semantic-refinement" class="collapse animated-collapse mt-3 mb-4" data-parent="#accordion-definition">
-				<app-semantic-refinement></app-semantic-refinement>
 			</div>
 		</div>
 		<p *ngIf="data.definition.length === 0">

@@ -75,6 +75,14 @@ export class ResultComponent implements OnInit
 
 	scrollDefinitions(): void
 	{
-		$("html, body").prop('scrollTop', $('#accordion-definition').offset().top);
+		var current_scroll = $("html, body").prop('scrollTop');
+		var def_offset = $('#accordion-definition').offset().top;
+		
+		if (current_scroll < def_offset)
+		{
+			return;
+		}
+		
+		$("html, body").prop('scrollTop', def_offset);
 	}
 }
