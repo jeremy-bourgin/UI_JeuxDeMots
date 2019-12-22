@@ -10,7 +10,6 @@ import { LinkGeneratorService } from './link-generator.service';
 
 export class SearchService
 {
-
 	private params : any;
 	private data : any;
 
@@ -65,14 +64,14 @@ export class SearchService
 		}
 	}
 
-	public request(params: any, callback: Function): void
+	public request(query_params: any, callback: Function): void
 	{
-		this.request_service.request(RequestHandlerService.services.search_word, params, callback);
+		this.request_service.requestGet(RequestHandlerService.services.search_word, callback, query_params);
 	}
 
-	public generateLink(params: any): string
+	public generateLink(query_params: any): string
 	{
-		return this.link_generator.generateLink("/search", params);
+		return this.link_generator.generateLink("/search", query_params);
 	}
 
 	public getParams(): any
@@ -83,5 +82,26 @@ export class SearchService
 	public getData(): any
 	{
 		return this.data;
+	}
+
+	public findRelationTypeByName(name: string): any
+	{
+		var i: number = 0;
+		var rt: any = this.data.relation_types;
+		var r: any = null;
+
+		while (i < rt.length && r === null)
+		{
+			var e = rt[i];
+
+			if (e.name === name)
+			{
+				r = e;
+			}
+
+			++i;
+		}
+
+		return r;
 	}
 }

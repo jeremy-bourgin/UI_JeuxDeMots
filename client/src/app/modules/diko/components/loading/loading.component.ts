@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoadingService } from '../../services/loading.service';
+import { LoadingService, Loading } from '../../services/loading.service';
 
 @Component({
 	selector: 'app-loading',
@@ -19,8 +19,10 @@ export class LoadingComponent implements OnInit
 
 	ngOnInit()
 	{
+		var listener: Loading.Listener = new LoadingService.Listener(this.loading.bind(this), this.stopLoading.bind(this));
+
 		this.stopLoading();
-		this.loading_service.setListener(this.loading.bind(this), this.stopLoading.bind(this));
+		this.loading_service.addListener(LoadingService.default_listener, listener);
 	}
 
 	public loading()

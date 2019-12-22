@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
 	providedIn: 'root'
 })
+
 export class LinkGeneratorService
 {
 
@@ -11,19 +12,18 @@ export class LinkGeneratorService
 
 	}
 
-	public generateLink(url: string, params: any): string
+	public generateLink(url: string, query_params: any): string
 	{
-		var r :string = url;
-		var sign : string = "?";
+		var r: string = url;
+		var search_params: URLSearchParams = new URLSearchParams();
 
-		for (var p in params)
+		for (var p in query_params)
 		{
-			r += sign + p + "=" + encodeURIComponent(params[p]);
-			sign = "&";
+			search_params.append(p, query_params[p]);
 		}
+
+		r += "?" + search_params.toString();
 
 		return r;
 	}
-
-
 }
