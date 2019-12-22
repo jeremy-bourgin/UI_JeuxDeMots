@@ -38,6 +38,27 @@
 
 	<div class="border-top mb-3"></div>
 
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Definition</th>
+				<th>Raffinement</th>
+			</tr>
+		</thead>
+		<tbody>
+			<ng-template ngFor let-item [ngForOf]="raffs_keys" let-ri="index">
+				<tr *ngFor="let def of raffs[item]; index as i" [ngClass]="{'row-grey' : ri%2 === 0}">
+					<td class="text-justify" >
+						{{def}} 
+					</td> 
+					<td class="align-middle" *ngIf="i === 0" [attr.rowspan]="raffs[item].length">
+						{{item}}
+					</td>
+				</tr>
+			</ng-template>
+		</tbody>
+	</table>
+
 	<section id="relations">
 		<header class="d-flex flex-wrap justify-content-xl-start justify-content-center">
 			<input

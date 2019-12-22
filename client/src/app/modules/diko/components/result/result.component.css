@@ -6,3 +6,7 @@
 	background-color: var(--white) !important;
 	color: var(--primary) !important;
 }
+
+.row-grey {
+	background-color:#f2f2f2;
+}
