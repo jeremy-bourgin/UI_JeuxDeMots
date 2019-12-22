@@ -25,7 +25,7 @@ label {
 
 .block-link {
     display: block;
-    height: 100% !important;
+    height: 100%;
     width: 100%;
 }
 
