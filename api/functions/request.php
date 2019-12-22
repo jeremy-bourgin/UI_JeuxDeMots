@@ -98,10 +98,7 @@ function request_raff(string $term, array $raff): array
         $request = make_request($e);
         $data = data_parser_raff($request);
 
-        if (!empty($data->definition))
-        {
-            $result[$e] = $data->definition;
-        }        
+        $result[$e] = $data->definition;
 
         if ($data->raff !== null)
         {

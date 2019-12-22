@@ -19,7 +19,7 @@
     <tbody>
         <tr [ngClass]="{'table-warning': n.weight < 0}" *ngFor="let n of container.data | sortBy:container.order:container.sorted_by">
             <td class="text-break p-0">
-                <a href="{{ generateWordLink(n) }}" class="block-link">{{n.name}}</a>
+                <a href="{{ search_service.generateWordLink(n.name) }}" class="block-link p-3">{{n.name}}</a>
             </td>
             <td class="">{{n.weight}}</td>
         </tr>

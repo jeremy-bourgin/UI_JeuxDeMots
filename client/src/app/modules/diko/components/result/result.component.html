@@ -1,13 +1,13 @@
 <section *ngIf="data !== null">
 	<article>
-		<div *ngIf="data.definition.length !== 0" class="accordion" id="accordion-definition">
+		<div class="accordion" id="accordion-definition">
 			<div class="row justify-content-xl-start justify-content-center">
-				<div class="form-group col-lg-5 col-xl-2">
+				<div class="col-lg-5 col-xl-2">
 					<button class="btn btn-secondary col-xl-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
 						Définitions
 					</button>
 				</div>
-				<div class="form-group col-lg-5 col-xl-2">
+				<div class="col-lg-5 col-xl-2">
 					<button class="btn btn-dark col-xl-12" data-toggle="collapse" href="#raffinement-semantique" role="button" aria-expanded="false">
 						Raffinement sémantique
 					</button>
@@ -48,11 +48,11 @@
 						<tbody>
 							<ng-template ngFor let-item [ngForOf]="raffs_keys" let-ri="index">
 								<tr *ngFor="let def of raffs[item]; index as i" [ngClass]="{'row-grey' : ri%2 === 0}">
-									<td class="text-justify" >
+									<td class="text-justify">
 										{{def}} 
-									</td> 
-									<td class="align-middle" *ngIf="i === 0" [attr.rowspan]="raffs[item].length">
-										{{item}}
+									</td>
+									<td *ngIf="i === 0" [attr.rowspan]="raffs[item].length" class="p-0 h-100 align-middle">
+										<a href="{{ search_service.generateWordLink(item) }}" class="block-link p-3 ">{{item}}</a>
 									</td>
 								</tr>
 							</ng-template>
@@ -61,9 +61,6 @@
 				</div>
 			</div>
 		</div>
-		<p *ngIf="data.definition.length === 0">
-			Il n'y a aucune définition pour ce terme
-		</p>
 	</article>
 
 	<div class="border-top mb-3"></div>

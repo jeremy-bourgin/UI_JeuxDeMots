@@ -74,6 +74,16 @@ export class SearchService
 		return this.link_generator.generateLink("/search", query_params);
 	}
 
+	public generateWordLink(name : string): string
+	{
+		var params: any = this.getParams();
+		params.term = name;
+
+		var result: string = this.generateLink(params);
+
+		return result;
+	}
+
 	public getParams(): any
 	{
 		return { ... this.params };

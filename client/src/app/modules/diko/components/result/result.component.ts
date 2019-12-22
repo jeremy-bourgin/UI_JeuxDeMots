@@ -42,6 +42,18 @@ export class ResultComponent implements OnInit
 		{
 			this.raffs = data;
 			this.raffs_keys = Object.keys(this.raffs);
+
+			for (var e in this.raffs)
+			{
+				var o = this.raffs[e];
+
+				if (o.length > 0)
+				{
+					continue;
+				}
+
+				o.push("Il n'y a pas de définition pour ce raffinement sémantique.");
+			}
 		}
 
 		function search_callback()
@@ -88,7 +100,7 @@ export class ResultComponent implements OnInit
 		this.search_service.run(search_callback.bind(this));
 	}
 
-	showFirstRelationType(): void
+	public showFirstRelationType(): void
 	{
 		if (this.relation_type_selected !== null || this.data.relation_types.length === 0)
 		{
@@ -125,7 +137,7 @@ export class ResultComponent implements OnInit
 		}
 	}
 
-	scrollDefinitions(): void
+	public scrollDefinitions(): void
 	{
 		var current_scroll = $("html, body").prop('scrollTop');
 		var def_offset = $('#accordion-definition').offset().top;

@@ -56,16 +56,6 @@ export class RelationComponent implements OnInit
 		this.search_service.request(params, callback.bind(this));
 	}
 
-	public generateWordLink(n : any): string
-	{
-		var params: any = this.search_service.getParams();
-		params.term = n.name;
-
-		var result: string = this.search_service.generateLink(params);
-
-		return result;
-	}
-
 	public setOrder(column_name: string, is_column_changed: boolean): void
 	{
 		var other_column = (column_name === "name") ? "weight" : "name";
