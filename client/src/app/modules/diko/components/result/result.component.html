@@ -2,65 +2,63 @@
 	<article>
 		<div class="accordion" id="accordion-definition">
 			<div class="row justify-content-xl-start justify-content-center">
-				<div class="col-lg-5 col-xl-2">
-					<button class="btn btn-secondary col-xl-12 mb-lg-0 mb-3" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
+				<div class="form-group col-lg-5 col-xl-2">
+					<button class="btn btn-secondary col-xl-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
 						Définitions
 					</button>
 				</div>
-				<div class="col-lg-5 col-xl-2">
+				<div class="form-group col-lg-5 col-xl-2">
 					<button class="btn btn-dark col-xl-12" data-toggle="collapse" href="#raffinement-semantique" role="button" aria-expanded="false">
 						Raffinement sémantique
 					</button>
 				</div>
 			</div>
 
-			<div class="my-3">
-				<div id="definitions" class="collapse animated-collapse" data-parent="#accordion-definition">
-					<p *ngIf="data.definition.length === 0">Il n'y a aucune définition pour cet terme (voir raffinement sémantique).</p>
-					<table class="table table-striped table-bordered" *ngIf="data.definition.length > 0">
-						<tbody>
-							<tr *ngFor="let e of data.definition | slice:(definition_page_size * (definition_page_current - 1)):((definition_page_size * (definition_page_current - 1)) + definition_page_size)">
-								<td scope="row" class="text-justify text-break">{{e}}</td>
-							</tr>
-						</tbody>
-					</table>
+			<div id="definitions" class="collapse animated-collapse" data-parent="#accordion-definition">
+				<p *ngIf="data.definition.length === 0">Il n'y a aucune définition pour cet terme (voir raffinement sémantique).</p>
+				<table class="table table-striped table-bordered" *ngIf="data.definition.length > 0">
+					<tbody>
+						<tr *ngFor="let e of data.definition | slice:(definition_page_size * (definition_page_current - 1)):((definition_page_size * (definition_page_current - 1)) + definition_page_size)">
+							<td scope="row" class="text-justify text-break">{{e}}</td>
+						</tr>
+					</tbody>
+				</table>
 
-					<ngb-pagination
-						*ngIf="data.definition.length > definition_page_size"
-						[(page)]="definition_page_current"
-						[pageSize]="definition_page_size"
-						[maxSize]="3"
-						[rotate]="true"
-						[collectionSize]="data.definition.length"
-						[ellipses]="true"
-						class="d-flex justify-content-center"
-						(click)="scrollDefinitions()">
-					</ngb-pagination>
-				</div>
-				<div id="raffinement-semantique" class="collapse animated-collapse my-3" data-parent="#accordion-definition">
-					<p *ngIf="raffs === null && !raffs_is_loading">Il n'y a aucun raffinement sémantique.</p>
-					<p *ngIf="raffs_is_loading">Chargement des raffinements sémantiques en cours...</p>
-					<table class="table table-bordered" *ngIf="raffs !== null">
-						<thead>
-							<tr>
-								<th>Raffinement</th>
-								<th>Definition</th>
+				<ngb-pagination
+					*ngIf="data.definition.length > definition_page_size"
+					[(page)]="definition_page_current"
+					[pageSize]="definition_page_size"
+					[maxSize]="3"
+					[rotate]="true"
+					[collectionSize]="data.definition.length"
+					[ellipses]="true"
+					class="d-flex justify-content-center"
+					(click)="scrollDefinitions()">
+				</ngb-pagination>
+			</div>
+			<div id="raffinement-semantique" class="collapse animated-collapse my-3" data-parent="#accordion-definition">
+				<p *ngIf="raffs === null && !raffs_is_loading">Il n'y a aucun raffinement sémantique.</p>
+				<p *ngIf="raffs_is_loading">Chargement des raffinements sémantiques en cours...</p>
+				<table class="table table-bordered" *ngIf="raffs !== null">
+					<thead>
+						<tr>
+							<th>Raffinement</th>
+							<th>Definition</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ng-template ngFor let-item [ngForOf]="raffs_keys" let-ri="index">
+							<tr *ngFor="let def of raffs[item]; index as i" [ngClass]="{'row-grey' : ri%2 === 0}">
+								<td *ngIf="i === 0" [attr.rowspan]="raffs[item].length" class="p-0 align-middle">
+									<a href="{{ search_service.generateWordLink(item) }}" class="block-link px-4 py-3">{{item}}</a>
+								</td>
+								<td class="text-justify">
+									{{def}} 
+								</td>
 							</tr>
-						</thead>
-						<tbody>
-							<ng-template ngFor let-item [ngForOf]="raffs_keys" let-ri="index">
-								<tr *ngFor="let def of raffs[item]; index as i" [ngClass]="{'row-grey' : ri%2 === 0}">
-									<td *ngIf="i === 0" [attr.rowspan]="raffs[item].length" class="p-0 align-middle">
-										<a href="{{ search_service.generateWordLink(item) }}" class="block-link px-4 py-3">{{item}}</a>
-									</td>
-									<td class="text-justify">
-										{{def}} 
-									</td>
-								</tr>
-							</ng-template>
-						</tbody>
-					</table>
-				</div>
+						</ng-template>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</article>
