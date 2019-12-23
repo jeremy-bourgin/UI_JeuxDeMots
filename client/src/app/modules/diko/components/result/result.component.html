@@ -49,8 +49,8 @@
 					<tbody>
 						<ng-template ngFor let-item [ngForOf]="raffs_keys" let-ri="index">
 							<tr *ngFor="let def of raffs[item]; index as i" [ngClass]="{'row-grey' : ri%2 === 0}">
-								<td *ngIf="i === 0" [attr.rowspan]="raffs[item].length" class="p-0 align-middle">
-									<a href="{{ search_service.generateWordLink(item) }}" class="block-link px-4 py-3">{{item}}</a>
+								<td *ngIf="i === 0" [attr.rowspan]="raffs[item].length" class="p-0 text-break raff-item">
+									<a href="{{ search_service.generateWordLink(item) }}" class="block-link p-3">{{item}}</a>
 								</td>
 								<td class="text-justify">
 									{{def}} 
