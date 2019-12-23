@@ -69,6 +69,7 @@ catch(Throwable $e)
 	$obj->message = $message;
 }
 
+
 $buffer_debug = ob_get_contents();
 ob_end_clean();
 

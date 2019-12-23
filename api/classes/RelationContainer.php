@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-use stdClass;
-
 class RelationContainer
 {
     public static function instantiate(bool $is_out): stdClass

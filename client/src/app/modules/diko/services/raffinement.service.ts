@@ -11,13 +11,8 @@ export class RaffinementService
 
     constructor(private request_service: RequestHandlerService) { }
 
-    public request(body_params: any, callback: Function, loading_listener?: string): void
+    public request(query_params: any, callback: Function, loading_listener?: string): void
     {
-        if (body_params.raff === null || body_params.raff.length === 0)
-        {
-            return;
-        }
-
-        this.request_service.requestPost(RequestHandlerService.services.raffinement, callback, body_params, null, loading_listener);
+        this.request_service.requestGet(RequestHandlerService.services.raffinement, callback, query_params, loading_listener);
     }
 }

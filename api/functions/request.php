@@ -33,7 +33,7 @@ function make_request(string $term): string
     $bench_request = Benchmark::startBench("request");
     $request = file_get_contents($url);
     $bench_request->end();
-
+	
     $bench_encodage = Benchmark::startBench("encodage");
     $request = utf8_encode($request);
     $request = html_entity_decode($request, ENT_QUOTES, APP_ENCODING);
@@ -81,7 +81,7 @@ function request_search(string $term): stdClass
     return $data;
 }
 
-function request_raff(string $term, array $raff): array
+function request_raff(string $term, int $deep): array
 {
     $result = array();
 
@@ -92,19 +92,21 @@ function request_raff(string $term, array $raff): array
     {
         return $cached;
     }
+	
+	$request = make_request($term);
+	$data = data_parser_raff($request);
+	
+	if ($deep > 0)
+	{
+		$result[$term] = $data->definition;
+	}
+	
+	++$deep;
 
-    foreach ($raff as &$e)
+    foreach ($data->raff as &$e)
     {
-        $request = make_request($e);
-        $data = data_parser_raff($request);
-
-        $result[$e] = $data->definition;
-
-        if ($data->raff !== null)
-        {
-            $temp = request_raff($e, $data->raff);
-            $result = array_merge($result, $temp);
-        }
+		$temp = request_raff($e, $deep);
+		$result = array_merge($result, $temp);
     }
 
     return $result;

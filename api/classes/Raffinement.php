@@ -7,17 +7,16 @@ class Raffinement
     {
         $obj                = new stdClass();
         $obj->definition    = $word->definition;
-        $obj->raff          = null;
+        $obj->raff          = array();
 
         if (empty($word->relation_types))
         {
             return $obj;
         }
 
-        $temp = $word->relation_types[0]->relations_out->data;
-        $obj->raff = array();
+        $temp_out = $word->relation_types[0]->relations_out->data;
 
-        foreach ($temp as &$e)
+        foreach ($temp_out as &$e)
         {
             $obj->raff[] = $e->name;
         }

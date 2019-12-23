@@ -40,6 +40,11 @@ export class ResultComponent implements OnInit
 	{
 		function raff_callback(data: any)
 		{
+			if (data.length === 0)
+			{
+				return;
+			}
+			
 			this.raffs = data;
 			this.raffs_keys = Object.keys(this.raffs);
 
@@ -61,24 +66,8 @@ export class ResultComponent implements OnInit
 			this.data = this.search_service.getData();
 			this.relation_types_view.changes.subscribe(this.showFirstRelationType.bind(this));
 
-			var temp_raff_sem = this.search_service.findRelationTypeByName("r_raff_sem");
-
-			if (temp_raff_sem === null)
-			{
-				return;
-			}
-
-			var temp = [];
-			var temp_container = temp_raff_sem.relations_out.data;
-
-			for (var e of temp_container)
-			{
-				temp.push(e.name);
-			}
-
 			var data_raffs = {
-				term: this.data.name,
-				raff: temp
+				term: this.data.name
 			};
 
 			this.raffinement_service.request(data_raffs, raff_callback.bind(this), ResultComponent.raffs_listener_name);

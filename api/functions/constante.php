@@ -122,5 +122,3 @@ define("PARAMETER_PAGE_INOUT", "pinout");
 define("PARAMETER_PAGE_IN", "in");
 // search valeur de paramètre : pagination sur relation sortante
 define("PARAMETER_PAGE_OUT", "out");
-// raffinement paramètre : terme du raffinement sémantique
-define("PARAMETER_RAFF", "raff");
