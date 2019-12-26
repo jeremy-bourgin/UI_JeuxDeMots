@@ -24,15 +24,15 @@ try
 
 	// get classes
 	spl_autoload_register(function ($class_name) {
-		require(__DIR__ . "/../classes/" . $class_name . '.php');
+		require(APP_PATH . "/classes/" . $class_name . '.php');
 	});
 
 	// get functions
-	require(__DIR__ . "/constante.php");
-	require(__DIR__ . "/cache_manager.php");
-	require(__DIR__ . "/data_parser.php");
-	require(__DIR__ . "/function.php");
-	require(__DIR__ . "/request.php");
+	require(APP_PATH . "/functions/constante.php");
+	require(APP_PATH . "/functions/cache_manager.php");
+	require(APP_PATH . "/functions/data_parser.php");
+	require(APP_PATH . "/functions/function.php");
+	require(APP_PATH . "/functions/request.php");
 
 	$bench_total = Benchmark::total();
 
