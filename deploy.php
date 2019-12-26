@@ -8,7 +8,7 @@ $api_dest_const = $dest_dest_dir . "/functions/constante.php";
 $gitkeep = "./public/.gitkeep";
 
 $const = array(
-	"PROD_MODE" => true
+	"PROD_MODE" => false
 );
 
 function xcopy($src, $dst)
