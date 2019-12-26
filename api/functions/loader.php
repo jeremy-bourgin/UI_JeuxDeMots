@@ -8,12 +8,12 @@ declare(strict_types=1);
 // toute les erreurs doivent être retourné par l'interpréteur PHP
 // https://www.php.net/manual/fr/function.error-reporting.php
 @error_reporting(-1);
-
+/*
 // les erreurs ne seront pas affiché dans le tampon de sortie
 // cependant, en DEV_MODE, les erreurs seront attrapé et retourné dans le JSON
 @ini_set("display_errors", "0");
 @ini_set("display_startup_errors", "0");
-
+*/
 // tout ce qui sera affiché dans le tampon de sortie sera retourné dans le JSON en DEV_MODE dans debug
 ob_start();
 
@@ -52,7 +52,7 @@ catch(ServerException $e)
 {
 	$obj->error = true;
 	$obj->message = $e->getMessage();
-}
+}/*
 catch(Throwable $e)
 {
 	if (DEV_MODE)
@@ -69,9 +69,9 @@ catch(Throwable $e)
 	$obj->message = $message;
 }
 
-
+*/
 $buffer_debug = ob_get_contents();
-ob_end_clean();
+//ob_end_clean();
 
 if (DEV_MODE)
 {

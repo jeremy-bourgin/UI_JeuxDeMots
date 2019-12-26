@@ -11,6 +11,8 @@ function load()
     $data = json_decode(file_get_contents(AUTOCOMPLETE_DATA));
     $result = array();
 
+    echo substr(file_get_contents(AUTOCOMPLETE_DATA), 0, 20);
+
     foreach ($data as &$e)
     {
         $temp = strtolower(substr($e, 0, $prefix_len));
