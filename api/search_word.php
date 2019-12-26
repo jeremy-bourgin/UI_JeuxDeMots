@@ -65,9 +65,4 @@ function load()
 	return $data;
 }
 
-function jsoned_data(string &$json)
-{
-
-}
-
 include("./functions/loader.php");

@@ -3,7 +3,7 @@
 // DEV_MODE = false pour cacher les informations sur les erreurs
 define("DEV_MODE", true);
 // si DEV_MODE = true et CACHE_IN_DEV_MODE = false alors il n'y aura pas de cache en DEV_MODE
-define("CACHE_IN_DEV_MODE", false);
+define("CACHE_IN_DEV_MODE", true);
 
 // encodage
 define("APP_ENCODING", "UTF-8");
@@ -102,6 +102,8 @@ define("LIMIT_NB_CACHE_FILE", 50);
 // nombre de mots renvoyer
 define("LIMIT_NB_WORD", 10);
 
+define("AUTOCOMPLETE_DATA", __DIR__ . "/../data/12172019-word.json");
+
 // search paramètre : terme
 define("PARAMETER_TERM", "term");
 //search paramètre : node
@@ -122,3 +124,5 @@ define("PARAMETER_PAGE_INOUT", "pinout");
 define("PARAMETER_PAGE_IN", "in");
 // search valeur de paramètre : pagination sur relation sortante
 define("PARAMETER_PAGE_OUT", "out");
+// automplete paramètre
+define("PARAMETER_AUTOCOMPLETE", "autocomplete");

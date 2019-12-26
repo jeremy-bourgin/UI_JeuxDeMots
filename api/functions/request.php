@@ -90,7 +90,7 @@ function request_raff(string $term, int $deep): array
 
     if ($cached !== null)
     {
-        return $cached;
+        return get_object_vars($cached);
     }
 	
 	$request = make_request($term);
@@ -108,6 +108,11 @@ function request_raff(string $term, int $deep): array
 		$temp = request_raff($e, $deep);
 		$result = array_merge($result, $temp);
     }
+
+    $bench_cache = Benchmark::startBench("cache");
+    $serialized = json_encode($result);
+    save_cache($term_cache, $serialized);
+    $bench_cache->end();
 
     return $result;
 }
