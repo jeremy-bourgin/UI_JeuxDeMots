@@ -37,6 +37,10 @@ label {
 	max-height: 2.25rem !important;
 }
 
+.text-underline {
+	text-decoration: underline;
+}
+
 @media screen and (max-width: 960px) {
 	.tooltip {
 		display: none !important;

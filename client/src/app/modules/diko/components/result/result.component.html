@@ -4,7 +4,7 @@
 			<div class="row justify-content-xl-start justify-content-center">
 				<div class="form-group col-lg-5 col-xl-2">
 					<button class="btn btn-secondary col-xl-12" data-toggle="collapse" href="#definitions" role="button" aria-expanded="false">
-						Définitions
+						Définition
 					</button>
 				</div>
 				<div class="form-group col-lg-5 col-xl-2">
@@ -15,11 +15,17 @@
 			</div>
 
 			<div id="definitions" class="collapse animated-collapse my-3" data-parent="#accordion-definition">
-				<p *ngIf="data.definition.length === 0">Il n'y a aucune définition pour cet terme (voir raffinement sémantique).</p>
+				<div class="mb-1" *ngIf="pos !== null">
+					<span class="text-underline">{{pos_name}} :</span>
+					<span *ngFor="let e of pos" class="px-3">{{e}}</span>
+				</div>
+				<p *ngIf="data.definition.length === 0" class="bg-danger text-white p-2 rounded">Il n'y a aucune définition pour cet terme (voir raffinement sémantique).</p>
 				<table class="table table-striped table-bordered" *ngIf="data.definition.length > 0">
 					<tbody>
 						<tr *ngFor="let e of data.definition | slice:(definition_page_size * (definition_page_current - 1)):((definition_page_size * (definition_page_current - 1)) + definition_page_size)">
-							<td scope="row" class="text-justify text-break">{{e}}</td>
+							<td scope="row" class="text-justify text-break">
+								{{e}}
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -37,28 +43,42 @@
 				</ngb-pagination>
 			</div>
 			<div id="raffinement-semantique" class="collapse animated-collapse my-3" data-parent="#accordion-definition">
-				<p *ngIf="raffs === null && !raffs_is_loading">Il n'y a aucun raffinement sémantique.</p>
-				<p *ngIf="raffs_is_loading">Chargement des raffinements sémantiques en cours...</p>
-				<table class="table table-bordered" *ngIf="raffs !== null">
-					<thead>
-						<tr>
-							<th>Raffinement</th>
-							<th>Définition</th>
-						</tr>
-					</thead>
-					<tbody>
-						<ng-template ngFor let-item [ngForOf]="raffs_keys" let-ri="index">
-							<tr *ngFor="let def of raffs[item]; index as i" [ngClass]="{'row-grey' : ri%2 === 0}">
-								<td *ngIf="i === 0" [attr.rowspan]="raffs[item].length" class="p-0 text-break raff-item">
-									<a href="{{ search_service.generateWordLink(item) }}" class="block-link p-3">{{item}}</a>
-								</td>
-								<td class="text-justify">
-									{{def}} 
-								</td>
+				<p *ngIf="raffs === null && !raffs_is_loading" class="bg-danger text-white p-2 rounded">Il n'y a aucun raffinement sémantique.</p>
+				<p *ngIf="raffs_is_loading" class="bg-info text-white p-2 rounded">Chargement des raffinements sémantiques en cours...</p>
+				<div *ngIf="raffs !== null">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Raffinement</th>
+								<th>Définition</th>
 							</tr>
-						</ng-template>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<ng-template ngFor let-item [ngForOf]="raffs_keys | slice:(raffs_page_size * (raffs_current_page - 1)):((raffs_page_size * (raffs_current_page - 1)) + raffs_page_size)" let-ri="index">
+								<tr *ngFor="let def of raffs[item]; index as i" [ngClass]="{'row-grey' : ri%2 === 0}">
+									<td *ngIf="i === 0" [attr.rowspan]="raffs[item].length" class="p-0 text-break raff-item">
+										<a href="{{ search_service.generateWordLink(item) }}" class="block-link p-3">{{item}}</a>
+									</td>
+									<td class="text-justify">
+										{{def}} 
+									</td>
+								</tr>
+							</ng-template>
+						</tbody>
+					</table>
+
+					<ngb-pagination
+						*ngIf="raffs_keys.length > raffs_page_size"
+						[(page)]="raffs_current_page"
+						[pageSize]="raffs_page_size"
+						[maxSize]="3"
+						[rotate]="true"
+						[collectionSize]="raffs_keys.length"
+						[ellipses]="true"
+						class="d-flex justify-content-center"
+						(click)="scrollDefinitions()">
+					</ngb-pagination>
+				</div>
 			</div>
 		</div>
 	</article>

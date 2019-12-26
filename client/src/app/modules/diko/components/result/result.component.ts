@@ -19,12 +19,17 @@ export class ResultComponent implements OnInit
 
 	public relation_type_selected: any = null;
 
+	public pos_name: string;
+	public pos: string[] = null;
+
 	public definition_page_size: number = 5;
 	public definition_page_current : number = 1;
 
 	public raffs: any = null;
 	public raffs_keys: any = null;
 	public raffs_is_loading: boolean = false;
+	public raffs_page_size: number = 3;
+	public raffs_current_page: number = 1;
 
 	@ViewChildren('relation_types_view') relation_types_view: QueryList<any>;
 
@@ -71,6 +76,47 @@ export class ResultComponent implements OnInit
 			};
 
 			this.raffinement_service.request(data_raffs, raff_callback.bind(this), ResultComponent.raffs_listener_name);
+
+			var r_pos = this.search_service.findRelationTypeByName("r_pos");
+
+			if (r_pos !== null)
+			{
+				this.pos = [];
+				this.pos_name = r_pos.gpname;
+
+				var keys = {
+					mas: "masculin",
+					fem: "féminin",
+					sg: "singulier",
+					pl: "pluriel"
+				};
+
+				for (var e of r_pos.relations_out.data)
+				{
+					var temp_e = e.name.split(":");
+
+					if (temp_e[0] === "Nom")
+					{
+						if (temp_e.length === 2 && temp_e[1].length > 0)
+						{
+							for (var se of temp_e[1].split("+"))
+							{
+								var temp_lse = se.toLowerCase();
+								var temp_se = (keys[temp_lse]) ? keys[temp_lse] : se
+								this.pos.push(temp_se);
+							}
+						}
+						else
+						{
+							this.pos.push(temp_e[0]);
+						}
+					}
+					else
+					{
+						this.pos.push(e.name);
+					}
+				}
+			}
 		}
 
 		function loading_raff()
@@ -142,9 +188,14 @@ export class ResultComponent implements OnInit
 	public filterRelationType(name: string): boolean
 	{
 		var bl = [
-			"r_raff_sem"
+			"r_raff_sem",
+			"r_pos"
 		];
 
 		return (!bl.includes(name));
+	}
+
+	public isArray(e: any): boolean {
+		return Array.isArray(e);
 	}
 }

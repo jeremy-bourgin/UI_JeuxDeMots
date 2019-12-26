@@ -4,7 +4,6 @@ declare(strict_types=1);
 class RelationType
 {
 	private static $blacklist = array(
-		4,
 		12,
 		18,
 		19,

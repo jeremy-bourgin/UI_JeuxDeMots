@@ -1,4 +1,3 @@
-- afficher type relation 4 dans définition ou en-tête résultat
 - complétion recherche (http://www.jeuxdemots.org/JDM-LEXICALNET-FR/11112019-LEXICALNET-JEUXDEMOTS-ENTRIES.txt) (long)
 - séparer request manager, loading et message dans un module (rapide)
 - séparer pipe dans un module (rapide)
