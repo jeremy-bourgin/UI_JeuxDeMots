@@ -11,7 +11,7 @@ function load()
     $data = json_decode(file_get_contents(AUTOCOMPLETE_DATA));
     $result = array();
 
-    echo substr(file_get_contents(AUTOCOMPLETE_DATA), 0, 20);
+    echo strlen(file_get_contents(AUTOCOMPLETE_DATA)) . "|" . AUTOCOMPLETE_DATA . "|" . CACHE_DIRECTORY;
 
     foreach ($data as &$e)
     {
