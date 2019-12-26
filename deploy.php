@@ -1,11 +1,11 @@
 <?php
-$api_src_dir = "./api";
-$dest_dest_dir = "./public/api";
+$api_src_dir = __DIR__ . "/api";
+$dest_dest_dir = __DIR__ . "/public/api";
 
 $api_src_const = $api_src_dir . "/functions/constante.php";
 $api_dest_const = $dest_dest_dir . "/functions/constante.php";
 
-$gitkeep = "./public/.gitkeep";
+$gitkeep = __DIR__ .  "/public/.gitkeep";
 
 $const = array(
 	"PROD_MODE" => false
