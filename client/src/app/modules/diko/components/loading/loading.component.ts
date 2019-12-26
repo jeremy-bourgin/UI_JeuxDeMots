@@ -19,11 +19,16 @@ export class LoadingComponent implements OnInit
 
 	ngOnInit()
 	{
+		var not_listener: Loading.Listener = new LoadingService.Listener(this.notLoading.bind(this), this.notLoading.bind(this));
+		this.loading_service.addListener(LoadingService.not_loading, not_listener);
+
 		var listener: Loading.Listener = new LoadingService.Listener(this.loading.bind(this), this.stopLoading.bind(this));
+		this.loading_service.addListener(LoadingService.default_listener, listener);
 
 		this.stopLoading();
-		this.loading_service.addListener(LoadingService.default_listener, listener);
 	}
+
+	public notLoading(): void { }
 
 	public loading()
 	{

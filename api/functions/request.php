@@ -42,7 +42,7 @@ function make_request(string $term): string
     return $request;
 }
 
-function request_cache(string $term): ?stdClass
+function request_cache(string $term, bool $is_assoc = false)
 {
     if ((DEV_MODE && !CACHE_IN_DEV_MODE) || !has_cache($term))
     {
@@ -51,7 +51,7 @@ function request_cache(string $term): ?stdClass
 
     $bench_cache = Benchmark::startBench("cache");
     $serialized = retrieve_cache($term);
-    $data = json_decode($serialized);
+    $data = json_decode($serialized, $is_assoc);
     $bench_cache->end();
 
     return $data;
@@ -86,11 +86,11 @@ function request_raff(string $term, int $deep): array
     $result = array();
 
     $term_cache = 'raff.' . $term;
-    $cached = request_cache($term_cache);
+    $cached = request_cache($term_cache, true);
 
     if ($cached !== null)
     {
-        return get_object_vars($cached);
+        return $cached;
     }
 	
 	$request = make_request($term);

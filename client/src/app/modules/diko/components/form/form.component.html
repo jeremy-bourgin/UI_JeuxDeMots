@@ -5,6 +5,7 @@
 				type="text"
 				name="term"
 				[(ngModel)]="term"
+				[ngbTypeahead]="autocomplete_listener"
 				placeholder="Terme"
 				[ngClass]="{'form-control': true, 'search-min': is_min}"
 				autocapitalize="off"

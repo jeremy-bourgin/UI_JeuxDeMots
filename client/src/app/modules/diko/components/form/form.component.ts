@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {Observable, of} from 'rxjs';
+import {debounceTime, distinctUntilChanged, switchMap, map} from 'rxjs/operators';
 
 import { SearchService } from '../../services/search.service';
+import { AutocompleteService } from '../../services/autocomplete.service';
 
 @Component({
   selector: 'app-form',
@@ -24,9 +27,16 @@ export class FormComponent implements OnInit {
 
 	public is_advanced: boolean;
 
+	public autocomplete_listener = (text$: Observable<string>) =>
+		text$.pipe(
+			debounceTime(300),
+			distinctUntilChanged(),
+			switchMap(this.autocompleteCallback.bind(this))
+		);
+
 	@Input('is_min') is_min: boolean;
 
-	constructor(public search_service : SearchService) { }
+	constructor(public search_service : SearchService, public autocomplete_service: AutocompleteService) { }
 
 	ngOnInit()
 	{
@@ -73,4 +83,15 @@ export class FormComponent implements OnInit {
 		this.is_advanced = !this.is_advanced;
 	}
 	
+	public autocompleteCallback(term: string): Observable<any>
+	{
+		if (term.length < 3)
+		{
+			return of([]);
+		}
+
+		return this.autocomplete_service.request(term).pipe(
+			map(data => data.result.slice(0, 5))
+		);
+	}
 }

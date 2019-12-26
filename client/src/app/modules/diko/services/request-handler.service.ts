@@ -47,7 +47,8 @@ export class RequestHandlerService
 
 	public static readonly services: any = {
 		search_word: "search_word.php",
-		raffinement: "raffinement.php"
+		raffinement: "raffinement.php",
+		autocomplete: "autocomplete.php"
 	};
 
 	constructor(
@@ -69,7 +70,25 @@ export class RequestHandlerService
 		var request_callback: typeof RequestHandlerService.requestCallback.prototype;
 		request_callback = new RequestHandlerService.requestCallback(this, loader, user_callback);
 
-		service.subscribe(request_callback.requestCallback.bind(request_callback));		
+		service.subscribe(request_callback.requestCallback.bind(request_callback));
+	}
+
+	public observableRequestGet(
+		service_name: string,
+		query_params?: any,
+		headers?: any,
+		options?: any
+	): Observable<any> {
+		var info : any = this.makeGetInformations(
+			service_name,
+			query_params,
+			headers
+		);
+
+		var options: any = this.makeOptions(options, info);
+		var service : Observable<any> = this.http.get(info.action, options);
+		
+		return service;
 	}
 
 	public requestGet(
@@ -80,17 +99,34 @@ export class RequestHandlerService
 		headers?: any,
 		options?: any
 	): void {
-		var info : any = this.makeGetInformations(
+		var service : Observable<any> = this.observableRequestGet(
 			service_name,
+			query_params,
+			headers,
+			options
+		);
+		
+		this.request(service, user_callback, loading_name);
+	}
+
+	public observableRequestPost(
+		service_name: string,
+		post_params: any,
+		query_params?: any,
+		headers?: any,
+		options?: any
+	): Observable<any> {
+		var info: any = this.makePostInformations(
+			service_name,
+			post_params,
 			query_params,
 			headers
 		);
 
 		var options: any = this.makeOptions(options, info);
+		var service : Observable<any> = this.http.post(info.action, info.body, options);
 
-		var service : Observable<any> = this.http.get(info.action, options);
-		
-		this.request(service, user_callback, loading_name);
+		return service;
 	}
 
 	public requestPost(
@@ -102,16 +138,13 @@ export class RequestHandlerService
 		headers?: any,
 		options?: any
 	): void {
-		var info: any = this.makePostInformations(
+		var service : Observable<any> = this.observableRequestPost(
 			service_name,
 			post_params,
 			query_params,
-			headers
+			headers, 
+			options
 		);
-
-		var options: any = this.makeOptions(options, info);
-
-		var service : Observable<any> = this.http.post(info.action, info.body, options);
 
 		this.request(service, user_callback, loading_name);
 	}

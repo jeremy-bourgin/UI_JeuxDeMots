@@ -74,6 +74,7 @@ export class LoadingService
 	};
 
 	public static readonly default_listener = "default_loader";
+	public static readonly not_loading = "not_loading";
 
 	private listeners: any = {};
 
