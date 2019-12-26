@@ -14,6 +14,8 @@ declare(strict_types=1);
 @ini_set("display_errors", "0");
 @ini_set("display_startup_errors", "0");
 
+//@set_time_limit(15);
+
 // tout ce qui sera affiché dans le tampon de sortie sera retourné dans le JSON en DEV_MODE dans debug
 ob_start();
 

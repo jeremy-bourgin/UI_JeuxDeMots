@@ -33,13 +33,23 @@ export class RequestHandlerService
 			this.loader.stopLoading();
 
 			if (data.error) {
-				this.parent.message_service.sendMessage("error", data.message);
+				this.errorMessage(data.message);
 				return;
 			}
 	
 			if (this.user_callback) {
 				this.user_callback(data.result);
 			}
+		}
+
+		public errorCallback(error: any): void
+		{
+			this.errorMessage("Le serveur n'a pas répondu. Vous pouvez réessayer");
+		}
+
+		private errorMessage(message: string): void
+		{
+			this.parent.message_service.sendMessage("error", message);
 		}
 	}
 
@@ -70,7 +80,10 @@ export class RequestHandlerService
 		var request_callback: typeof RequestHandlerService.requestCallback.prototype;
 		request_callback = new RequestHandlerService.requestCallback(this, loader, user_callback);
 
-		service.subscribe(request_callback.requestCallback.bind(request_callback));
+		service.subscribe(
+			request_callback.requestCallback.bind(request_callback),
+			request_callback.errorCallback.bind(request_callback)
+		);
 	}
 
 	public observableRequestGet(
