@@ -1,4 +1,6 @@
 <?php
+define("APP_PATH", ".");
+
 function load()
 {
     if (!isset($_GET[PARAMETER_TERM]))

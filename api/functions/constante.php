@@ -95,14 +95,14 @@ define("DATA_REL_TYPE_POS", 4);
 define("DATA_REL_WEIGHT_POS", 5);
 
 // dossier de cache
-define("CACHE_DIRECTORY", __DIR__ . "/../cache");
+define("CACHE_DIRECTORY", APP_PATH . "/cache");
 //nombre maximal de fichier cache
 define("LIMIT_NB_CACHE_FILE", 50);
 
 // nombre de mots renvoyer
 define("LIMIT_NB_WORD", 10);
 
-define("AUTOCOMPLETE_DATA", __DIR__ . "/../data/12172019-word.json");
+define("AUTOCOMPLETE_DATA", APP_PATH . "/data/12172019-word.json");
 
 // search paramètre : terme
 define("PARAMETER_TERM", "term");

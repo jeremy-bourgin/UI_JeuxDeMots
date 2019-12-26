@@ -1,4 +1,6 @@
 <?php
+define("APP_PATH", ".");
+
 function load()
 {
     if (!isset($_GET[PARAMETER_AUTOCOMPLETE]))
@@ -10,8 +12,6 @@ function load()
     $prefix_len = strlen($prefix);
     $data = json_decode(file_get_contents(AUTOCOMPLETE_DATA));
     $result = array();
-
-    echo strlen(file_get_contents(AUTOCOMPLETE_DATA)) . "|" . AUTOCOMPLETE_DATA . "|" . CACHE_DIRECTORY;
 
     foreach ($data as &$e)
     {
