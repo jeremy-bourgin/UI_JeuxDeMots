@@ -8,7 +8,7 @@ $api_dest_const = $dest_dest_dir . "/functions/constante.php";
 $gitkeep = "./public/.gitkeep";
 
 $const = array(
-	"DEV_MODE" => false
+	"PROD_MODE" => true
 );
 
 function xcopy($src, $dst)
@@ -48,24 +48,16 @@ function xcopy($src, $dst)
 
 function make_const($src, $dest, $const)
 {
-	require($src);
-	
-	$src_const = get_defined_constants(true)["user"];
+	$file = file_get_contents($src);
+	$file .= "\n";
 	
 	foreach($const as $const_name => &$const_value)
 	{
-		$src_const[$const_name] = $const_value;
-	}
-	
-	$r = "<?php" . "\n";
-	
-	foreach ($src_const as $const_name => &$const_value)
-	{
 		$temp = var_export($const_value, true);
-		$r .= "define(\"" . $const_name . "\", " . $temp . ");" . "\n";
+		$file .= "define('" . $const_name . "', " . $temp . ");\n";
 	}
 	
-	file_put_contents($dest, $r);
+	file_put_contents($dest, $file);
 }
 
 xcopy($api_src_dir, $dest_dest_dir);

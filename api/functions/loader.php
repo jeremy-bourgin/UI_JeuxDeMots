@@ -17,6 +17,8 @@ declare(strict_types=1);
 // tout ce qui sera affiché dans le tampon de sortie sera retourné dans le JSON en DEV_MODE dans debug
 ob_start();
 
+$is_dev_mode = !(defined("PROD_MODE") && PROD_MODE);
+
 try
 {
 	$obj = new stdClass();
@@ -42,7 +44,7 @@ try
 
 	$bench_total->end();
 
-	if (DEV_MODE)
+	if ($is_dev_mode)
 	{
 		$bench = Benchmark::getBench();
 		$obj->bench = $bench;
@@ -55,7 +57,7 @@ catch(ServerException $e)
 }
 catch(Throwable $e)
 {
-	if (DEV_MODE)
+	if ($is_dev_mode)
 	{
 		$message = "Erreur dans \"" . $e->getFile() . "\" à la ligne " . $e->getLine() . " : " . $e->getMessage();		
 		$obj->trace = $e->getTrace();
@@ -72,7 +74,7 @@ catch(Throwable $e)
 $buffer_debug = ob_get_contents();
 ob_end_clean();
 
-if (DEV_MODE)
+if ($is_dev_mode)
 {
 	$obj->debug = $buffer_debug;
 }
