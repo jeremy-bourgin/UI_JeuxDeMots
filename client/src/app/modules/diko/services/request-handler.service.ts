@@ -45,12 +45,12 @@ export class RequestHandlerService
 		public errorCallback(error: any): void
 		{
 			this.errorMessage("Le serveur n'a pas répondu. Vous pouvez réessayer");
+			this.loader.stopLoading();
 		}
 
 		private errorMessage(message: string): void
 		{
 			this.parent.message_service.sendMessage("error", message);
-			this.loader.stopLoading();
 		}
 	}
 
