@@ -44,7 +44,7 @@ function make_request(string $term): string
 
 function request_cache(string $term, bool $is_assoc = false)
 {
-	$is_dev_mode = !(defined("PROD_MODE") && PROD_MODE);
+	$is_dev_mode = is_dev_mode();
 	$is_cached_in_dev_mode = (defined("CACHE_IN_DEV_MODE") && CACHE_IN_DEV_MODE);
 	
     if (($is_dev_mode && !$is_cached_in_dev_mode) || !has_cache($term))

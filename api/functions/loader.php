@@ -19,7 +19,10 @@ declare(strict_types=1);
 // tout ce qui sera affiché dans le tampon de sortie sera retourné dans le JSON en DEV_MODE dans debug
 ob_start();
 
-$is_dev_mode = !(defined("PROD_MODE") && PROD_MODE);
+function is_dev_mode()
+{
+	return !(defined("PROD_MODE") && PROD_MODE);
+}
 
 try
 {
@@ -37,7 +40,7 @@ try
 	require(APP_PATH . "/functions/data_parser.php");
 	require(APP_PATH . "/functions/function.php");
 	require(APP_PATH . "/functions/request.php");
-
+	
 	$bench_total = Benchmark::total();
 
 	// appel de la fonction load
@@ -46,7 +49,7 @@ try
 
 	$bench_total->end();
 
-	if ($is_dev_mode)
+	if (is_dev_mode())
 	{
 		$bench = Benchmark::getBench();
 		$obj->bench = $bench;
@@ -59,7 +62,7 @@ catch(ServerException $e)
 }
 catch(Throwable $e)
 {
-	if ($is_dev_mode)
+	if (is_dev_mode())
 	{
 		$message = "Erreur dans \"" . $e->getFile() . "\" à la ligne " . $e->getLine() . " : " . $e->getMessage();		
 		$obj->trace = $e->getTrace();
@@ -76,7 +79,7 @@ catch(Throwable $e)
 $buffer_debug = ob_get_contents();
 ob_end_clean();
 
-if ($is_dev_mode)
+if (is_dev_mode())
 {
 	$obj->debug = $buffer_debug;
 }
