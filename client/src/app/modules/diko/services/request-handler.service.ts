@@ -50,6 +50,7 @@ export class RequestHandlerService
 		private errorMessage(message: string): void
 		{
 			this.parent.message_service.sendMessage("error", message);
+			this.loader.stopLoading();
 		}
 	}
 
