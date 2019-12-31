@@ -91,7 +91,7 @@ export class FormComponent implements OnInit {
 		}
 
 		return this.autocomplete_service.request(term).pipe(
-			map(data => data.result.slice(0, 5))
+			map(data => data.result)
 		);
 	}
 }

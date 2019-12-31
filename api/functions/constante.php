@@ -103,6 +103,7 @@ define("LIMIT_NB_CACHE_FILE", 50);
 define("LIMIT_NB_WORD", 10);
 
 define("AUTOCOMPLETE_DATA", APP_PATH . "/data/12172019-word.json");
+define("AUTCOMPLETE_COUNT", 5);
 
 // search paramètre : terme
 define("PARAMETER_TERM", "term");

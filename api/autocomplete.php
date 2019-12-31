@@ -11,18 +11,23 @@ function load()
     $prefix = strtolower($_GET[PARAMETER_AUTOCOMPLETE]);
     $prefix_len = strlen($prefix);
     $data = json_decode(file_get_contents(AUTOCOMPLETE_DATA));
+	
+	$i = 0;
+	$count = 0;
     $result = array();
 
-    foreach ($data as &$e)
+    while ($i < 662230 && $count !== AUTCOMPLETE_COUNT)
     {
+		$e = $data[$i];
         $temp = strtolower(substr($e, 0, $prefix_len));
 
-        if ($temp !== $prefix)
+        if ($temp === $prefix)
         {
-            continue;
+			$result[] = $e;
+			++$count;
         }
 
-        $result[] = $e;
+		++$i;
     }
 
     return $result;
